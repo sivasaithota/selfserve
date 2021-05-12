@@ -1,0 +1,97 @@
+%create_input {
+  border-color: $border--create;
+  color: $text--create;
+}
+
+#create_content {
+  margin-bottom: 20px;
+  .button-container {
+    position: absolute;
+    top: 28px;
+    right: 0;
+    z-index: 3;
+  }
+  .button-container--main {
+    > .md-button {
+      margin-left: 0;
+    }
+    .md-button.md-transparent {
+      margin-right: 0;
+    }
+  }
+  .md-button.md-icon-button {
+    height: auto;
+    &.button--save {
+      color: var(--main-color);
+    }
+    &.button--cancel {
+      color: #CCC;
+    }
+  }
+  > .md-button {
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    z-index: 1;
+  }
+  .md-dialog-container {
+    min-height: 600px;
+  }
+}
+
+.create_project {
+  border-radius: 5px;
+  min-width: 500px;
+  .md-toolbar-tools {
+    font-weight: 600;
+    color: var(--main-color);
+    padding: 20px;
+    h3 {
+      font-size: 24px;
+      margin-top: 0px;
+    }
+  }
+}
+
+.create_project__content {
+  padding-left: 20px;
+  padding-right: 20px;
+  md-select {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  md-input-container.md-input-has-value label {
+    color: $text--create_input;
+  }
+  md-input-container.md-input-focused label {
+    color: $text--create_input;
+  }
+  md-input-container label {
+    color: $text--create_input;
+  }
+  md-input-container.md-input-focused .md-input {
+    @extend %create_input
+  }
+  md-input-container .md-input {
+    @extend %create_input
+  }
+
+  md-select:not([disabled]) {
+    &:focus {
+      .md-select-value {
+        color: #FFF;
+      }
+    }
+    .md-select-value {
+      border-bottom-color: #FFF;
+      &.md-select-placeholder {
+        color: rgba(255, 255, 255, 0.54);
+        border-bottom-color: #FFF;
+        .md-select-icon {
+          color: #FFF;
+        }
+      }
+    }
+  }
+}

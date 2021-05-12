@@ -1,0 +1,241 @@
+input[type=file]:focus {
+  outline: none;
+}
+
+.users_form {
+  md-toolbar:not(.md-menu-toolbar) {
+    background-color: #ffffff;
+    box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
+    p {
+      font-size: 12px;
+      font-weight: 900;
+      color: var(--extra-color);
+      text-transform: uppercase;
+      margin-bottom: 0;
+    }
+    h2 {
+      color: var(--main-color);
+      font-size: 18px;
+      font-weight: 900;
+      text-align: left;
+      text-transform: uppercase;
+    }
+    span {
+      font-size: 14px;
+      color: #343434;
+    }
+    .create-user-btn {
+      color: var(--extra-color);
+      span {
+        font-size: 16px;
+        color: var(--extra-color);
+        text-transform: capitalize;
+      }
+    }
+  }
+  label.text-uppercase {
+    color: var(--main-color);
+  }
+  .form_control {
+    border-color: var(--main-color);
+  }
+  .form-group.select-wrapper:after {
+    color: var(--main-color);
+  }
+  md-input-container .md-input {
+    border-color: var(--main-color);
+    border-bottom-width: 2px;
+    &[disabled] {
+      border-color: grey;
+      background-image: none;
+      border-bottom-width: 1px;
+    }
+  }
+  md-select {
+    &[disabled] .md-select-value {
+      border-color: grey;
+      background-image: none;
+      border-bottom-width: 1px;
+    }
+    .md-select-value {
+      border-bottom-color: var(--main-color);
+      border-bottom-width: 2px;
+      .md-select-icon {
+        color: var(--main-color);
+      }
+    }
+  }
+  md-switch.md-checked.md-primary .md-bar {
+    background-color: #9E9E9E;
+  }
+  .tooltip_icon {
+    color: var(--extra-color);
+    margin-left: 5px;
+    width: 55px;
+    cursor: pointer;
+  }
+  md-radio-group {
+    width: 100%;
+    md-radio-button {
+      margin: 0;
+      padding: 8px 40px 8px 10px;
+      width: 20%;
+      text-align: left;
+      .md-off {
+        border-color: var(--main-color);
+      }
+      .md-on {
+        background-color: var(--main-color);
+      }
+    }
+  }
+  .import_export_icon{
+    img{
+      margin-right: 10px;
+    }
+  }
+}
+
+md-menu-content {
+  @include border-radius(2px);
+  padding: 0;
+  .md-button:not([disabled]) {
+    color: var(--main-color);
+    box-shadow: none;
+  }
+  .md-button:not([disabled]):hover {
+    background-color: var(--main-color);
+    color: #FFF;
+  }
+}
+
+.md-open-menu-container {
+  z-index: 101;
+
+  md-menu-content {
+    border-radius: 0;
+  }
+}
+
+md-menu-item > .md-button {
+  padding: 0 10px !important;
+}
+
+.md-button.md-main:not([disabled]) {
+  background-color: var(--main-color);
+  color: #FFF;
+  border-radius: 0;
+  &:hover {
+    background-color: var(--main-color);
+    color: #FFF;
+  }
+  i {
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+}
+
+md-select-menu {
+  md-option[selected]:focus {
+    color: var(--main-color);
+  }
+}
+
+input[type=radio] {
+  margin-top: 0px;
+}
+
+.form-group  {
+  label {
+    color: var(--extra-color);
+  }
+  &.select-wrapper {
+    position: relative;
+    &:after {
+      font-family: 'Material Icons';
+      content: 'expand_more';
+      color: var(--extra-color);
+      font-size: 24px;
+      position: absolute;
+      right: 10px;
+      bottom: 7px;
+    }
+  }
+  &.search {
+    position: relative;
+    &:after {
+      font-family: 'Material Icons';
+      content: 'search';
+      color: rgba(0, 0, 0, 0.3);
+      font-size: 21px;
+      position: absolute;
+      right: 10px;
+      bottom: 8px;
+    }
+  }
+
+  select.ng-invalid {
+    color: #777;
+  }
+
+  .input-error-messages {
+    color: $text__color-red;
+  }
+}
+
+.form_control {
+  display: block;
+  width: 100%;
+  height: 40px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background: 0 0;
+  outline: none;
+  -webkit-appearance: none;
+  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  position: relative;
+  z-index: 2;
+  border-radius: 3px;
+  border: 1px solid rgb(166, 166, 166);
+}
+
+.form_control--textarea {
+  height: 160px;
+}
+
+.form_control--light {
+  border: solid 1px rgba(0, 0, 0, 0.2);
+
+}
+
+.form_control--dark {
+  border: solid 1px var(--extra-color);
+
+}
+
+select {
+  cursor: pointer;
+}
+
+md-switch.action-scripts {
+  margin: 0;
+  .md-container {
+    order: 2;
+    margin-right: 0;
+  }
+  .md-label {
+    order: 1;
+    margin-right: 8px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+  }
+}

@@ -1,0 +1,33 @@
+version: '3'
+services:
+  install:
+    image: opexanalytics/analytics-center:prod
+    volumes:
+      - ".:/analytics-center"
+    working_dir: /analytics-center
+    command: npm install
+  bower:
+    image: opexanalytics/analytics-center:prod
+    volumes:
+      - ".:/analytics-center"
+    working_dir: /analytics-center
+    command: ./node_modules/bower/bin/bower install --allow-root
+  migrate-up:
+    image: opexanalytics/analytics-center:prod
+    volumes:
+      - ".:/analytics-center"
+    working_dir: /analytics-center
+    networks:
+      - platform
+    command: npm run migrate-up
+  migrate-down:
+    image: opexanalytics/analytics-center:prod
+    volumes:
+      - ".:/analytics-center"
+    working_dir: /analytics-center
+    networks:
+      - platform
+    command: npm run migrate-down
+networks:
+  platform:
+    external: true

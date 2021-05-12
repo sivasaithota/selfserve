@@ -1,0 +1,28 @@
+.rzslider .rz-bar {
+  background-color: #FFF;
+  height: 3px;
+}
+
+.rzslider .rz-pointer {
+  top: -7px;
+  width: 17px;
+  height: 17px;
+  background-color: var(--main-color);
+  box-shadow: 1px 2px 5px 0 rgba(0, 0, 0, 0.19);
+  outline: none;
+  &:after {
+    display: none;
+  }
+}
+
+.rzslider .rz-bubble {
+  border-radius: 2px;
+  background-color: #FFF;
+  font-size: 12px;
+  color: #2f3460;
+  &.rz-limit {
+    color: #FFF;
+    background-color: transparent;
+    bottom: -22px;
+  }
+}

@@ -1,0 +1,200 @@
+<md-toolbar class="breadcrumb-app">
+  <div class="md-toolbar-tools">
+    <!--Scenario messages-->
+    <div ng-if="main.currentState.includes('base.project')" class="scenario-messages">
+      <!--Scenario is locked by another user-->
+      <div class="warning-scenario-message"
+           ng-if="projectDetails.locking && projectDetails.locking.created_by &&
+              projectDetails.locking.created_by !== main.currentUser.username &&
+              main.currentState.includes('base.project') &&
+              main.projectDetails.status === 'active'"
+      >
+        <div layout="row" layout-align="start start">
+          <img class="right"
+               src="./src/images/icons/lock-circle.svg"
+               width="28"
+               alt="Unlock scenario"
+          >
+          <div>
+            <h6 class="message-title">Scenario is locked</h6>
+            <p class="message-text">
+              Scenario is locked by {{projectDetails.locking.created_by}}. View Access Only.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!--Outdated output-->
+      <div class="warning-scenario-message"
+           ng-if="outdatedOutput"
+      >
+        <div layout="row" layout-align="start start">
+          <img class="right"
+               src="./src/images/icons/outdated-outputs.svg"
+               width="28"
+               alt="Unlock scenario"
+          >
+          <div>
+            <h6 class="message-title">outdated outputs</h6>
+            <p class="message-text">
+              Data in the output tables is outdated as the inputs/parameters have been recently updated.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!--Scenario is archived-->
+      <div ng-if="projectDetails.status === 'archived'" class="archived-view" layout="row">
+        <img src="./src/images/icons/archive.svg" width="25px" height="11px" alt="archive">
+        <div>
+          <p class="title">&nbsp;Scenario is archived</p>
+          <p class="sub-title">Scenario is archived by
+            <span ng-if="projectDetails.archived_by !== main.currentUser.username" ng-bind="projectDetails.archived_by"></span>
+            <span ng-if="projectDetails.archived_by === main.currentUser.username">you</span>
+            on {{projectDetails.archived_at | date: 'dd MMMM, yyyy'}}.
+          </p>
+        </div>
+      </div>
+
+      <!--Scenario is locked by current user-->
+      <div class="warning-scenario-message"
+           layout="row"
+           layout-align="space-between center"
+           ng-if="projectDetails.locking &&
+              (projectDetails.locking.created_by === main.currentUser.username) &&
+              main.currentState.includes('base.project') &&
+              projectDetails.status === 'active'"
+      >
+        <div>
+          <div layout="row" layout-align="start start">
+            <img class="right"
+                 src="./src/images/icons/lock-circle.svg"
+                 width="24"
+                 alt="Unlock scenario"
+            >
+            <div>
+              <h6 class="message-title">Scenario is locked</h6>
+              <p class="message-text">You have locked this Scenario.</p>
+            </div>
+          </div>
+        </div>
+
+        <md-button ng-click="main.unlockScenario(main.currentState.params.projId, projectDetails)"
+                   class="view-lock lock-btn">
+          <div layout="row" layout-align="space-between center">
+            <svg class="left" width="10px" height="13px" viewBox="0 0 10 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <g id="Scenario-Management" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="Scenario-Management-2" transform="translate(-1440.000000, -383.000000)" fill="#FFF" fill-rule="nonzero">
+                  <g id="Group-16" transform="translate(1440.000000, 383.000000)">
+                    <path d="M9.85643956,8.03542857 C9.85643956,7.42605275 9.36347692,6.93309011 8.75512967,6.93411868 L3.19807473,6.9366942 L3.19704444,3.48293596 C3.19549908,2.33166123 4.1597873,1.40192497 5.32289059,1.4584964 C6.41080268,1.51258343 7.24526422,2.45007881 7.24684664,3.53950738 L7.24684664,4.31887442 C7.24684664,4.53624585 7.4250796,4.71447881 7.64245103,4.71447881 L8.03289938,4.71447881 C8.25182686,4.71447881 8.43004664,4.53624585 8.42850378,4.31733156 L8.42850378,3.5523909 C8.42695842,1.75832497 6.95843785,0.244346945 5.16476752,0.274808484 C3.42160268,0.305200132 2.01430598,1.73313815 2.01430598,3.4828964 L2.01585134,6.93665464 L1.90098233,6.93665464 C1.29314936,6.9382 0.79967244,7.43116013 0.79967244,8.0389931 L0.802247956,11.8987733 C0.802247956,12.5066063 1.29521059,13.0000832 1.90355785,13.0000832 L8.75806334,12.9959623 C9.36589631,12.9959623 9.85937323,12.5029997 9.85937323,11.8946524 L9.85643956,8.03542857 Z" id="Shape"></path>
+                  </g>
+                </g>
+              </g>
+            </svg>
+            <span>Unlock</span>
+          </div>
+        </md-button>
+      </div>
+    </div>
+
+    <!--Waffle menu-->
+    <md-menu-bar>
+      <md-menu class="waffle_menu">
+        <button ng-click="$mdOpenMenu()">
+          <img class="menu" src="./src/images/icons/waffle-menu.svg" height="15" />
+        </button>
+        <md-menu-content width="2">
+          <div layout="row" layout-wrap>
+            <a href="http://llama.ai/" target="_blank" layout="column" layout-align="center center">
+              <img class="menu" src="./src/images/icons/icon-llama-ai-green-circle.svg" height="47" />
+              <div>Studio</div>
+            </a>
+          </div>
+        </md-menu-content>
+      </md-menu>
+    </md-menu-bar>
+
+    <img class="menu app-logo" src="./src/images/coupa-logo-white.svg" height="17" />
+    <div class="separator separator--full"></div>
+    <a ui-sref="base.WSProjects">
+      <h2 ng-if="main.currentUser.functions.Sc_View"
+          class="app-name"
+          ng-bind="main.appDetails.displayName"
+      ></h2>
+    </a>
+    <i ng-if="main.currentState.includes('base.project') ||
+      main.currentState.includes('base.settings.user') ||
+      main.currentState.includes('base.settings.scenario')" class="fa fa-angle-right separator-icon"></i>
+    <div class="app-subname" ng-if="main.currentState.includes('base.settings.user')">User Settings</div>
+    <div class="app-subname" ng-if="main.currentState.includes('base.settings.scenario')">App Settings</div>
+    <div class="app-subname" ng-if="main.currentState.includes('base.project')">
+      <md-select
+              ng-model="projectDetails.name"
+              md-container-class="scenarios-select"
+              ng-if="scenariosList.length >= main.minScenarioLength"
+      >
+        <md-option
+                class="scenario_item"
+                ng-repeat="project in scenariosList | filterByTags: {} : [] : {
+                  showActive: true,
+                  showArchived: true
+                }"
+                ng-value="project.name"
+                ng-click="main.viewProject(project.id, main.currentUser.functions.Sc_View, scenarioTab)">
+          {{project.name}}
+        </md-option>
+      </md-select>
+      <span ng-if="scenariosList.length < main.minScenarioLength" ng-bind="projectDetails.name"></span>
+    </div>
+    <span flex></span>
+    <button ng-if="main.helpPageDetails.helpPageName"
+            class="md-icon-button md-button md-ink-ripple" aria-label="More" ui-sref="base.help">
+      <img class="menu ng-scope" src="./src/images/help-icon.svg" width="22" height="22" />
+    </button>
+    <!--Settings menu-->
+    <md-menu ng-if="main.currentUser.functions.Setting ||
+      main.currentUser.functions.User_Add ||
+      main.currentUser.functions.Set_Slack" md-offset="0 52">
+      <button ng-click="$mdOpenMenu()">
+        <img class="menu" src="./src/images/app-settings-icon.svg" width="22" height="22"/>
+      </button>
+      <md-menu-content width="2" class="settings-menu">
+        <md-menu-item ng-if="main.currentUser.functions.Setting">
+          <md-button ng-click="main.openSettings()">
+            General Settings
+          </md-button>
+        </md-menu-item>
+        <md-menu-divider ng-if="main.currentUser.functions.User_Add"></md-menu-divider>
+        <md-menu-item ng-if="main.currentUser.functions.User_Add">
+          <md-button ui-sref="base.settings.user">
+            User Settings
+          </md-button>
+        </md-menu-item>
+        <md-menu-divider ng-if="main.currentUser.functions.Set_Slack"></md-menu-divider>
+      </md-menu-content>
+    </md-menu>
+    <div class="account-header" layout="row" layout-align="space-between center">
+      <div class="user-letter-avatar" layout="row" layout-align="center center">
+        <span ng-bind="main.getFirstLetters()"></span>
+      </div>
+      <div layout="column">
+        <span class="account-name" ng-bind="main.currentUser.fullname"></span>
+        <span class="account-role" ng-bind="main.currentUser.role"></span>
+      </div>
+      <md-menu md-offset="0 52">
+        <button ng-click="$mdOpenMenu()">
+          <div class="logout-container" layout="row" layout-align="center center">
+            <i class="fa fa-angle-down"></i>
+          </div>
+        </button>
+        <md-menu-content width="2" class="settings-menu">
+          <md-menu-item>
+            <md-button ng-click="main.logout()">
+              Sign Out
+            </md-button>
+          </md-menu-item>
+        </md-menu-content>
+      </md-menu>
+    </div>
+  </div>
+</md-toolbar>

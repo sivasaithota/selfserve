@@ -1,0 +1,42 @@
+<!--Download (filtered) table widget tab-->
+
+<!--Header-->
+<div class="widget_container">
+    <h3>
+        Download
+        <span ng-if="tabName === 'filter'">filtered</span>
+        Table
+    </h3>
+</div>
+<div class="hr"></div>
+
+<!--Content-->
+<div id="widget-download"
+     class="widget_container"
+     layout="column"
+     layout-align="center center"
+>
+    <!--Warning if number of rows to download is more than 1 million
+        Filtered number, if tab is filter-->
+    <div ng-if="(tabName === 'filter' ? widgetInfo.filteredIds.length : widgetInfo.totalCount) >= 1000000"
+         layout="column"
+         layout-align="center center">
+        <i class="material-icons">warning</i>
+        <p>{{largeFileWarning[0]}}</p>
+        <p>{{largeFileWarning[1]}}</p>
+        <p>{{largeFileWarning[2]}}</p>
+    </div>
+
+    <!--Number of records in the table. Filtered number, if tab is filter-->
+    <div class="records-number">
+        {{(tabName === 'filter' ? widgetInfo.filteredIds.length : widgetInfo.totalCount) | currency:'':0}}
+    </div>
+    <span>
+        <span ng-if="tabName === 'filter'">filtered</span>
+        rows to download
+    </span>
+
+    <!--Download button-->
+    <md-button class="md-white" ng-click="downloadTable($event)">download</md-button>
+</div>
+<div class="hr"></div>

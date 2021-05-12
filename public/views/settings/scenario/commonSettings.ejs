@@ -1,0 +1,82 @@
+<section class="setting_content" flex layout="column">
+
+    <!--Card header-->
+    <md-toolbar class="highlighted">
+        <div class="md-toolbar-tools">
+            <div layout="column">
+                <p flex>general settings</p>
+                <h2 flex class="md-flex">scenario settings</h2>
+            </div>
+        </div>
+    </md-toolbar>
+
+    <!--Card content-->
+    <md-content class="md-padding locking-settings" flex>
+
+        <!--Lock/unlock switch-->
+        <div layout="row" layout-align="start center">
+            <label class="text-uppercase setting-label">{{commonSettingsCtrl.lock ? 'Enable' : 'Disable'}} Lock</label>
+            <md-switch class="md-primary" ng-model="commonSettingsCtrl.lock" ng-change="commonSettingsCtrl.onChangeLock()">
+            </md-switch>
+        </div>
+
+        <md-divider></md-divider>
+
+        <!--Clear locks btn-->
+        <label class="text-uppercase setting-label">Clear Locks</label>
+        <md-button class="md-fab" ng-click="commonSettingsCtrl.releaseLock()">
+          <i class="material-icons md-20">replay</i>
+        </md-button>
+
+        <md-divider></md-divider>
+
+        <div layout="row" layout-align="start center">
+            <label class="text-uppercase setting-label">update information column after execution</label>
+            <md-switch
+                    class="md-primary position-absolute"
+                    aria-label="master tables"
+                    ng-model="commonSettingsCtrl.executionUpdateMetaEnable"
+                    ng-change="commonSettingsCtrl.executionUpdateMetaChange()"
+            ></md-switch>
+        </div>
+
+        <md-divider></md-divider>
+
+        <div layout="row" layout-align="start center">
+            <label class="text-uppercase setting-label">hide outdated output warning</label>
+            <md-switch
+                    class="md-primary position-absolute"
+                    aria-label="master tables"
+                    ng-model="commonSettingsCtrl.hideOutdatedOutputWarning"
+                    ng-change="commonSettingsCtrl.toggleHideOutdatedOutputWarning()"
+            ></md-switch>
+        </div>
+
+        <md-divider></md-divider>
+
+        <!--Default Views dropdowns-->
+        <div>
+            <label class="text-uppercase setting-label">Default Views</label>
+            <div layout="row" layout-align="start center">
+                <div flex class="form-group select-wrapper">
+                    <label class="text-uppercase">Inputs*</label>
+                    <select ng-model="commonSettingsCtrl.inputTab" class="form_control form_control--dark"
+                            ng-options="tab.name as tab.displayName for tab in commonSettingsCtrl.tabsList"
+                            ng-change="commonSettingsCtrl.updateDefaultView(commonSettingsCtrl.inputTab, 'inputs')">
+                        <option value="" disabled selected hidden>Select View</option>
+                    </select>
+                </div>
+                <div flex class="form-group select-wrapper">
+                    <label class="text-uppercase">Outputs*</label>
+                    <select ng-model="commonSettingsCtrl.outputTab" class="form_control form_control--dark"
+                            ng-options="tab.name as tab.displayName for tab in commonSettingsCtrl.tabsList"
+                            ng-change="commonSettingsCtrl.updateDefaultView(commonSettingsCtrl.outputTab, 'outputs')">
+                        <option value="" disabled selected hidden>Select View</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <md-divider></md-divider>
+
+    </md-content>
+</section>

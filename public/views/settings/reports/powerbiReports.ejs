@@ -1,0 +1,33 @@
+<div layout="row" layout-align="space-between center">
+  <!--Database credentials -->
+  <ng-include src="'settings/tableauCredentials.ejs'"></ng-include>
+
+  <!--Add report btn-->
+  <md-button class="md-dark" aria-label="Add new table" ng-click="tableauReportsCtrl.addPowerReport($event, segmentTab)">
+    <span>Add report</span>
+  </md-button>
+</div>
+
+<!--Cards-->
+<div dragula='"{{segmentTab.powerReport}}-bag"' dragula-model="tableauSettingsCtrl[segmentTab.powerReport]">
+  <md-toolbar
+    class="setting-item"
+    layout="row"
+    layout-align="start center"
+    ng-repeat="report in tableauSettingsCtrl[segmentTab.powerReport]"
+    ng-click="tableauReportsCtrl.editPowerReport($event, type, report)">
+    <div flex="5" class="cursor-move">
+        <img src="./src/images/drag-icon.svg">
+      <div class="handle">:</div>
+    </div>
+    <div flex="85">
+      <div class="text-uppercase item-label">Tab name</div>
+      <div class="item-value">{{report.label}}</div>
+    </div>
+    <div flex="10">
+      <md-button class="md-fab" ng-click="tableauReportsCtrl.deletePowerReport(report, $event, segmentTab.powerReport)">
+        <i class="material-icons md-20">delete</i>
+      </md-button>
+    </div>
+  </md-toolbar>
+<div>

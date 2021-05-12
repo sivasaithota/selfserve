@@ -1,0 +1,118 @@
+<md-dialog aria-label="Create project" class="create_project">
+  <md-dialog-content class="sticky-container">
+    <div class="md-toolbar-tools">
+      <h3>
+        <span>Create Scenario</span>
+      </h3>
+    </div>
+    <md-content layout-padding class="create_project__content">
+      <form name="scenarioForm">
+        <div layout="column">
+          <div class="form-group">
+            <label for="pname" class="text-uppercase">Scenario Name</label>
+            <input
+                    name="pname"
+                    class="form_control"
+                    type="text"
+                    ng-model="pname"
+                    ng-pattern="scenarioPattern"
+                    ng-maxlength="80"
+                    placeholder="Enter Scenario Name"
+                    required
+                    uib-popover-template="'popover_scenario.html'"
+                    popover-is-open="scenarioForm.pname.$error.pattern || scenarioForm.pname.$error.maxlength"
+                    popover-trigger="none"
+                    popover-placement="right"
+                    popover-append-to-body="true">
+          </div>
+          <div class="form-group">
+            <label class="text-uppercase">Select Tag</label>
+            <md-select ng-model="tag" class="form_control"
+                       placeholder="Select a state"
+                       ng-change="commonSettingsCtrl.updateDefaultView(commonSettingsCtrl.inputTab, 'inputs')">
+              <md-option
+                      ng-if="tag.id"
+                      ng-repeat="(index, tag) in tags"
+                      value="{{tag.id}}"
+                      ng-selected="index === 0"
+              >
+                {{tag.tag_name}}
+              </md-option>
+            </md-select>
+          </div>
+        </div>
+      </form>
+
+      <!-- Tag creation -->
+      <form ng-show="showTag" name="tagForm">
+        <div class="form-group position-relative">
+          <label for="ptag" class="text-uppercase">Create Tag</label>
+          <input
+            name="ptag"
+            class="form_control"
+            type="text"
+            ng-model="newTag"
+            ng-pattern="scenarioPattern"
+            ng-maxlength="40"
+            placeholder="Enter Tag Name"
+            required
+            uib-popover-template="'popover_tag.html'"
+            popover-is-open="tagForm.tagName.$error.pattern || tagForm.tagName.$error.maxlength"
+            popover-trigger="none"
+            popover-placement="right"
+            popover-append-to-body="true"
+          />
+          <div class="button-container" layout="row" layout-align="space-between center">
+            <md-button class="md-icon-button button--save" aria-label="More" ng-click="saveTag()" ng-disabled="tagForm.$invalid">
+              <i class="fa fa-check-circle"></i>
+            </md-button>
+            <md-button class="md-icon-button button--cancel" aria-label="More" ng-click="showTag = !showTag">
+              <i class="fa fa-times-circle"></i>
+            </md-button>
+          </div>
+        </div>
+      </form>
+
+      <div class="button-container--main" layout="row" layout-align="space-between center">
+        <md-button ng-show="!showTag" class="md-dark" ng-click="showTag = !showTag">Create Tag</md-button>
+
+        <div flex ng-show="showTag"></div>
+
+        <div layout="row" layout-align="space-between center">
+          <md-button class="md-light" ng-click="addProject()" ng-disabled="scenarioForm.$invalid">
+            Save
+          </md-button>
+          <md-button class="md-transparent" ng-click="cancel()">cancel</md-button>
+        </div>
+      </div>
+    </md-content>
+  </md-dialog-content>
+</md-dialog>
+
+<script type="text/ng-template" id="popover_scenario.html">
+	<div>
+		<b><p>Error in Scenario Name</p></b>
+		<div class="text" ng-if="scenarioForm.pname.$error.pattern" layout="row" layout-align="start start">
+          <i class="material-icons md-16">info</i>
+          {{ scenarioMessages.scenarioNamePattern }}
+		</div>
+    <div class="text" ng-if="scenarioForm.pname.$error.maxlength" layout="row" layout-align="start start">
+      <i class="material-icons md-16">info</i>
+      {{ scenarioMessages.scenarioNameLength }}
+    </div>
+	</div>
+</script>
+
+<script type="text/ng-template" id="popover_tag.html">
+	<div>
+		<b><p>Error in Tag Name</p></b>
+		<div class="text" ng-if="tagForm.tagName.$error.pattern" layout="row" layout-align="start start">
+          <i class="material-icons md-16">info</i>
+          {{ scenarioMessages.tagNamePattern }}
+		</div>
+    <div class="text" ng-if="tagForm.tagName.$error.maxlength" layout="row" layout-align="start start">
+      <i class="material-icons md-16">info</i>
+      {{ scenarioMessages.tagNameLength }}
+    </div>
+	</div>
+</script>

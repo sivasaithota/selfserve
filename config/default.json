@@ -1,0 +1,203 @@
+{
+  "server": {
+    "port": "8000",
+    "cacheTtl": 3600
+  },
+  "database": {
+    "postgres": {
+      "dbserverName": "platformStore",
+      "port": "5432",
+      "dbusername": "opexapp",
+      "dbpassword": "this&iswa%first1",
+      "dbname": "postgres",
+      "ssl": false,
+      "maxConnections": 50,
+      "minConnections": 0,
+      "idleTimeoutMillis": 180000,
+      "acquireTimeoutMillis": 120000,
+      "evictionRunIntervalMillis": 60000,
+      "fifo": true,
+      "autoStart": true
+    }, 
+    "mongo": {
+      "host": "log-store",
+      "port": "27017",
+      "dbname": "enframe",
+      "username": "opexAdmin",
+      "password": "0b3Xabm!uPassm0rb",
+      "connectTimeoutMS": 300000,
+      "socketTimeoutMS": 300000,
+      "validateOptions": true,
+      "minConnections": 0,
+      "maxConnections": 10,
+      "evictionRunIntervalMillis": 60000,
+      "idleTimeoutMillis": 180000,
+      "acquireTimeoutMillis": 30000,
+      "fifo": true,
+      "autostart": true
+    }
+  },
+  "fileSystem": {
+    "scriptUploadDir": "/analytics_center/%s/ds",
+    "gridFileUpload": "/analytics_center/%s/uploads",
+    "downloadGridData": "/analytics_center/%s/downloads",
+    "dbFiles": "/analytics_center/%s/database",
+    "reportFiles": "/analytics_center/%s/reports",
+    "appPath": "/analytics_center/%s"
+  },
+  "configurationFiles": {
+    "bomConfig": "BOMConfig.json"
+  },
+  "logs": {
+    "level": "info",
+    "adjustmentFilePath": "/tmp/adjustment.json"
+  },
+  "socket": {
+    "hostname": "socket_shaft",
+    "port": "8000",
+    "path": "/socketIO",
+    "reconnection": true,
+    "reconnectionDelay": 3000,
+    "reconnectionDelayMax": 6000,
+    "reconnectionAttempts": "Infinity"
+  },
+  "jobprocessor": {
+    "hostname": "http://job_processor:8000",
+    "path": "/api/v1"
+  },
+  "connector": {
+    "server": "http://enframe_connector:8000",
+    "path": "/api/v1"
+  },
+  "enframe": {
+    "hostname": "http://enframe:8000",
+    "path": "/api/v1",
+    "internalPath": "/internal/api/v1"
+  },
+  "macros": {
+    "tableau": {
+      "rootPath": "/macros",
+      "workspace": "/macros/tableau/workspace",
+      "downloadScript": "/macros/tableau/src/PrepareWorkbook.py",
+      "uploadScript": "/macros/tableau/src/PublishWorkbook.py",
+      "tableauFileName": "/macros/tableau/assets/new_workbook.twbx"
+    }
+  },
+  "tableau": {
+    "apiVersion": "/api/3.0",
+    "getWorkbooksAPI": "/workbooks",
+    "getUsersAPI": "/users",
+    "signInAPI": "/auth/signin",
+    "trustedAuthAPI": "/tableau/ticket?user=%s",
+    "extractAPI": "http://jarvis-helperbot:8000/tableau/runExtract",
+    "timeout": 3600000 
+  },
+  "powerbi": {
+    "authority": "https://login.microsoftonline.com",
+    "resource": "https://analysis.windows.net/powerbi/api",
+    "baseUrl": "https://api.powerbi.com/v1.0/myorg"
+  },
+  "keycloak": {
+    "realm": "enframe",
+    "bearer-only": true,
+    "auth-server-url": "http://keycloak/auth",
+    "ssl-required": "external",
+    "resource": "selfserve_backend",
+    "role_resource": "enframe_backend",
+    "credentials": {
+      "grantType": "client_credentials",
+      "clientId": "selfserve_backend",
+      "clientSecret": "d09b0e9c-8d74-4b7d-8057-c6a267dc1067",
+      "scope": "offline_access",
+      "url": "http://keycloak/auth/realms/enframe/protocol/openid-connect/token"
+    }
+  },
+  "jqGridWidget": true,
+  "keycloakFrontendClient": {
+    "url": "/auth",
+    "realm": "enframe",
+    "clientId": "selfserve_frontend",
+    "onLoad": "login-required",
+    "logoutUrl": "/auth/realms/enframe/protocol/openid-connect/logout"
+  },
+  "childProcess": {
+    "maxBuffer": 10485760
+  },
+  "rabbitmq": {
+    "independentQueue": true,
+    "username": "opexadmin",
+    "password": "T2eD8HnOz07",
+    "host": "rabbitmq",
+    "port": "5672",
+    "reConnectTimeout": 3000,
+    "queues": {
+      "default": {
+        "workerCount": 10,
+        "exchangeName": "default",
+        "exchangeType": "direct",
+        "queueName": "default"
+      },
+      "actions": {
+        "executionTypes": ["input_refresh", "output_refresh", "input_validation", "output_validation", "download", "upload"],
+        "workerCount": 10,
+        "exchangeName": "actions",
+        "exchangeType": "direct",
+        "queueName": "actions"
+      },
+      "executions": {
+        "executionTypes": ["scripts"],
+        "workerCount": 10,
+        "exchangeName": "executions",
+        "exchangeType": "direct",
+        "queueName": "executions"
+      }
+    }
+  },
+  "locking": {
+    "timeout": 180
+  },
+  "notebook": {
+    "notebookName": "%s_notebook",
+    "file": "/analytics_center/%s/ds/run.ipynb",
+    "command": "!python3.7 -uO execute.py",
+    "template": {
+      "cells": [
+        {
+          "cell_type": "code",
+          "execution_count": null,
+          "metadata": {
+            "run_control": {
+              "marked": true
+            },
+            "scrolled": true
+          },
+          "outputs": [],
+          "source": [
+            "!python3.7 -uO execute.py scenario_1 /analytics_center/5d5f81f1c30fc3001592545d/ApplicationConfig.json"
+          ]
+        }
+      ],
+      "metadata": {
+        "kernelspec": {
+          "display_name": "Python 3",
+          "language": "python",
+          "name": "python3"
+        },
+        "language_info": {
+          "codemirror_mode": {
+            "name": "ipython",
+            "version": 3
+          },
+          "file_extension": ".py",
+          "mimetype": "text/x-python",
+          "name": "python",
+          "nbconvert_exporter": "python",
+          "pygments_lexer": "ipython3",
+          "version": "3.7.2"
+        }
+      },
+      "nbformat": 4,
+      "nbformat_minor": 2
+    }
+  }
+}

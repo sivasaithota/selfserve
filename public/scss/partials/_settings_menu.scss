@@ -1,0 +1,42 @@
+.menu_scroller {
+  white-space: pre-line;
+  overflow-y: hidden;
+  position: relative;
+}
+
+.settings_menu {
+  width: $settings_menu--width;
+  margin: 0 $settings_menu--margin 0 0;
+
+  md-card {
+    margin: 0;
+  }
+
+  md-list {
+    padding: 0;
+    overflow: auto;
+  }
+
+  a:focus,a:hover {
+    text-decoration: none;
+  }
+
+  md-list-item {
+    padding: 20px 35px;
+    font-size: 14px;
+    font-weight: 200;
+    color: $text__color--dark;
+
+    &.active_option {
+      color: $text__color--light;
+      background-color: var(--extra-color);
+    }
+  }
+
+  .md-subheader-inner {
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--main-color);
+    padding: 20px 15px;
+  }
+}

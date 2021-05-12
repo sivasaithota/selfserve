@@ -1,0 +1,340 @@
+%tableau {
+  width: 100%;
+  box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  background-color: white;
+  height: 60em;
+  z-index: 1;
+  position: relative;
+}
+
+#tableauViz {
+  @extend %tableau;
+  padding: 20px 30px;
+  .tableauFrame iframe {
+    background-color: #FFF;
+    border-radius: 10px;
+  }
+  .powerbiFrame iframe {
+    background-color: #FFF;
+    border-width: 0;
+  }
+}
+
+.tableau_block {
+  overflow: visible;
+
+  i {
+    outline: none;
+  }
+}
+
+.tableau-user {
+  margin: 16px 64px 0 64px;
+
+  label {
+    color: var(--extra-color);
+  }
+
+  md-input-container {
+    display: inline;
+    input-dropdown {
+      margin-right: 10px;
+      display: inline-block;
+      width: 90%;
+    }
+  }
+
+  .md-input {
+    border-bottom: 0;
+  }
+
+  ul {
+    right: 5px;
+    border-radius: 0;
+  }
+
+  .input-dropdown label {
+    position: absolute;
+    right: 2px;
+    top: 6px;
+  }
+}
+
+md-input-container.input_container--focused label:not(.md-no-float):not(.md-container-ignore) {
+  -webkit-transform: translate3d(0,6px,0) scale(.75);
+  transform: translate3d(0,6px,0) scale(.75);
+  -webkit-transition: width .4s cubic-bezier(.25,.8,.25,1),-webkit-transform .4s cubic-bezier(.25,.8,.25,1);
+  transition: width .4s cubic-bezier(.25,.8,.25,1),-webkit-transform .4s cubic-bezier(.25,.8,.25,1);
+  transition: transform .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1);
+  transition: transform .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1),-webkit-transform .4s cubic-bezier(.25,.8,.25,1);
+}
+
+
+.divider-bold {
+  border-top-width: 2px;
+
+  &:nth-last-child(1) {
+    margin-top: 0;
+  }
+}
+
+// Tableau extract table in settings
+.extracts-table {
+  width: 96%;
+  margin: 2% 2% 0;
+
+  font-size: 12px;
+  @media only screen and (max-width: 1440px) {
+    font-size: 10px;
+  }
+
+  tr:not(:nth-last-child(1)) {
+    border-bottom: 1px solid rgba(0,0,0,0.12);
+  }
+
+  th {
+    width: 12em;
+    text-transform: uppercase;
+    color: var(--extra-color);
+  }
+
+  td:not(.divided-row) {
+    padding: 1em 0;
+
+    &.layout-row {
+      div {
+        margin-right: 2em;
+      }
+    }
+
+    div {
+      color: var(--main-color);
+      text-transform: capitalize;
+      font-weight: bold;
+    }
+  }
+
+  .baseline-header {
+    vertical-align: baseline;
+  }
+
+  .divided-row {
+    &>div {
+      width: 50%;
+      padding: 1em 3em 1em 0;
+
+      &:nth-child(1) {
+        border-right: 1px solid rgba(0, 0, 0, 0.12);
+      }
+      &:nth-child(2) {
+        padding: 1em 0 1em 3em;
+      }
+    }
+
+    label {
+      text-transform: uppercase;
+      opacity: 0.42;
+    }
+
+    span {
+      color: var(--main-color);
+      font-weight: bold;
+    }
+
+    .md-container {
+      margin: 0;
+    }
+
+    .layout-align-space-between-center {
+      position: relative;
+    }
+
+    .saved-icon {
+      position: absolute;
+      right: -1em;
+      font-size: 18px;
+    }
+  }
+
+  md-switch {
+    margin: 0.5em 0 0;
+
+    .md-bar {
+      width: 2.4em;
+      height: 0.9em;
+    }
+
+    .md-thumb {
+      width: 1.3em;
+      height: 1.3em;
+    }
+  }
+
+  div.layout-align-start-center {
+    position: relative;
+
+    .saved-icon {
+      position: absolute;
+      left: 2em;
+    }
+  }
+
+  .saved-icon {
+    font-size: 20px;
+  }
+}
+
+.reports_container {
+  width: 100%;
+}
+
+.upload_tableau_block {
+  border: 1px dashed rgba(45, 19, 141, 0.4);
+  padding: 10px;
+  cursor: pointer;
+  p {
+    margin-bottom: 0px;
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(52, 52, 52, 0.5);
+  }
+  h5 {
+    margin: 0;
+    font-weight: 600;
+    line-height: normal;
+    color: var(--main-color);
+    text-transform: uppercase;
+  }
+  .icon_container {
+    cursor: pointer;
+    opacity: 0.2;
+    background-color: #e53e6e;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+}
+
+.vertical-divider {
+  border-right: 2px;
+  border-right-style: solid;
+  height: 64px;
+  border-right-color: rgba(0, 0, 0, 0.05);
+  margin: 10px;
+}
+
+.credentials-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--extra-color);
+  text-decoration: underline;
+  margin-bottom: 0;
+}
+
+.database_credentials {
+  min-width:320px;
+  display: table;
+
+  .md-list-item-text p.title {
+    text-transform: uppercase;
+    color: var(--extra-color);
+    font-size: 10px;
+    font-weight: 900;
+  }
+
+  .md-list-item-text .ng-binding  {
+    font-size: 14px;
+    color: var(--main-color) !important;
+  }
+
+  input.value{
+  background-color: transparent;
+  border: 0px;
+  font-size: 14px;
+  color: var(--main-color);
+  }
+
+  .actions {
+    margin: auto;
+  }
+
+  md-list-item:hover{
+    background: rgba(45, 19, 141, 0.05);
+  }
+
+  .md-subheader-content{
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--main-color);
+  }
+  .circle_icon{
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+    cursor: pointer;
+    margin-right: 6px;
+  }
+
+  .copy_clipboard{
+    background-color: var(--extra-color);
+  }
+
+  .view_password{
+    background-color: var(--main-color);
+  }
+
+}
+
+.md-open-menu-container md-menu-content {
+  display: table;
+}
+
+.switch-label{
+  text-transform: uppercase;
+  margin-bottom: 0px;
+}
+
+.type-header {
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--extra-color);
+  margin-bottom: 5px;
+  white-space: nowrap;
+}
+
+.setting_content.tableau_reports {
+ min-height: 690px;
+}
+
+.vizualisation-content {
+  background-color: rgba(52, 52, 52, 0.05);
+  .switch-label {
+    font-size: 10px;
+    font-weight: 600;
+  }
+}
+
+.vizualisation-nonactive {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.workbook-info {
+  background-color: rgba(var(--main-color-rgb), 0.1);
+  padding: 8px;
+  margin-right: 20px;
+  .icon-stroke {
+    stroke: var(--main-color);
+  }
+  .icon-fill {
+    fill: var(--main-color);
+  }
+  p {
+    margin-bottom: 0px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--main-color);
+  }
+}

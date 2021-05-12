@@ -1,0 +1,31 @@
+.filter_widget {
+  background-color: var(--main-color);
+  color: #FFF;
+  margin-bottom: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  .title {
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .line-separator {
+    border-right: 1px solid rgba(255, 255, 255, .2);
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .md-button {
+    min-width: auto;
+  }
+}
+
+.advanced-link {
+  color: #FFF;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  &:hover {
+    text-decoration: none;
+    color: #FFF;
+  }
+}

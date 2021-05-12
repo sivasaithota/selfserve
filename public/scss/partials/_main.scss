@@ -1,0 +1,147 @@
+body {
+  font: 14px OpenSans;
+  height: auto;
+  color: #343434;
+  position: relative !important;
+  > .md-dialog-container {
+    position: fixed;
+  }
+}
+
+* {
+  outline: none;
+}
+
+a {
+  color: var(--main-color);
+  cursor: pointer;
+}
+
+a:focus, a:hover {
+  color: var(--main-color);
+}
+
+a:focus {
+  outline: none;
+}
+
+md-dialog {
+  border-radius: 0;
+  max-height: 100%;
+}
+
+.app-content {
+  position: relative;
+}
+
+.md-select-label *:first-child{
+  line-height: 2rem;
+}
+
+.md-list-item-text .ng-binding{
+  color: white !important;
+}
+.md-list-item-text-black .ng-binding{
+  color: black !important;
+}
+
+.md-list-item-text > h4{
+  color: black;
+  font-weight: 800;
+}
+
+md-input-container.input-border.md-default-theme .md-input{
+  border-color: #454545;
+}
+
+md-list-item,
+md-list-item .md-list-item-inner{
+  min-height: 30px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.cursor-move {
+  cursor: move;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.margin-none {
+  margin: 0;
+}
+
+.text-underline {
+  text-decoration: underline;
+}
+
+.flex-visible {
+  display: flex !important;
+}
+
+// Style for scrollbar
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+// Track
+::-webkit-scrollbar-track {
+  background: #F1F1F1;
+  border-radius: 4px;
+}
+
+// Handle
+::-webkit-scrollbar-thumb {
+  border-radius: 1px;
+  background: rgba(var(--main-color-rgb), 0.6);
+}
+
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important;
+}
+
+md-select-menu {
+  max-height: 300px;
+  md-content {
+    max-height: 300px;
+  }
+}
+
+.md-dialog-is-showing {
+  max-height: inherit;
+}
+
+.offline-mode {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: var(--complimentary-color);
+  z-index: 5;
+
+  .material-icons {
+    font-size: 18px;
+    margin-right: 4px;
+  }
+}
+
+md-checkbox.md-default-theme:not([disabled]).md-primary.md-checked,
+md-checkbox:not([disabled]).md-primary.md-checked .md-ink-ripple {
+  color: var(--extra-color);
+}
+
+md-checkbox.md-default-theme:not([disabled]).md-primary.md-checked,
+md-checkbox:not([disabled]).md-primary.md-checked .md-icon {
+  background-color: var(--extra-color);
+}

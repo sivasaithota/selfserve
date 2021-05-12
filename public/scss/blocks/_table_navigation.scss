@@ -1,0 +1,81 @@
+$bg-sidebar: white;
+$sidebar-bg-v-second: .2s;
+
+$sidebar-box-shadow-offset-x: 4px;
+$sidebar-box-shadow-color: rgba(black, .2);
+
+sidebar {
+	position: absolute;
+	background-color: $bg-sidebar;
+	transition: transform .3s ease-in-out;
+	z-index: 1000;
+	top: 0;
+	overflow: auto;
+	height: 100%;
+	display: none;
+	box-shadow: none;
+  #tag_list {
+    margin-right: 0px;
+    height: 100%;
+    border-radius: 0;
+  }
+
+	&.sidebar--is-open {
+
+		&.sidebar--left,
+		&.sidebar--right {
+			transform: translateX(0);
+		}
+
+		&.sidebar--left {
+			box-shadow: 10px 0 10px 0 rgba(0, 0, 0, 0.09);
+		}
+		&.sidebar--right {
+			box-shadow: -#{$sidebar-box-shadow-offset-x} 0 9px 0px #{$sidebar-box-shadow-color};
+		}
+	}
+
+	&.sidebar--left {
+		left: 0;
+		transform: translateX(-100%);
+	}
+
+	&.sidebar--right {
+		right: 0;
+		transform: translateX(100%);
+	}
+
+  .header {
+    background-color: var(--main-color);
+    color: #FFF;
+    font-size: 20px;
+    padding: 19px 18px;
+    text-transform: uppercase;
+    p {
+      margin-bottom: 0;
+    }
+    .menu {
+      cursor: pointer;
+    }
+  }
+}
+
+.sidebar-bg {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	width: 0;
+	height: 0;
+	background-color: transparent;
+	opacity: 0;
+	transition: opacity $sidebar-bg-v-second linear, width 0s linear $sidebar-bg-v-second, height 0s linear $sidebar-bg-v-second;
+
+	&.sidebar-bg--is-visible {
+		opacity: .5;
+		width: 100%;
+		height: 100%;
+		transition: opacity $sidebar-bg-v-second linear;
+	}
+}

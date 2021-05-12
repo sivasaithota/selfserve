@@ -1,0 +1,72 @@
+<!--Single file download/upload modal window controller template
+    Controller angular/controllers/project/single.download.upload.js
+    Called from the jqGridWidget/widget/jqWidget.controller.js-->
+
+<md-dialog id="single-load-modal" class="dialog-window">
+  <!--Headers and close icon-->
+  <header layout="row" layout-align="space-between start">
+    <div>
+      <label class="text-uppercase">{{ table.tablename }}</label>
+      <h2 class="text-uppercase">{{ loadType }} data</h2>
+    </div>
+    <i class="material-icons" ng-click="closeModal()">clear</i>
+  </header>
+
+  <!--Upload file progress-->
+  <div ng-if="loadType === 'upload'"
+       class="uploaded-file"
+       layout="row"
+       layout-align="space-between center">
+    <span>{{ fileName }}</span>
+
+    <div ng-if="uploadStatus === 'loading'"
+         layout="row"
+         layout-align="center center">
+
+      <!--Upload status-->
+      <span class="upload-status">
+        {{ uploadProgress === 100 ? 'processing' : 'uploading' }}
+      </span>
+
+      <!--Circular progressbar of upload progress-->
+      <md-progress-circular ng-if="uploadProgress < 100"
+                            md-mode="determinate"
+                            md-diameter="22"
+                            value="{{ uploadProgress }}">
+      </md-progress-circular>
+
+      <!--Spinner while processing the uploaded file-->
+      <spinner ng-if="uploadProgress === 100"></spinner>
+    </div>
+
+    <!--Success icon with popover-->
+    <img ng-if="uploadStatus === 'success'"
+         src="./src/images/success-tick.svg"
+         alt="success"
+         uib-popover="{{ table.displayname }} table is uploaded successfully"
+         popover-title="successful upload"
+         popover-trigger="mouseenter"
+         popover-placement="right"
+         popover-append-to-body="true">
+
+    <!--Error icon with popover-->
+    <img ng-if="uploadStatus === 'error'"
+         src="./src/images/error-round-icon.svg"
+         alt="{{ uploadError }}"
+         uib-popover="{{ uploadError }}"
+         popover-title="error in upload"
+         popover-trigger="mouseenter"
+         popover-placement="right"
+         popover-append-to-body="true">
+  </div>
+
+  <!--Download file spinner-->
+  <div ng-if="loadType === 'download'"
+       class="file-download"
+       layout="row"
+       layout-align="center center"
+  >
+    <span>preparing files</span>
+    <spinner/>
+  </div>
+</md-dialog>

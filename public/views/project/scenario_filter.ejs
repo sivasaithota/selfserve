@@ -1,0 +1,135 @@
+<div flex class="filter_content" ng-class="{'filter_content--open': scenario.isFilterOpen}">
+  <!-- Header -->
+  <div layout="row" layout-align="space-between center">
+    <md-button class="md-icon-button filter" aria-label="button"
+      ng-click="scenario.openFilter()">
+      <img src="./src/images/filtered_icon.svg" width="20" alt="Scenario filter">
+    </md-button>
+    <h3 flex ng-if="scenario.isFilterOpen" class="title">Scenario filters</h3>
+    <md-button class="md-icon-button close" aria-label="button"
+      ng-if="scenario.isFilterOpen" ng-click="scenario.closeFilter()">
+      <i class="material-icons">clear</i>
+    </md-button>
+  </div>
+  <!-- Content -->
+  <div ng-if="scenario.isFilterOpen">
+    <div layout="row" layout-align="space-between center" class="content filter--result"
+         ng-if="scenario.filter.name || scenario.filter.tag">
+      <div>
+        <span ng-bind="(scenario.projects | filterByTags: scenario.filter : scenario.tags : scenario.activeObj).length"></span>
+        <span>Scenario</span><span ng-if="(scenario.projects | filterByTags: scenario.filter : scenario.tags : scenario.activeObj).length > 1">s</span>
+        <span>Found</span>
+      </div>
+      <md-button class="md-transparent margin-none" ng-click="scenario.clearFilters()">clear filters</md-button>
+    </div>
+    <!-- View by scenario activity -->
+    <div class="content form-group">
+      <label class="text-uppercase">View scenarios by</label>
+      <md-checkbox md-indeterminate aria-label="Active" class="md-primary" ng-model="scenario.activeObj.showActive">
+        Active
+      </md-checkbox>
+      <md-checkbox md-indeterminate aria-label="Archived" class="md-primary" ng-model="scenario.activeObj.showArchived">
+        Archived
+      </md-checkbox>
+    </div>
+    <hr>
+    <!-- Search by scenario name -->
+    <div class="content form-group search">
+      <label for="refresh_description" class="text-uppercase">Search for a scenario</label>
+      <input class="form_control form_control--light" name="refresh_description"
+             ng-model="scenario.filter.name">
+    </div>
+    <hr>
+    <!-- Search by filter name -->
+    <div class="content form-group">
+      <label class="text-uppercase">Filter by tag</label>
+      <md-select class="form_control--light margin-none" ng-model="scenario.filter.tag">
+        <md-option ng-repeat="tag in scenario.tags" ng-value="tag.id">
+          {{tag.tag_name}}
+        </md-option>
+      </md-select>
+    </div>
+    <hr>
+    <!-- Sort by date -->
+    <div class="content">
+      <div layout="row" layout-align="space-between center">
+        <label class="text-uppercase">Sort by</label>
+        <div layout="column">
+          <md-tooltip md-direction="top">
+            <div><span ng-bind="scenario.filter.reverseVal ? 'DE' : 'A' "></span>SCENDING MODE</div>
+            <i>Click to Sort by <span ng-bind="scenario.filter.reverseVal ? 'De' : 'A' "></span>scending</i>
+          </md-tooltip>
+          <md-button class="md-icon-button sort--btn" aria-label="button" ng-click="scenario.filter.reverseVal = true">
+            <svg width="10px" height="6px" viewBox="0 0 10 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <g id="Scenario-Management" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="Scenario-Management-2" transform="translate(-1805.000000, -490.000000)" class="sort--icon" ng-class="{reverse: scenario.filter.reverseVal}">
+                  <polyline id="Path-6-Copy-2" transform="translate(1809.834804, 492.944444) rotate(180.000000) translate(-1809.834804, -492.944444)" points="1805.55556 490.885948 1809.78072 495.111111 1814.11405 490.777778"></polyline>
+                </g>
+              </g>
+            </svg>
+          </md-button>
+          <md-button class="md-icon-button sort--btn" aria-label="button" ng-click="scenario.filter.reverseVal = false">
+            <svg width="10px" height="6px" viewBox="0 0 10 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <g id="Scenario-Management" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="Scenario-Management-2" transform="translate(-1805.000000, -498.000000)" class="sort--icon" ng-class="{reverse: !scenario.filter.reverseVal}">
+                  <polyline id="Path-6-Copy-4" points="1805.55556 498.885948 1809.78072 503.111111 1814.11405 498.777778"></polyline>
+                </g>
+              </g>
+            </svg>
+          </md-button>
+        </div>
+      </div>
+      <p class="sort" ng-class="{'active': scenario.filter.propertyName === 'created_at'}"
+        ng-click="scenario.filter.propertyName = 'created_at'">Created Date</p>
+      <p class="sort" ng-class="{'active': scenario.filter.propertyName === 'updated_at'}"
+        ng-click="scenario.filter.propertyName = 'updated_at'">Last Updated Date</p>
+    </div>
+    <hr>
+    <!-- Archive several scenarios -->
+    <div class="content" ng-if="main.currentUser.functions.Sc_Archive">
+      <label class="text-uppercase">Archive scenarios</label>
+      <div layout="row" layout-align="space-between center">
+        <p class="margin-none">Selected Scenarios ({{scenario.selectedProjects.length}})</p>
+        <md-button class="md-icon-button delete" aria-label="button"
+          ng-click="scenario.isArchived = true;"
+          ng-disabled="scenario.disableArchive(scenario.selectedProjects)">
+          <img src="./src/images/icons/archive.svg" width="25px" height="11px" alt="archive">
+        </md-button>
+      </div>
+      <confirm-dialog
+        ng-show="main.currentUser.functions.Sc_Archive && scenario.isArchived"
+        title="'archive scenario'"
+        message="'Are you sure in archiving the selected Scenario(s)?'"
+        button="'archive'">
+      </confirm-dialog>
+    </div>
+    <hr>
+    <!-- Delete several scenarios -->
+    <div class="content" ng-if="main.currentUser.functions.Sc_Delete">
+      <label class="text-uppercase">Delete scenarios</label>
+      <div layout="row" layout-align="space-between center">
+        <p class="margin-none">Selected Scenarios ({{scenario.selectedProjects.length}})</p>
+        <md-button class="md-icon-button delete" aria-label="button"
+          ng-click="scenario.isDeleted = true;"
+          ng-disabled="!scenario.selectedProjects.length">
+          <svg width="30px" height="30px" viewBox="0 0 39 39" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g id="Home-Page" transform="translate(-1479.000000, -442.000000)">
+                <g id="Group-20" transform="translate(1480.000000, 443.000000)">
+                  <path class="scenario_btn" d="M14.681319,24.3297419 C14.681319,25.1312727 15.3626381,25.6728468 16.1978032,25.6728468 L21.8021995,25.6728468 C22.6153898,25.6728468 23.3186857,25.1312727 23.3186857,24.3297419 L23.3186857,15.837851 L14.681319,15.837851 L14.681319,24.3297419 Z M24,13.6715529 L21.5384677,13.6715529 L20.8351651,13 L17.2967041,13 L16.4615396,13.6715529 L14,13.6715529 L14,15.1662981 L24,15.1662981 L24,13.6715529 Z" id="Fill-3"></path>
+                </g>
+              </g>
+            </g>
+          </svg>
+        </md-button>
+      </div>
+    </div>
+    <confirm-dialog
+      ng-show="main.currentUser.functions.Sc_Delete && scenario.isDeleted"
+      title="'delete scenario'"
+      message="'Are you sure in deleting the selected Scenario(s)?'"
+      button="'delete'">
+    </confirm-dialog>
+    <hr ng-if="main.currentUser.functions.Sc_Delete">
+  </div>
+</div>

@@ -1,0 +1,80 @@
+<div class="widget_container" layout="row" layout-align="space-between center">
+  <h3>Advanced Filter</h3>
+  <md-button class="md-transparent md-transparent--sm" ng-click="clearFilters(widgetInfo.filterModel)">reset filters</md-button>
+</div>
+<div class="hr"></div>
+<form name="widget" ng-if="rangeValue" class="margin-none">
+  <div layout="column" class="scroll-area scroll-area-filter" ng-init="getFilterOperations(widgetInfo.filterModel)">
+    <div ng-repeat="model in widgetInfo.filterModel" ng-if="!model.hidden && model.id !== 'Meta Info'">
+      <div class="widget_container widget_form">
+        <div class="widget_label_container" layout="row" layout-align="space-between center">
+          <label for="{{model.id}}" ng-bind="model.displayname"></label>
+          <select class="filter-operations-select"
+            ng-if="model.filterOperations.length > 1"
+            ng-options="operation as operation.label for operation in model.filterOperations"
+            ng-change="refreshSlider();getFilterOperations()"
+            ng-model="model.selectedFilterOperation" required>
+          </select>
+        </div>
+        <div ng-switch="model.edittype !== 'custom'">
+          <div ng-switch-when="true">
+            <div
+              class="widget_comment_long"
+              ng-if="model.selectedFilterOperation.label === '=='">
+              Use `Semicolon (;)` as separator for multiple values
+            </div>
+            <div
+              class="widget_comment_short"
+              ng-if="model.selectedFilterOperation.label === '%' ||
+              model.selectedFilterOperation.label === '>=' ||
+              model.selectedFilterOperation.label === '<='">
+              VALUE
+            </div>
+            <rzslider ng-show="model.selectedFilterOperation.label === 'Range'"
+              rz-slider-model="model.minValue"
+              rz-slider-high="model.maxValue"
+              rz-slider-options="model.options">
+            </rzslider>
+            <input type="text" class="form-control"
+              ng-if="model.selectedFilterOperation.label === '%' ||
+              model.selectedFilterOperation.label === '==' ||
+              model.selectedFilterOperation.label === '>=' ||
+              model.selectedFilterOperation.label === '<='"
+              id="{{model.id}}_quick_filter"
+              ng-model="model.textValue"
+              ng-blur="updateParentValue(model)">
+            <div ng-if="model.selectedFilterOperation.label === 'boolean'" ng-init="model.booleanValue = selecteBooleanValue()">
+              <div layout="row" layout-wrap flex>
+                <div layout="row" layout-align="start center" ng-repeat="item in booleanItems">
+                  <md-checkbox ng-checked="existsBoolean(item, model.booleanValue)" ng-click="toggleBoolean(item, model.booleanValue)" class="md-primary">
+                    {{item}}
+                  </md-checkbox>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div ng-switch-when="false">
+            <field-form class="filter_container"
+              model="model"
+              tab-type="filter"
+              column-url="{{widgetInfo.urls.editColumn}}"></field-form>
+          </div>
+        </div>
+        <div layout="row" layout-align="end center">
+          <md-checkbox md-no-ink aria-label="Checkbox No Ink" ng-model="model.includeNull" class="md-primary">
+            Include null
+          </md-checkbox>
+        </div>
+      </div>
+      <div class="hr"></div>
+    </div>
+  </div>
+  <div class="hr"></div>
+  <div class="widget_container" layout="row" layout-align="space-between center">
+    <md-button class="md-white" ng-click="filterRows(widgetInfo.filterModel)">Filter</md-button>
+    <p ng-if="widgetInfo.isFiltered">{{widgetInfo.filteredIds.length}} row<span ng-if="widgetInfo.filteredIds.length > 1">s were</span>
+      <span ng-if="widgetInfo.filteredIds.length <= 1">was</span>
+      filtered
+     </p>
+  </div>
+</form>

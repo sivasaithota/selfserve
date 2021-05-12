@@ -1,0 +1,19 @@
+version: '3.7'
+services:
+  analytics_center:
+    image: opexanalytics/analytics-center:qa
+    ports:
+      - 8000
+    volumes:
+      - ".:/analytics-center"
+      - /home/opex_workarea/docker_workarea/docker_volumes/common_store/analytics_center:/analytics_center
+      - /home/opex_workarea/docker_workarea/docker_volumes/enframe_macros:/macros
+    networks: 
+      - platform
+    working_dir: /analytics-center
+    command: ["npm", "run", "start"]
+    environment:
+      - NODE_ENV=prod
+networks:
+  platform:
+    external: true

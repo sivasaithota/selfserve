@@ -1,0 +1,19 @@
+.jupyter-logo {
+    width: 40px;
+    height: 40px;
+    fill: var(--extra-color)
+}
+
+section.jupyter-page {
+    height: 100vh;
+    width: calc(100% + 60px);
+    margin: 0 -60px;
+    z-index: 2;
+}
+
+.jupyter-iframe {
+    border:none;
+    width:100%;
+    height:100%;
+    padding-top:7px
+}

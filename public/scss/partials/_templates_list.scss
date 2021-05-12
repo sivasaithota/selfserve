@@ -1,0 +1,92 @@
+.templates_list {
+  height: 60px;
+  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 0;
+  padding: 12px 17px;
+  margin: 0;
+  margin-bottom: 20px;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--main-color);
+
+  md-select {
+    margin: 0;
+    &:focus .md-select-value {
+      border-bottom: none;
+      color: var(--main-color);
+    }
+  }
+
+  .md-select-value {
+    border: none;
+
+    .md-select-icon:after {
+      display: initial;
+      font-family: 'Material Icons';
+      content: "\E316\A\E313";
+      font-size: 18px;
+      line-height: .5;
+      top: 4px;
+      color: $text__color--light;
+      background-color: var(--extra-color);
+      box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.15);
+    }
+  }
+
+}
+
+.scenarios-select {
+  margin-left: 100px;
+  md-select-menu {
+    float: right;
+
+    md-content {
+      padding: 0;
+    }
+  }
+
+  .scenario_item {
+    color: var(--main-color);
+    border-bottom: solid 1px rgba(0,0,0,0.12);
+
+    &:hover {
+      background-color: var(--extra-color);
+      color: $text__color--light;
+    }
+
+    .md-text {
+      font-size: 14px;
+      font-weight: 500;
+      color: inherit;
+    }
+  }
+}
+
+.templates-select {
+  md-select-menu {
+    width: 340px;
+    float: right;
+
+    md-content {
+      padding: 0;
+    }
+  }
+
+  .template_item {
+    color: var(--main-color);
+    border-bottom: solid 1px rgba(0,0,0,0.12);
+
+    &:hover {
+      background-color: var(--extra-color);
+      color: $text__color--light;
+    }
+
+    .md-text {
+      font-size: 14px;
+      font-weight: 900;
+      color: inherit;
+    }
+  }
+
+}
+

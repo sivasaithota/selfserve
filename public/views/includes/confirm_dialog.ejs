@@ -1,0 +1,16 @@
+<!--Delete dialog template. Controller angular/directives/confirmDialog.js-->
+<div class="dialog-action delete">
+  <div layout="column">
+
+    <!--Title and message-->
+    <p class="title">{{ title }}</p>
+    <p class="content">{{ message }}</p>
+    <hr>
+
+    <!--Footer with Cancel and Confirm buttons-->
+    <div layout="row" layout-align="end center">
+      <md-button class="md-transparent" ng-click="onCancel()">Cancel</md-button>
+      <md-button class="md-white" ng-click="onConfirm()">{{ button }}</md-button>
+    </div>
+  </div>
+</div>

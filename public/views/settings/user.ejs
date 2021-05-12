@@ -1,0 +1,254 @@
+<section class="users_form">
+  <md-toolbar>
+    <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+      <div layout="column">
+        <h2 flex class="md-flex">Add User</h2>
+        <span>Users from your company database will be added to this app</span>
+      </div>
+
+    </div>
+  </md-toolbar>
+
+  <md-content class="md-padding" flex style="overflow: unset;">
+    <form name="userset.addUserForm">
+      <div layout="row">
+        <!--Find user name or email to adding user-->
+        <div flex="33" class="form-group search">
+          <label for="user" class="text-uppercase">
+            find user
+            <span class="error-icon">*</span>
+          </label>
+          <input-dropdown
+            input-placeholder="Search by name or email id"
+            input-name="user"
+            input-required="true"
+            selected-item="userset.user"
+            display-property="username"
+            default-dropdown-items="userset.userList"
+            filter-list-method="userset.filterItems(userInput)"
+            input-class-name="form_control form_control--dark"
+            structured-property="userManagement"
+            item-selected-method="userset.findUser(item ,main.currentUser.functions.User_View)"
+          ></input-dropdown>
+        </div>
+
+        <!--User Email-->
+        <div flex="33" class="form-group settings_inputs__padding">
+          <label class="control-label text-uppercase">eMail ID</label>
+          <p ng-if="userset.user.email">{{ userset.user.email }}</p>
+          <p ng-if="!userset.user.email" class="to-be-added">To be Added</p>
+        </div>
+        
+        <div flex="33" class="form-group settings_inputs__padding">
+          <label class="control-label text-uppercase">enframe Role</label>
+          <p ng-if="userset.user">{{ userset.user.enframerole }}</p>
+          <p ng-if="!userset.user.email" class="to-be-added">To be Added</p>
+        </div>
+      </div>
+
+      <!--Select user Role-->
+      <div layout="row">
+        <div flex="33">
+          <div class="form-group select-wrapper">
+            <label for="role" class="control-label text-uppercase" layout="row" layout-align="start center">
+              <div>Role
+                <span class="error-icon">*</span>
+              </div>
+            </label>
+            <select required ng-model="userset.userRole" class="form_control form_control--dark disable-transition"
+                    ng-if="(userset.user.enframerole === 'Admin' || userset.user.enframerole === 'Architect')"
+                    ng-options="opt.role as opt.rolename for opt in userset.adminOptions | orderBy: 'rolename'">
+            <option value="" disabled selected hidden>Select a Role</option>
+            <select required ng-model="userset.userRole" class="form_control form_control--dark disable-transition"
+                    ng-if="(userset.user.enframerole === 'App Viewer')"
+                    ng-options="opt.role as opt.rolename for opt in userset.viewerOptions | orderBy: 'rolename'">
+            <option value="" disabled selected hidden>Select a Role</option>
+            <select required ng-model="userset.userRole" class="form_control form_control--dark disable-transition"
+                    ng-if="(userset.user.enframerole === 'App Developer' || !(userset.user.enframerole))"
+                    ng-options="opt.role as opt.rolename for opt in userset.roles | orderBy: 'rolename'">
+            <option value="" disabled selected hidden>Select a Role</option>
+            </select>
+          </div>
+        </div>
+        <div flex="33" class="settings_inputs__padding text-uppercase" layout="row" layout-align="start center">
+          <div class="available-roles">available roles</div>
+          <i class="material-icons md-20 settings_permission--icon"
+             ns-popover ns-popover-template="popup_hover"
+             ns-popover-trigger="mouseenter"
+             ns-popover-placement="bottom|center"
+          >info</i>
+        </div>
+      </div>
+
+      <!--Action Buttons-->
+      <div layout="row" layout-align="space-between center">
+        <div class="label_mandatory">*All the fields are mandatory</div>
+        <div layout="row" layout-align="end center">
+          <md-button ng-disabled="userset.addUserForm.$invalid" class="md-dark"
+            ng-if="main.currentUser.functions.User_Add"
+            ng-click="userset.addUser(main.currentUser.functions.User_Add)">
+            add user
+          </md-button>
+          <md-button class="md-warn" ng-click="userset.resetData()">Reset</md-button>
+        </div>
+      </div>
+    </form>
+  </md-content>
+</section>
+<br>
+<section class="users_form" ng-if="main.currentUser.functions.User_View">
+  <md-toolbar>
+    <div class="md-toolbar-tools layout-align-space-between ">
+      <h2 class="md-flex">Users List</h2>
+      <!-- TODO uncomment when will resolved issues with passwords -->
+      <!--<div layout="row" layout-align="end center">-->
+        <!--<md-button class="md-dark" ng-click="userset.openImportPopup($event)">-->
+          <!--<div layout="row" layout-align="center center" class="import_export_icon">-->
+            <!--<img src="./images/import-user-arrow.svg" width="13"/>-->
+            <!--<span>Import Users</span>-->
+          <!--</div>-->
+        <!--</md-button>-->
+
+        <!--<md-button class="md-light" ng-click="userset.openExportPopup($event)">-->
+          <!--<div layout="row" layout-align="center center" class="import_export_icon">-->
+            <!--<img src="./images/export-user-arrow.svg" width="13"/>-->
+            <!--<span>Export users</span>-->
+          <!--</div>-->
+        <!--</md-button>-->
+      <!--</div>-->
+    </div>
+  </md-toolbar>
+
+  <md-content class="md-padding" flex>
+    <form name="editUser" class="margin-none">
+      <table class="table table-list">
+        <thead>
+          <tr>
+            <th class="text-uppercase">Username</th>
+            <th class="text-uppercase">Email</th>
+            <th class="text-uppercase">Role</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="user in userset.users" ng-init="user.editUser = false;"
+              ng-class="{'no-access-user': (user.managableScenarioAccess && !user.scenario_id.length) ||
+                                           (user.managableTableAccess && !user.table_id.length)}">
+            <td ng-bind="user.username"></td>
+            <td ng-bind="user.email"></td>
+            <td ng-bind="user.role" ng-if="!user.editUser"></td>
+            <td ng-if="user.editUser">
+              <md-input-container md-no-float ng-init="user.newRole = user.role">
+                <md-select ng-model="user.newRole" placeholder="{{user.role}}" required="">
+                  <md-option ng-if="(user.enframerole === 'Admin' || user.enframerole === 'Architect')" ng-value="opt.role" ng-repeat="opt in userset.adminOptions" ng-bind="opt.rolename"></md-option>
+                  <md-option ng-if="(user.enframerole === 'App Viewer')" ng-value="opt.role" ng-repeat="opt in userset.viewerOptions" ng-bind="opt.rolename"></md-option>
+                  <md-option ng-if="(user.enframerole === 'App Developer' && user.scopes.includes('create'))" ng-value="opt.role" ng-repeat="opt in userset.developerEditOptions" ng-bind="opt.rolename"></md-option>
+                  <md-option ng-if="(user.enframerole === 'App Developer' && !user.scopes.includes('create'))" ng-value="opt.role" ng-repeat="opt in userset.viewerOptions" ng-bind="opt.rolename"></md-option>
+                </md-select>
+              </md-input-container>
+            </td>
+            <td>
+              <!--Manage Access link if role has managable access-->
+              <a ng-if="(user.managableScenarioAccess || user.managableTableAccess) && user.hasEditAccess && !user.editUser"
+                 ng-click="userset.openAccessManager($event, user)">Manage Access
+                <!--Icon and tooltip if user is not given access to any scenario/table-->
+                <i class="material-icons md-20"
+                   ng-if="(user.managableScenarioAccess && !user.scenario_id.length) ||
+                          (user.managableTableAccess && !user.table_id.length)">info</i>
+                <md-tooltip md-direction="bottom"
+                            ng-if="(user.managableScenarioAccess && !user.scenario_id.length) ||
+                                   (user.managableTableAccess && !user.table_id.length)">
+                  {{main.settingsTooltips.user_settings.no_scenario_access}}</md-tooltip>
+              </a>
+            </td>
+            <td class="text-right">
+              <!-- User Actions -->
+              <md-menu md-position-mode="target-right target" class="extra_menu" ng-if="!user.editUser && user.hasEditAccess">
+                <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                  <md-tooltip md-direction="right">{{main.settingsTooltips.user_settings.option_button}}</md-tooltip>
+                  <span class="fa fa-ellipsis-v list_option" aria-hidden="true"></span>
+                </md-button>
+                <md-menu-content width="3">
+                  <md-menu-item ng-if="main.currentUser.username !== user.username && main.currentUser.functions.User_Delete">
+                    <md-button ng-click="userset.deleteUser($event, $index, user, main.currentUser.functions.User_Delete)">
+                      <div layout="row">
+                        <p flex class="text-uppercase">Delete</p>
+                        <div flex layout="row" layout-align="end center">
+                          <span class="fa fa-ellipsis-v" aria-hidden="true"></span>
+                        </div>
+                      </div>
+                    </md-button>
+                  </md-menu-item>
+                  <md-menu-item ng-if="main.currentUser.functions.User_Edit">
+                    <md-button 
+                      ng-click="user.editUser = true;"
+                      ng-disabled="(user.enframerole === 'Admin' || user.enframerole === 'Architect')">
+                      <div layout="row">
+                        <p flex class="text-uppercase">Quick edit</p>
+                      </div>
+                    </md-button>
+                  </md-menu-item>
+                </md-menu-content>
+              </md-menu>
+
+              <!-- Editing control buttons -->
+              <div layout="row" layout-align="end center" ng-if="user.editUser">
+                <md-button class="md-fab md-mini" aria-label="Edit"
+                  ng-click="userset.editUser(user, main.currentUser.functions.User_Edit)"
+                  ng-disabled="editUser.$invalid"
+                  ng-if="main.currentUser.functions.User_Edit">
+                  <div layout="row" layout-align="center center">
+                    <i class="material-icons">done</i>
+                  </div>
+                </md-button>
+                <md-button class="md-fab md-mini" ng-click="user.editUser = false">
+                  <div layout="row" layout-align="center center">
+                    <i class="material-icons">cancel</i>
+                  </div>
+                </md-button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </md-content>
+</section>
+
+<!--Popup with Role Permissions-->
+<script type="text/ng-template" id="popup_hover">
+  <div class="triangle"></div>
+  <div class="role_popup">
+    <div class="role_header">
+      <h4 class="title">
+				Role Permissions
+			</h4>
+    </div>
+    <div class="role_body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Category</th>
+            <th>Function</th>
+            <th class="text-center" ng-repeat="role in userset.roles" ng-bind="role.rolename"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="rolePer in userset.rolePermissions"
+              ng-class="{'border': userset.rolePermissions[$index].category !== userset.rolePermissions[$index - 1].category}">
+            <td>
+              <span ng-if="userset.rolePermissions[$index].category !== userset.rolePermissions[$index - 1].category"
+                    ng-bind="rolePer.category"></span>
+            </td>
+            <td ng-bind="rolePer.function"></td>
+            <td class="text-center" ng-repeat="roleName in userset.roles">
+              <i ng-if="rolePer[roleName.role]" class="fa fa-check">
+						</td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</script>

@@ -1,0 +1,336 @@
+.tooltip_preview {
+  background-color: #FFF;
+  color: var(--extra-color);
+  border-radius: 4px;
+  position: fixed;
+  bottom: 28px;
+  right: 25px;
+  z-index: 11;
+  min-width: 600px;
+  max-width: 900px;
+  max-height: 600px;
+  overflow: auto;
+  box-shadow: 1px 4px 7px 0px rgba(0, 0, 0, 0.2);
+  > div {
+    margin: 10px 20px;
+  }
+  form {
+    margin-bottom: 0;
+  }
+  h3 {
+    color: var(--main-color);
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .parameter_item {
+    border-bottom: 2px solid #EFEFEF;
+    margin-bottom: 15px;
+    &:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+  }
+  p {
+    color: var(--main-color);
+  }
+  md-input-container {
+    width: 90%;
+    padding-bottom: 15px;
+    .md-input {
+      border-bottom: 1px solid var(--extra-color);
+      background: none;
+      height: 22px;
+      line-height: 22px;
+    }
+  }
+  label {
+    font-size: 16px;
+  }
+  md-switch {
+    margin: 0;
+  }
+  md-checkbox {
+    cursor: initial;
+    margin-left: 0px;
+    .md-label {
+      color: var(--extra-color);
+      cursor: pointer;
+    }
+  }
+  md-radio-button {
+    color: var(--extra-color);
+    margin: 0px 10px 0px 0px;
+  }
+  md-select {
+    margin: 0px;
+    width: 90%;
+    .md-select-value {
+      border-bottom-color: var(--extra-color);
+    }
+  }
+  md-datepicker {
+    position: relative;
+  }
+  .md-button.md-icon-button {
+    position: absolute;
+    top: -16px;
+    right: -21px;
+    z-index: 5;
+  }
+  .md-datepicker-triangle-button.md-button.md-icon-button {
+    display: none;
+  }
+  .md-datepicker-input-container {
+    margin-left: 0px;
+    width: 90%;
+    padding-bottom: 0;
+    margin-bottom: 15px;
+    line-height: 21px;
+    color: #333;
+    border-color: var(--extra-color);
+    &.md-datepicker-focused {
+      border-width: 1px;
+    }
+  }
+  .tooltip_icon {
+    margin-left: 5px;
+  }
+  .md-save:not([disabled]),
+  .md-save:not([disabled]):hover {
+    color: #FFF;
+    background-color: var(--extra-color);
+    border-radius: 18px;
+    img {
+      margin-right: 7px;
+    }
+  }
+}
+
+.md-datepicker-calendar {
+  background-color: #FFF;
+}
+
+md-tooltip {
+  font-size: 14px;
+  .md-content {
+    word-wrap: break-word;
+    white-space: pre-line;
+    max-width: 300px;
+    height: 100%;
+  }
+  .md-background {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+}
+
+.parameters_form--content {
+  margin-bottom: 0px;
+  display: flex;
+  flex-wrap: wrap;
+  width: $parameters*4 + $parameters_padding*3;
+  margin: 0 auto;
+  .saved {
+    position: absolute;
+    bottom: 21px;
+    right: 0px;
+    color: #06B065;
+  }
+  md-content {
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.15);
+    border: solid 1px #f2f2f2;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    padding: 20px 20px 5px;
+    max-height: 100%;
+    box-sizing: border-box;
+    overflow: visible;
+    .group_name {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--main-color);
+      margin-right: 10px;
+    }
+  }
+  .content--1 {
+    -webkit-flex: 0 0 $parameters;
+    -ms-flex: 0 0 $parameters;
+    flex: 0 0 $parameters;
+    max-width: $parameters;
+    .parameter_box:nth-child(1n + 1) {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+  .content--2 {
+    -webkit-flex: 0 0 $parameters*2 + $parameters_padding;
+    -ms-flex: 0 0 $parameters*2 + $parameters_padding;
+    flex: 0 0 $parameters*2 + $parameters_padding;
+    max-width: $parameters*2 + $parameters_padding;
+    .parameter_box:nth-child(2n + 1) {
+      margin-left: 0;
+    }
+    .parameter_box:nth-child(2n + 2) {
+      margin-right: 0;
+    }
+  }
+  .content--3 {
+    -webkit-flex: 0 0 $parameters*3 + $parameters_padding*2;
+    -ms-flex: 0 0 $parameters*3 + $parameters_padding*2;
+    flex: 0 0 $parameters*3 + $parameters_padding*2;
+    max-width: $parameters*3 + $parameters_padding*2;
+    .parameter_box:nth-child(3n + 1) {
+      margin-left: 0;
+    }
+    .parameter_box:nth-child(3n + 3) {
+      margin-right: 0;
+    }
+  }
+  .content--4 {
+    -webkit-flex: 0 0 $parameters*4 + $parameters_padding*3;
+    -ms-flex: 0 0 $parameters*4 + $parameters_padding*3;
+    flex: 0 0 $parameters*4 + $parameters_padding*3;
+    max-width: $parameters*4 + $parameters_padding*3;
+    margin-right: 0;
+    .parameter_box {
+      &:nth-child(4n + 1) {
+        margin-left: 0;
+      }
+      &:nth-child(4n + 4) {
+        margin-right: 0;
+      }
+    }
+  }
+  .content_last {
+    margin-right: 0;
+  }
+  .parameter_box {
+    margin-left: 28px;
+    margin-right: 28px;
+    width: 260px;
+    position: relative;
+  }
+  label {
+    font-size: 20px;
+    color: var(--extra-color);
+    font-weight: 100;
+    margin-bottom: 0px;
+  }
+  .tooltip_icon {
+    color: var(--extra-color);
+    margin-left: 5px;
+    cursor: pointer;
+  }
+  md-input-container {
+    padding-bottom: 15px;
+    &.md-input-invalid .md-input {
+      border-color: rgb(244,67,54);
+      border-width: 0 0 1px;
+    }
+    .md-input {
+      color: #333;
+      font-size: 16px;
+      border-color: var(--extra-color);
+    }
+  }
+  md-datepicker {
+    position: relative;
+  }
+  .md-button.md-icon-button {
+    position: absolute;
+    top: -16px;
+    right: -21px;
+    z-index: 5;
+    box-shadow: none;
+  }
+  .md-datepicker-triangle-button.md-button.md-icon-button {
+    display: none;
+  }
+  .md-datepicker-input-container {
+    margin-left: 0px;
+    width: 100%;
+    padding-bottom: 0;
+    margin-bottom: 15px;
+    line-height: 26px;
+    color: #333;
+    border-color: var(--extra-color);
+    &.md-datepicker-focused {
+      border-width: 1px;
+    }
+  }
+  md-switch {
+    margin: 11px 0;
+    line-height: 40px;
+  }
+  md-checkbox {
+    cursor: initial;
+    margin-left: 0px;
+    .md-label {
+      color: var(--extra-color);
+      cursor: pointer;
+    }
+  }
+  md-radio-button {
+    color: var(--extra-color);
+    margin: 0px 10px 0px 0px;
+  }
+  md-select {
+    margin-top: 0px;
+    margin-bottom: 15px;
+    .md-select-value {
+      border-bottom-color: var(--extra-color);
+    }
+  }
+}
+
+.datapiker_container {
+  padding: 2px 2px 15px;
+  position: relative;
+  input {
+    color: #333;
+    font-size: 16px;
+    border-color: var(--extra-color);
+    padding: 2px 2px 1px;
+    border-width: 0 0 1px;
+    width: 100%;
+    outline: none;
+    line-height: 26px;
+    &:focus {
+      border-bottom-width: 2px;
+      padding-bottom: 0;
+    }
+  }
+  i {
+    position: absolute;
+    right: 3px;
+    top: 5px;
+    color: rgba(0,0,0,0.54);
+  }
+}
+
+.datepicker table tr td.active.active, .datepicker table tr td.active.disabled, .datepicker table tr td.active.disabled.active, .datepicker table tr td.active.disabled.disabled, .datepicker table tr td.active.disabled:active, .datepicker table tr td.active.disabled:hover, .datepicker table tr td.active.disabled:hover.active, .datepicker table tr td.active.disabled:hover.disabled, .datepicker table tr td.active.disabled:hover:active, .datepicker table tr td.active.disabled:hover:hover, .datepicker table tr td.active.disabled:hover[disabled], .datepicker table tr td.active.disabled[disabled], .datepicker table tr td.active:active, .datepicker table tr td.active:hover, .datepicker table tr td.active:hover.active, .datepicker table tr td.active:hover.disabled, .datepicker table tr td.active:hover:active, .datepicker table tr td.active:hover:hover, .datepicker table tr td.active:hover[disabled], .datepicker table tr td.active[disabled] {
+  background-color: var(--main-color);
+  background-image: none;
+}
+
+md-select-menu[multiple] md-option{
+  &[selected] {
+    color: var(--extra-color);
+    &:focus {
+      color: var(--extra-color);
+    }
+    .md-text:before {
+      content: "\E834";
+    }
+  }
+  .md-text {
+    &:before {
+      font-family: 'Material Icons';
+      content: "\E835";
+      position: relative;
+      top: 3px;
+      margin-right: 5px;
+    }
+  }
+}

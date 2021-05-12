@@ -1,0 +1,66 @@
+<div layout="row" layout-align="space-between center" class="tab_header">
+  <div layout="row" layout-align="space-between center">
+    <h2 class="display_name" ng-bind="jqGridTableNames.displayname"></h2>
+    <i class="material-icons info"
+      ns-popover
+      ns-popover-template="statusTmpl"
+      ns-popover-trigger="mouseenter"
+      ns-popover-placement="bottom|left"
+      ns-popover-hide-on-click="false"
+      ns-popover-theme="ns-popover-tooltip-theme"
+      ns-popover-timeout="1"
+      ng-if="options.type === 'input'"
+    >info</i>
+  </div>
+  <div layout="row" layout-align="space-between center">
+    <md-button class="md-dark" ng-click="validateInput($event, jqGridTableNames)" ng-if="options.inputValidation.type === 'input_validation'">
+      <div layout="row" layout-align="center center">
+        <md-tooltip md-direction="top">Validate Data</md-tooltip>
+        <i class="material-icons md-20 left">subject</i>
+        <span>Validate</span>
+      </div>
+    </md-button>
+    <div ng-if="options.showUpload && jqGridTableNames.type.indexOf('view') < 0">
+      <div ngf-select="uploadFile($event, $file, jqGridTableNames)"
+         ng-model="inputFiles"
+         ngf-model-invalid="invalidInputFiles"
+         ng-model-options="modelOptionsInput"
+         ngf-multiple="multipleInput"
+         ngf-pattern="patternInput"
+         ngf-accept="acceptSelectInput"
+         class="upload_btn">
+        <div layout="row" layout-align="center center">
+          <i class="material-icons md-20">file_upload</i>
+          <span>Upload</span>
+        </div>
+       </div>
+    </div>
+  </div>
+</div>
+
+<div class="jqgrid-table">
+  <table id="jqGrid_{{filterName(jqGridTableNames.tablename)}}"></table>
+  <div id="pager_jqgrid_{{filterName(jqGridTableNames.tablename)}}"></div>
+</div>
+
+<script type="text/ng-template" id="statusTmpl">
+  <div class="triangle"></div>
+  <div aria-label="Create project" class="table_status">
+    <div>
+      <h5 class="text-uppercase">File name</h5>
+      <p ng-bind="jqGridTableNames.file_name || '-'"></p>
+    </div>
+    <div>
+      <h5 class="text-uppercase">Updated by</h5>
+      <p ng-bind="jqGridTableNames.updated_by || '-'"></p>
+    </div>
+    <div>
+      <h5 class="text-uppercase">Status</h5>
+      <div class="status" layout="row" layout-align="start center">
+        <i class="material-icons success margin" ng-if="jqGridTableNames.status.toLowerCase() === 'uploaded successfully'">check_circle</i>
+        <i class="material-icons error margin" ng-if="jqGridTableNames.status.toLowerCase() === 'data validation failed'">error</i>
+        <p ng-bind="jqGridTableNames.status || '-'"></p>
+      </div>
+    </div>
+  </div>
+</script>

@@ -1,0 +1,97 @@
+<form name="paramAs.formParameters">
+  <div ui-view="execution" class="position-relative"></div>
+  <div class="parameters_form--content">
+    <md-content ng-repeat="(key, parameter) in paramAs.parameters" class="{{parameter.class}}">
+      <p flex="80" ng-bind="parameter.group_name" ng-if="parameter.group_name !== 'Group'" class="group_name"></p>
+      <div layout="row" layout-wrap layout-align="start end">
+        <div ng-repeat="list in parameter.parameters track by $index" class="parameter_box">
+          <!-- rendering LABEL -->
+          <div layout="row" layout-align="start center">
+            <label ng-bind="list.displayname"></label>
+            <span ng-if="list.tooltip">
+              <md-tooltip md-direction="top">{{list.tooltip}}</md-tooltip>
+              <i class="material-icons md-18 tooltip_icon">help</i>
+            </span>
+          </div>
+
+          <!-- type TEXT validation TEXT -->
+          <md-input-container ng-if="list.type==='1' && list.validation==='text'" md-no-float>
+            <input required
+                   ng-model="list.value" aria-label="input"
+                   name="{{list.displayname}}"
+                   ng-blur="paramAs.saveParameters(list)"
+                   ng-disabled="!main.currentUser.functions.Param_Edit && work.projectDetails.status === 'archived'"
+            >
+          </md-input-container>
+
+          <!-- type TEXT validation DATE -->
+          <div ng-if="list.type==='1' && list.validation==='date'"
+               datepicker-opex="list.value" parameter="list" pid="paramAs.pid" class="datapiker_container"
+          >
+            <input type="text" name="{{list.displayname}}" required
+              ng-disabled="!main.currentUser.functions.Param_Edit && work.projectDetails.status === 'archived'">
+            <i class="material-icons" ng-show="!list.isSaved">event</i>
+          </div>
+
+          <!-- type TEXT validation NUMERIC -->
+          <md-input-container ng-if="list.type==='1' && list.validation==='numeric'" md-no-float>
+            <input required
+                   ng-model="list.value"
+                   aria-label="input"
+                   ng-pattern="/^-?(([0-9]*)|(([0-9]*)\.([0-9]*))|inf)$/"
+                   name="{{list.displayname}}"
+                   ng-blur="paramAs.checkNumber(list)"
+                   ng-disabled="!main.currentUser.functions.Param_Edit && work.projectDetails.status === 'archived'"
+            >
+          </md-input-container>
+
+          <!-- type CHECKBOX -->
+          <div ng-if="list.type==='3'">
+            <md-tooltip>{{list.value.toString()}}</md-tooltip>
+            <md-select ng-focus="paramAs.loadParameters(list)"
+                       md-on-close="paramAs.saveParameters(list, 'multiple')"
+                       ng-model="list.value"
+                       aria-label="select"
+                       ng-disabled="!main.currentUser.functions.Param_Edit && work.projectDetails.status === 'archived'"
+                       required
+                       multiple="true"
+            >
+
+              <md-checkbox
+                      ng-checked="paramAs.exists(list)"
+                      ng-click="paramAs.toggle($index, key, list)"
+                      class="md-primary"
+              >
+                Select all
+              </md-checkbox>
+              <md-option ng-value="param" ng-repeat="param in list.parameter track by $index">{{param}}</md-option>
+            </md-select>
+          </div>
+
+          <!-- type RADIO -->
+          <md-select ng-if="list.type==='4' || list.type==='6'"
+                     ng-init="paramAs.loadParameters(list)"
+                     md-on-close="paramAs.saveParameters(list)"
+                     ng-model="list.value" aria-label="select"
+                     ng-disabled="!main.currentUser.functions.Param_Edit && work.projectDetails.status === 'archived'"
+                     required
+          >
+            <md-option ng-value="param" ng-repeat="param in list.parameter track by param">{{param}}</md-option>
+          </md-select>
+
+          <!-- type SWITCH-->
+          <md-switch ng-if="list.type==='5'"
+                     ng-change="paramAs.saveParameters(list)"
+                     ng-model="list.value"
+                     aria-label="Switch 1"
+                     class="md-primary"
+                     ng-disabled="!main.currentUser.functions.Param_Edit && work.projectDetails.status === 'archived'"
+          >
+          </md-switch>
+
+          <i class="material-icons saved" ng-show="list.isSaved">check_circle</i>
+        </div>
+      </div>
+    </md-content>
+  </div>
+</form>

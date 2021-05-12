@@ -1,0 +1,11 @@
+<div class="widget_container widget_form">
+  <label for="{{model.id}}" ng-bind="model.displayname"></label>
+  <field-form class="filter_container" model="model" tab-type="{{tabType}}" column-url="{{editColumn}}"></field-form>
+  <p class="help-block" ng-show="add_edit[model.id].$error && add_edit[model.id].$error.required">
+    Choose {{model.id}} value from the list
+  </p>
+  <p class="help-block" ng-show="add_edit[model.id].$error && add_edit[model.id].$error.pattern">
+    {{model.id}} cannot contain apostrophe symbol
+  </p>
+</div>
+<div class="hr"></div>

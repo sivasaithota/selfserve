@@ -1,0 +1,208 @@
+<div id="actions" layout="column">
+  <div class="header" layout="row">
+    <div flex="10">
+      <img src="./src/images/icons/action-icon.svg" alt="">
+    </div>
+    <h2 flex="80">Actions</h2>
+    <div flex="10" layout="row" layout-align="end center">
+      <i id="closeAction" class="material-icons cursor-pointer">clear</i>
+    </div>
+  </div>
+  <uib-tabset flex class="actions_menu" layout="row" vertical="true" type="pills">
+
+    <!--Secondary actions-->
+    <uib-tab tab-name="run" layout="row">
+      <uib-tab-heading layout="column" layout-align="center center">
+        <img src="./src/images/icons/excecute-script.svg" width="20" height="20" alt="">
+        <span class="menu-name">Run</span>
+      </uib-tab-heading>
+      <div ng-repeat="action in actions.secondary" ng-if="actions.secondary.length"
+        ng-init="action.isStop = true;" class="content" layout="column">
+        <div layout="row" layout-align="space-between start">
+          <div flex>
+            <p>
+              <span>
+                <span class="name" ng-bind="action.name"></span>
+                <md-tooltip class="menu_tooltip" md-direction="bottom">{{action.description}}</md-tooltip>
+              </span>
+            </p>
+            <div ng-if="action.status">
+              <div layout="row">
+                <div>
+                  <p class="info">Status</p>
+                  <div layout="row">
+                    <span class="status" ng-if="action.status" ng-class="{
+                        'status--success': action.status.toLowerCase() === execStatus.success ||
+                              action.status.toLowerCase() === execStatus.completedSuccess,
+                        'status--error': action.status.toLowerCase() === execStatus.failure ||
+                              action.status.toLowerCase() === execStatus.cancelled ||
+                              action.status.toLowerCase() === execStatus.completedFailure ||
+                              action.status.toLowerCase() === execStatus.tableauFailure,
+                        'status--queued': action.status.toLowerCase() === execStatus.queued ||
+                              action.status.toLowerCase() === execStatus.running ||
+                              action.status.toLowerCase() === execStatus.started ||
+                              action.status.toLowerCase() === execStatus.cancelling
+                      }"></span>
+                    <p class="info-value" ng-bind="action.status"></p>
+                  </div>
+                </div>
+                <span flex="5"></span>
+                <div ng-if="action.endTime">
+                  <p class="info">Last executed on</p>
+                  <p class="info-value" ng-bind="action.endTime | date: 'MM/dd/yyyy'"></p>
+                </div>
+              </div>
+              <div layout="row">
+                <div ng-if="action.username">
+                  <p class="info">Executed by</p>
+                  <p class="info-value text-capitalize" ng-bind="convertUsername(action.username) || 'Admin'"></p>
+                </div>
+                <span flex="5"></span>
+                <div ng-if="action.executionTime">
+                  <p class="info">Execution time</p>
+                  <p class="info-value" ng-bind="action.executionTime | secondsToDateTime | date: 'HH:mm:ss'"></p>
+                </div>
+              </div>
+            </div>
+            <p ng-if="!(action.status)" class="info">Action yet to be Run</p>
+          </div>
+          <div layout="row">
+            <md-button class="md-fab md-mini" ng-click="stopAction(action)"
+              ng-if="(action.status.toLowerCase() === execStatus.running ||
+                action.status.toLowerCase() === execStatus.started) && action.isStop" aria-label="button">
+              <div layout="row" layout-align="center center">
+                <img src="./src/images/icons/stop-run.svg" width="30" height="30" alt="">
+              </div>
+            </md-button>
+            <md-button class="md-fab md-mini" ng-click="executeAction(action)"
+              ng-disabled="currentAction && currentAction.isExecuting" aria-label="button">
+              <div layout="row" layout-align="center center"
+                ng-show="!(currentAction && currentAction.isExecuting && currentAction._id === action._id)">
+                <img src="./src/images/icons/excecute-script.svg" width="30" height="30" alt="">
+              </div>
+              <spinner class="spinner light-spinner"
+                ng-show="currentAction && currentAction.isExecuting && currentAction._id === action._id"></spinner>
+            </md-button>
+            <md-button class="md-fab md-mini opacity" ng-click="downloadLog(action)" aria-label="button"
+            ng-disabled="!action.jobId">
+              <div layout="row" layout-align="center center">
+                <img src="./src/images/icons/log-icon.svg" width="30" height="30" alt="">
+              </div>
+            </md-button>
+            <md-button ng-if="currentUser.functions.Exec_Debug"
+              class="md-fab md-mini"
+              ng-click="openNotebook()"
+              aria-label="button"
+            >
+              <div layout="row" layout-align="center center">
+                <img src="./images/icons/debug-icon-actions.svg" width="30" height="30" alt="">
+              </div>
+            </md-button>
+          </div>
+        </div>
+        <div ng-if="action.execLogs">
+          <div>
+            <p class="info">Live logs</p>
+          </div>
+          <div class="logs-content" auto-scroll>
+            <div ng-repeat="logData in action.execLogs | orderBy: 'time' track by $index">
+              {{logData.time | date: 'MM/dd/yy HH:mm:ss'}} - "{{logData.log}}"
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content--empty" ng-if="!actions.secondary.length">
+        <p class="empty-action">No actions added</p>
+      </div>
+    </uib-tab>
+
+    <!--Download actions-->
+    <uib-tab tab-name="download">
+      <uib-tab-heading layout="column" layout-align="center center">
+        <img src="./src/images/icons/download-log.svg" width="20" height="20" alt="">
+        <span class="menu-name">Download</span>
+      </uib-tab-heading>
+      <div ng-repeat="download in actions.download" ng-if="actions.download.length"
+        class="content" layout="row" layout-align="space-between start">
+        <div layout="column">
+          <p>
+            <span>
+              <span class="name" ng-bind="download.name"></span>
+              <md-tooltip class="menu_tooltip" md-direction="bottom">{{download.description}}</md-tooltip>
+            </span>
+          </p>
+          <div ng-if="download.lastAccessedAt && download.lastAccessedBy">
+            <p class="info">Last downloaded on</p>
+            <p class="info-value" ng-bind="download.lastAccessedAt || '-' | date: 'MM/dd/yyyy'"></p>
+            <p class="info">Last downloaded by</p>
+            <p class="info-value" ng-bind="download.lastAccessedBy || '-'"></p>
+          </div>
+          <p ng-if="!(download.lastAccessedAt && download.lastAccessedBy)" class="info">Action yet to be Run</p>
+        </div>
+        <div layout="row">
+          <md-button class="md-fab md-mini" ng-click="downloadAction(download)" aria-label="button">
+            <div ng-show="!download.inProgress" layout="row" layout-align="center center">
+              <img src="./src/images/icons/download-log.svg" width="30" height="30" alt="">
+            </div>
+            <spinner class="spinner light-spinner" ng-show="download.inProgress"></spinner>
+          </md-button>
+        </div>
+      </div>
+      <div class="content--empty" ng-if="!actions.download.length">
+        <p class="empty-action">No actions added</p>
+      </div>
+    </uib-tab>
+
+    <!--Upload actions-->
+    <uib-tab tab-name="upload">
+      <uib-tab-heading layout="column" layout-align="center center">
+        <img src="./src/images/upload-round-icon.svg" width="20" height="20" alt="">
+        <span class="menu-name">Upload</span>
+      </uib-tab-heading>
+      <div class="content"
+        ng-repeat="upload in actions.upload" ng-if="actions.upload.length" ng-init="upload.files = [];">
+        <div class="layout-row layout-align-space-between-start">
+          <div class="layout-column">
+            <p>
+              <span>
+                <span class="name" ng-bind="upload.name"></span>
+                <md-tooltip class="menu_tooltip" md-direction="bottom">{{download.description}}</md-tooltip>
+              </span>
+            </p>
+            <div ng-if="upload.lastAccessedAt && upload.lastAccessedBy">
+              <p class="info">Last uploaded on</p>
+              <p class="info-value" ng-bind="upload.lastAccessedAt || '-' | date: 'MM/dd/yyyy'"></p>
+              <p class="info">Last uploaded by</p>
+              <p class="info-value" ng-bind="upload.lastAccessedBy || '-'"></p>
+            </div>
+            <div ng-if="!(upload.lastAccessedAt && upload.lastAccessedBy)">
+              <p class="info">Action yet to be Run</p>
+              <br>
+            </div>
+          </div>
+          <div class="layout-row">
+            <md-button class="md-fab md-mini"
+              ng-model="upload.inputFiles"
+              ngf-select="uploadAction(upload)"
+              ngf-multiple="true"
+              aria-label="button">
+              <div layout="row" layout-align="center center">
+                <img src="./src/images/upload-round-icon.svg" width="30" height="30" alt="">
+              </div>
+            </md-button>
+          </div>
+        </div>
+        <p class="info" ng-show="upload.files.length">Updated files</p>
+        <div ng-repeat="file in upload.files" class="file_content layout-row layout-align-space-between-start">
+          <p ng-bind="file.name"></p>
+          <i ng-show="file.success" class="material-icons md-16">check_circle</i>
+          <i ng-show="file.error" class="material-icons md-16 error">error</i>
+          <spinner ng-show="file.inProgress" class="spinner light-spinner"></spinner>
+        </div>
+      </div>
+      <div class="content--empty" ng-if="!actions.upload.length">
+        <p class="empty-action">No actions added</p>
+      </div>
+    </uib-tab>
+  </uib-tabset>
+</div>

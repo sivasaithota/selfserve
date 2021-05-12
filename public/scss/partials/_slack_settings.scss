@@ -1,0 +1,145 @@
+%md-slack {
+  color: $text__color--light;
+  line-height: 25px;
+  min-height: 25px;
+  min-width: 50px;
+  text-transform: capitalize;
+  border-radius: 25px;
+}
+
+.panel-group .panel.slack {
+  margin-top: 18px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border-bottom: 1px solid #DCDCDC;
+  box-shadow: 1px 4px 7px 0px rgba(0,0,0,0.2);
+  .panel-title {
+    font-size: 24px;
+  }
+  .accordion-toggle {
+    text-decoration: none;
+  }
+  .slack_header {
+    font-size: 18px;
+    color: var(--extra-color);
+    md-input-container {
+      padding: 2px;
+      .md-input {
+        color: var(--extra-color);
+        font-size: 18px;
+      }
+      .md-input--security {
+        text-security: disc;
+        -webkit-text-security: disc;
+        -mox-text-security: disc
+      }
+    }
+  }
+  .slack_color {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+  }
+  > .panel-heading {
+    @include border-radius(10px);
+    padding: 20px;
+    background-color: #FFF;
+    &.collapsed {
+      color: #333;
+    }
+  }
+  > .panel-heading + .panel-collapse > .panel-body {
+    border: none;
+    overflow: hidden;
+    padding: 0 20px 20px;
+  }
+  .panel_body {
+  }
+  .md-slack {
+    background-color: var(--main-color);
+    @extend %md-slack;
+  }
+  .md-slack--error {
+    background-color: $bg__color--danger;
+    @extend %md-slack;
+  }
+  .danger {
+    color: $text__color--danger;
+  }
+  .color-picker-wrapper.color-picker-swatch-only .input-group .input-group-addon,
+  .color-picker-wrapper.color-picker-swatch-only .input-group .input-group-addon:focus {
+    border: 1px solid #fff;
+    border-radius: 0px;
+    width: 16px;
+    outline: none;
+  }
+}
+
+.slack_block {
+  color: var(--main-color);
+  h4 {
+    color: var(--extra-color);
+  }
+}
+
+.slack_creation {
+  background-color: var(--extra-color);
+  color: $text__color--light;
+  border-radius: 4px;
+  position: relative;
+  top: 10px;
+  z-index: 11;
+  padding: 10px;
+  min-width: 300px;
+  max-width: 300px;
+  box-shadow: 1px 4px 7px 0px rgba(0, 0, 0, 0.2);
+  md-input-container .md-input {
+    color: $text__color--light;
+    border-color: $text__color--light !important;
+  }
+}
+
+.slack_extra {
+  border-bottom: 1px solid #DCDCDC;
+  box-shadow: 1px 4px 7px 0px rgba(0, 0, 0, 0.2);
+  background-color: $bg__color--light;
+  border-radius: 2px;
+  position: absolute;
+  top: 8px;
+  right: 0;
+  padding: 10px;
+  text-transform: uppercase;
+  img {
+    margin-right: 5px;
+  }
+  h4 {
+    font-weight: 600;
+    color: var(--extra-color);
+  }
+  p {
+    font-weight: 600;
+    margin-bottom: 0px;
+    font-size: 16px;
+    color: var(--main-color);
+  }
+  md-switch {
+    margin: 1px;
+    .md-container {
+      width: 57px;
+      margin-right: 0px;
+      height: 34px;
+    }
+    .md-thumb-container {
+      width: 26px;
+    }
+    .md-bar {
+      width: 55px;
+      top: 8px;
+      height: 18px;
+    }
+    .md-thumb {
+      height: 30px;
+      width: 30px;
+    }
+  }
+}

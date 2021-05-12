@@ -1,0 +1,24 @@
+<ng-include ng-if="!model.columnType" src="'jqGridWidget/widget/views/field-types/text.ejs'"></ng-include>
+<div ng-if="model.edittype != 'custom' && model.columnType">
+  <ng-include ng-if="model.columnType == 'numeric' ||
+                     model.columnType == 'bigint' || model.columnType == 'integer'"
+    src="'jqGridWidget/widget/views/field-types/integer.ejs'"></ng-include>
+  <ng-include ng-if="
+    ((model.columnType == 'text' || model.columnType == 'varchar') && tabType !== 'rowVew') ||
+    model.columnType == 'double precision'"
+  src="'jqGridWidget/widget/views/field-types/text.ejs'"></ng-include>
+  <ng-include ng-if="model.columnType == 'date'"
+    src="'jqGridWidget/widget/views/field-types/datepicker.ejs'"></ng-include>
+  <ng-include ng-if="model.columnType == 'timestamp'"
+    src="'jqGridWidget/widget/views/field-types/timestamp.ejs'"></ng-include>
+  <ng-include ng-if="model.columnType == 'boolean'"
+    src="'jqGridWidget/widget/views/field-types/boolean.ejs'"></ng-include>
+  <ng-include ng-if="model.columnType == 'time'"
+    src="'jqGridWidget/widget/views/field-types/time.ejs'"></ng-include>
+  <ng-include ng-if="(model.columnType == 'text' || model.columnType == 'varchar') && tabType == 'rowVew'"
+    src="'jqGridWidget/widget/views/field-types/textarea.ejs'"></ng-include>
+</div>
+
+<div ng-if="model.edittype == 'custom' && model.columnType" class="position-relative">
+  <ng-include src="'jqGridWidget/widget/views/field-types/input-dropdown.ejs'"></ng-include>
+</div>

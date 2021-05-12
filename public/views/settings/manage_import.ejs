@@ -1,0 +1,39 @@
+<md-dialog id="manage_import_export" class="dialog-window manage_import_export">
+    <section>
+        <!--Headers-->
+        <label class="text-uppercase">Users list</label>
+        <h2 class="text-uppercase">Import users</h2>
+        <md-divider></md-divider>
+
+        <!--Body-->
+        <div layout="column" class="dialog-window-body">
+            <h2 class="dialog-window-body-question">Are you sure to Import?</h2>
+
+            <div layout="row" layout-align="start center" class="warning-container">
+                <i class="material-icons">warning</i>
+                <span>
+                Importing users will remove and replace all the existing users except the Administrator.
+            </span>
+            </div>
+            <div layout="row" layout-align="start center" class="warning-container">
+                <i class="material-icons">warning</i>
+                <span>
+                Scenario name should match, if you are importing users with Access details.
+            </span>
+            </div>
+
+        </div>
+    </section>
+
+    <!--Footer with buttons-->
+    <footer layout="row" layout-align="end center">
+        <md-button class="md-light"
+                   ngf-select="importUsersList($file)"
+                   ngf-pattern="userListPattern"
+                   ngf-accept="userListPattern"
+        >
+            import
+        </md-button>
+        <md-button class="md-transparent" ng-click="cancel()">cancel</md-button>
+    </footer>
+</md-dialog>

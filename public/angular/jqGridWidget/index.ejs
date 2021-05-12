@@ -1,0 +1,124 @@
+<!-- Table information -->
+<div layout="row" layout-align="space-between center" class="tab_header">
+  <div layout="row" layout-align="space-between center">
+    <!--add a button with the same id of sidebar-->
+    <i class="material-icons menu" sidebar-toggle="sidebar1" ng-if="isFullSize">menu</i>
+    <h2 class="display_name" ng-bind="jqGridTableNames.displayname"></h2>
+    <i class="material-icons info"
+      ns-popover
+      ns-popover-template="statusTmpl"
+      ns-popover-trigger="mouseenter"
+      ns-popover-placement="bottom|left"
+      ns-popover-hide-on-click="false"
+      ns-popover-theme="ns-popover-tooltip-theme"
+      ns-popover-timeout="1"
+      ng-if="jqGridTableNames.type === 'input'"
+    >info</i>
+  </div>
+
+  <div layout="row" class="widget_list_container">
+    <!-- Switch for different views -->
+    <div ng-show="jqGridTableNames.column_position" layout="row">
+      <div class="table_view--btn">
+        <input class="radio_view" type="radio"
+          id="grid_{{jqGridTableNames.displayname}}"
+          name="grid_{{jqGridTableNames.displayname}}"
+          ng-model="tableTabs['activeTab' + jqGridTableNames.displayname]"
+          ng-value="tableTabs['tabs' + jqGridTableNames.displayname].grid"
+          required/>
+        <label for="grid_{{jqGridTableNames.displayname}}" layout="row">
+          <div ng-bind-html="openHtml('grid-view.ejs')"></div>
+          <span>Table View</span>
+        </label>
+      </div>
+      <div>
+        <input class="radio_view" type="radio"
+          id="row_{{jqGridTableNames.displayname}}"
+          name="row_{{jqGridTableNames.displayname}}"
+          ng-model="tableTabs['activeTab' + jqGridTableNames.displayname]"
+          ng-value="tableTabs['tabs' + jqGridTableNames.displayname].row"
+          ng-change="openIndividualRecord(editedRow)"
+          required/>
+        <label layout="row" for="row_{{jqGridTableNames.displayname}}">
+          <div ng-bind-html="openHtml('form-view.ejs')"></div>
+          <span>Form View</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Filter info -->
+    <div ng-if="widgetOptions.isFiltered" layout="row" layout-align="space-between center" style="margin-left: 10px;">
+      <svg width="18px" height="16px" viewBox="0 0 23 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <g id="Fill-Options" transform="translate(-1660.000000, -170.000000)" class="svg_icon" stroke-width="2">
+            <g id="Group-10" transform="translate(1663.000000, 171.000000)">
+              <polygon id="Path-3" points="0 2.64202194e-14 17 0 11.0419039 7.34026603 11.0419039 17.5773109 7.03591759 14.8931004 7.03591759 7.41252974"></polygon>
+              <path d="M14,14 L20,14" id="Line-9"></path>
+              <path d="M14,18 L20,18" id="Line-9"></path>
+              <path d="M14,10 L20,10" id="Line-9"></path>
+            </g>
+          </g>
+        </g>
+      </svg>
+      <div layout="column">
+        <p class="title">Filtered results</p>
+        <p class="content">{{widgetOptions.filteredIds.length}} Row<span ng-if="widgetOptions.filteredIds.length > 1">s</span>
+          Filtered
+        </p>
+      </div>
+    </div>
+
+    <!-- Action list -->
+    <ng-include src="'jqGridWidget/views/action_list.ejs'"></ng-include>
+  </div>
+</div>
+
+<!-- Quick filter -->
+<ng-include
+  ng-show="filteringColumns.length && !isOpenedWidget"
+  src="'jqGridWidget/views/quick_filter.ejs'"></ng-include>
+
+<!-- All records view -->
+<div class="">
+  <div ng-show="tableTabs['activeTab' + jqGridTableNames.displayname] === tableTabs['tabs' + jqGridTableNames.displayname].grid"
+    class="jqgrid-table">
+    <table id="jqGrid_{{filterName(jqGridTableNames.tablename)}}"></table>
+    <div id="pager_jqgrid_{{filterName(jqGridTableNames.tablename)}}"></div>
+  </div>
+</div>
+
+<!-- Individual record view -->
+<div flex class="position-relative">
+  <ng-include
+    ng-show="
+      tableTabs['activeTab' + jqGridTableNames.displayname] === tableTabs['tabs' + jqGridTableNames.displayname].row
+      && jqGridTableNames.column_position
+    "
+    src="'jqGridWidget/views/individual_record.ejs'"></ng-include>
+</div>
+
+<script type="text/ng-template" id="statusTmpl">
+  <div class="triangle"></div>
+  <div aria-label="Create project" class="table_status">
+    <div>
+      <h5 class="text-uppercase">File name</h5>
+      <p ng-bind="jqGridTableNames.file_name || '-'"></p>
+    </div>
+    <div>
+      <h5 class="text-uppercase">Updated by</h5>
+      <p ng-bind="jqGridTableNames.updated_by || '-'"></p>
+    </div>
+    <div>
+      <h5 class="text-uppercase">Updated on</h5>
+      <p ng-bind="jqGridTableNames.updated_at | date: 'h:mm dd MMMM yyyy' || '-'"></p>
+    </div>
+    <div>
+      <h5 class="text-uppercase">Status</h5>
+      <div class="status" layout="row" layout-align="start center">
+        <i class="material-icons success margin" ng-if="jqGridTableNames.status.toLowerCase() === 'uploaded successfully'">check_circle</i>
+        <i class="material-icons error margin" ng-if="jqGridTableNames.status.toLowerCase() === 'data validation failed'">error</i>
+        <p ng-bind="jqGridTableNames.status || '-'"></p>
+      </div>
+    </div>
+  </div>
+</script>

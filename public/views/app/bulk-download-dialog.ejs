@@ -1,0 +1,63 @@
+<!--Input/output files bulk download modal dialog template
+    Controller angular/controllers/project/bulk.download.ctrl.js
+    Called from the controllers/project/table.js-->
+
+<md-dialog id="bulk-download-modal" class="dialog-window">
+  <section>
+    <!--Headers-->
+    <h2 class="text-uppercase">download {{ type }}s</h2>
+    <md-divider></md-divider>
+
+    <div layout="column" layout-align="space-around start">
+      <!--Warning if number of rows to download is more than 1 million-->
+      <div ng-if="rowsCount >= 1000000"
+           layout="column"
+           layout-align="center center"
+      >
+        <i class="material-icons">warning</i>
+        <p>{{ largeFileWarning[0] + '. ' + largeFileWarning[1] }}</p>
+        <p>{{ largeFileWarning[2] }}</p>
+      </div>
+      <div class="records-confirm-label">Are you sure you want to download all the {{ type }} tables?</div>
+      <div layout="row">
+        <div class="records-label">Total number of rows: </div>
+        <!--Number of records to download-->
+        <div class="records-number">{{rowsCount | currency:'':0}}</div>
+      </div>
+      <md-checkbox
+              md-no-ink
+              aria-label="With column display name"
+              ng-model="useDisplayName"
+              class="md-primary display-name-checkbox"
+      >
+        With column display name
+      </md-checkbox>
+      <div class="display-name-info">If not selected, the downloaded tables will have the default column names</div>
+    </div>
+  </section>
+
+  <!--Footer with buttons and spinner while downloading-->
+  <footer>
+    <div ng-if="!downloading"
+         layout="row"
+         layout-align="space-between center"
+    >
+      <div>
+        <md-button class="md-dark" ng-click="download()">
+          download
+        </md-button>
+        <md-button class="md-transparent" ng-click="closeModal()">
+          cancel
+        </md-button>
+      </div>
+    </div>
+
+    <div ng-if="downloading"
+         layout="row"
+         layout-align="center center"
+    >
+      <span>preparing files</span>
+      <spinner/>
+    </div>
+  </footer>
+</md-dialog>

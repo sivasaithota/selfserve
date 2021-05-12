@@ -1,0 +1,10 @@
+<div ng-if="widgetInfo.filterTabs.length">
+  <uib-tabset id="filter-tab">
+    <uib-tab ng-repeat="tab in widgetInfo.filterTabs | orderBy: 'orderId'" active="tab.active" ng-if="tab.visible">
+      <uib-tab-heading ng-click="opentFilter(tab)">
+        <img ng-src="{{'./src/images/' + tab.icon + '_icon.svg'}}" alt="{{tab.icon}}">
+      </uib-tab-heading>
+      <ng-include src="'jqGridWidget/widget/views/' + tab.view + '.ejs'"></ng-include>
+    </uib-tab>
+  </uib-tabset>
+</div>

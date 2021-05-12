@@ -1,0 +1,290 @@
+@media only screen and (max-height: 900px) {
+  #tag_list,
+  #table_list .tab-content > .active,
+  .table_info {
+    min-height: $tab_height_sm;
+  }
+  #tag_list .list {
+    max-height: calc(#{$tab_height_sm} - 44px);
+  }
+}
+
+@media only screen and (max-width: 1840px) {
+  %btn_medium {
+    line-height: 30px;
+    min-height: 30px;
+    i {
+      font-size: 22px;
+      &.left {
+        margin-right: 7px;
+      }
+      &.right {
+        margin-left: 7px;
+      }
+    }
+  }
+  #table_list {
+    .display_name {
+      + .info {
+        font-size: 16px;
+      }
+    }
+  }
+  #scenarios .user_container {
+    right: 0;
+  }
+  .execution_container {
+    height: 30px;
+    top: -52px;
+    p {
+      font-size: 12px;
+    }
+    > i {
+      font-size: 20px;
+    }
+  }
+  .md-button {
+    font-size: 12px;
+    @extend %btn_medium;
+    &.md-med {
+      padding-right: 10px;
+      padding-left: 10px;
+    }
+  }
+  .upload_btn {
+    @extend %btn_medium;
+  }
+  #refresh_input .md-button {
+    right: 40px;
+    top: -6px;
+  }
+}
+
+@media only screen and (max-width: 1599px) {
+  .md-button.md-lg {
+    line-height: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .scenario_name {
+    font-size: 20px;
+  }
+  .scenario_info {
+    font-size: 16px;
+  }
+  .scenario_actions .dialog-action{
+    &.active {
+      bottom: 0;
+    }
+  }
+  .dialog-action {
+    width: 330px;
+    min-width: 330px;
+    p {
+      font-size: 18px;
+    }
+  }
+}
+
+@media only screen and (max-width: 1280px) {
+  .scenario_name {
+    font-size: 16px;
+  }
+}
+
+@media only screen and (min-width: 1440px) and (max-width: 1599px) {
+  #tag_list {
+    min-width: $tab_width_md;
+    max-width: $tab_width_md;
+    .input-output-tablename {
+      max-width: 135px;
+    }
+  }
+  // ASK BHAARATH??
+  .scenario_name {
+    font-size: 20px;
+  }
+  .parameters_form--content {
+    margin-top: 0px;
+    width: $parameters_md*4 + $parameters_padding_md*3;
+    .content--4 {
+      flex: 0 0 $parameters_md*4 + $parameters_padding_md*3;
+      max-width: $parameters_md*4 + $parameters_padding_md*3;
+    }
+    .content--3 {
+      flex: 0 0 $parameters_md*3 + $parameters_padding_md*2;
+      max-width: $parameters_md*3 + $parameters_padding_md*2;
+    }
+    .content--2 {
+      flex: 0 0 $parameters_md*2 + $parameters_padding_md;
+      max-width: $parameters_md*2 + $parameters_padding_md;
+    }
+    .content--1 {
+      flex: 0 0 $parameters_md;
+      max-width: $parameters_md;
+    }
+    .parameter_box {
+      width: $parameters_md - $parameters_padding_md*2;
+    }
+  }
+}
+
+@media only screen and (max-width: 1440px) {
+  #tag_list {
+    min-width: $tab_width_sm;
+    max-width: $tab_width_sm;
+  }
+  #table_list {
+    width: calc(100% - #{$tab_width_sm});
+  }
+  .parameters_form--content {
+    margin-top: 0px;
+    width: $parameters_sm*4 + $parameters_padding_md*3;
+    .content--4 {
+      flex: 0 0 $parameters_sm*4 + $parameters_padding_md*3;
+      max-width: $parameters_sm*4 + $parameters_padding_md*3;
+    }
+    .content--3 {
+      flex: 0 0 $parameters_sm*3 + $parameters_padding_md*2;
+      max-width: $parameters_sm*3 + $parameters_padding_md*2;
+    }
+    .content--2 {
+      flex: 0 0 $parameters_sm*2 + $parameters_padding_md;
+      max-width: $parameters_sm*2 + $parameters_padding_md;
+    }
+    .content--1 {
+      flex: 0 0 $parameters_sm;
+      max-width: $parameters_sm;
+    }
+    .parameter_box {
+      width: $parameters_sm - $parameters_padding_md*2;
+    }
+  }
+  .table_info {
+    font-size: 32px;
+  }
+  ul.widget_list li a,
+  md-menu-content.widget_list md-menu-item md-button {
+    img {
+      width: 15px;
+      height: 15px;
+    }
+  }
+  #refresh_input {
+    .md-button {
+      right: 30px;
+    }
+    #macros_menu_btn svg {
+      width: 17px;
+      height: 17px;
+    }
+  }
+  .report_content {
+    padding-top: 6px;
+  }
+  #download-dropdown {
+    font-size: 14px;
+  }
+
+  // Home page
+  .scenario_info {
+    font-size: 14px;
+  }
+  .settings_container {
+    min-height: calc(100% - #{$bar_height_sm});
+  }
+
+  // Scenario page
+  #grid-widget h3 {
+    font-size: 16px;
+  }
+  .parameters_form--content {
+    label {
+      font-size: 16px;
+    }
+  }
+  #tag_list {
+    li {
+      font-size: 12px;
+    }
+  }
+
+  #tabs > md-tabs > md-tabs-wrapper > md-tabs-canvas {
+    height: 55px;
+    > md-pagination-wrapper > .md-tab {
+      max-width: 1380px;
+      min-width: 120px;
+      line-height: 10px;
+      font-size: 12px;
+    }
+  }
+
+  .extra_tab > .nav-tabs {
+    top: -56px;
+  }
+
+  #refresh_input .md-button {
+    font-size: 12px;
+  }
+
+  .extra_tab svg.menu--icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .widget_list_container {
+    top: -12px;
+  }
+
+  .ui-jqgrid .ui-jqgrid-btable tbody tr.jqgrow td,
+  .ui-jqgrid .ui-jqgrid-htable thead th div {
+    font-size: 12px;
+  }
+  #table_list .display_name {
+    font-size: 18px;
+  }
+
+  .widget_right {
+    p {
+      font-size: 10px;
+    }
+    h4 {
+      font-size: 18px;
+    }
+  }
+
+  .table_status {
+    p {
+      font-size: 16px;
+    }
+    h5 {
+      font-size: 12px;
+    }
+  }
+
+  // Settings page
+  .templates_list {
+    font-size: 16px;
+  }
+  .settings_menu {
+    .md-subheader-inner {
+      font-size: 16px;
+    }
+    md-list-item {
+      padding: 15px 35px;
+    }
+  }
+  .setting_content {
+    md-toolbar:not(.md-menu-toolbar) {
+      p {
+        font-size: 10px !important;
+      }
+      h2 {
+        font-size: 14px !important;
+      }
+    }
+    label {
+      font-size: 10px;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+<div id="wrapper" ng-class="{shifted: !main.online}">
+  <!--No internet banner-->
+  <div
+    ng-show="!main.online"
+    layout="row"
+    layout-align="center center"
+    class="offline-mode"
+  >
+    <i class="material-icons">warning</i>
+    No Internet Connection. You are offline
+  </div>
+
+  <div ui-view="top_bar"></div>
+  <div ui-view class="app-content" ng-class="{'position-relative': main.currentState.includes('base.settings.scenario')}"></div>
+</div>

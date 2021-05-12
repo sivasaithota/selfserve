@@ -1,0 +1,375 @@
+<div layout="row" id="extraTab">
+  <div class="extra_tab" style="width: 100%">
+    <!-- Header -->
+    <div class="nav nav-tabs" layout="row" layout-align="end center">
+      <!--Actions and grid/tableau/html buttons-->
+      <div id="refresh_input" layout="row" layout-align="center center"
+           ng-if="main.currentUser.functions.Exec_Run && (tabAs.actions.secondary || tabAs.actions.upload || tabAs.actions.download)">
+        <div class="action-name" ng-if="tabAs.currentAction" layout="row" layout-align="space-between center">
+          <spinner class="spinner dark-spinner"></spinner>
+          {{tabAs.currentAction}}
+        </div>
+        <md-button id="macros_menu_btn--sm" class="md-white md-med text-capitalize">
+          <div layout="row" layout-align="center center">
+            <svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <g id="Macros-Widget" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="Scenario-Page-Action-Widget-Run" transform="translate(-1338.000000, -97.000000)" fill="#47474f" fill-rule="nonzero">
+                  <g id="np_action_320248_FFFFFF" transform="translate(1338.000000, 97.000000)">
+                    <path d="M11.3289167,18.0114965 L8.40618786,25.3212716 L7.2456435,24.251421 L6.71356927,23.7599847 L5.37271111,22.5233546 L4.21216675,21.453504 L11.3287339,18.0115874 L11.3289167,18.0114965 Z M14.7692308,14.3283582 L1.01053425,20.9800083 L4.1278832,23.8541842 L0,28.2737049 L1.87293239,30 L5.99903301,25.5804793 L9.11638195,28.4546552 L14.7692308,14.3283582 Z" id="Shape"></path>
+                    <path d="M17.7692331,0 C11.0251628,0 5.53846154,5.42334648 5.53846154,12.0895432 C5.53846154,12.8221921 5.60633203,13.5406951 5.73492659,14.2362845 L7.59596993,14.2362845 C7.44594523,13.5460281 7.36735738,12.8257173 7.36735738,12.0895432 C7.36735738,6.42259807 12.0360829,1.80778216 17.7692285,1.80778216 C23.5023741,1.80778216 28.1710996,6.42259807 28.1710996,12.0895432 C28.1710996,17.7564883 23.5023741,22.3713042 17.7692285,22.3713042 C16.9422912,22.3713042 16.1421472,22.2759708 15.3687967,22.0906054 L15.3687967,23.9443052 C16.1457136,24.0978944 16.9458575,24.1791045 17.7692285,24.1791045 C24.5132988,24.1791045 30,18.755758 30,12.0895613 C30,5.42336456 24.5132988,1.80778216e-05 17.7692285,1.80778216e-05 L17.7692331,0 Z" id="Shape"></path>
+                    <path d="M18.001051,4.47791991 C13.9280983,4.47791991 10.6153846,7.69119997 10.6153846,11.642099 C10.6153846,12.0762346 10.6567247,12.5016577 10.7340127,12.9148779 L11.8573923,12.9148779 C11.7657237,12.5051525 11.7189921,12.0797339 11.7189921,11.642099 C11.7189921,8.28411602 14.5373341,5.55047131 17.9989482,5.55047131 C21.4607464,5.55047131 24.2789043,8.28429456 24.2789043,11.642099 C24.2789043,15.000082 21.4587678,17.7337267 17.9989482,17.7337267 C17.4992849,17.7337267 17.0157725,17.6761892 16.5502514,17.568095 L16.5502514,18.6664894 C17.0193616,18.7571496 17.502874,18.8059701 17.9989482,18.8059701 C22.071901,18.8059701 25.3846147,15.5926901 25.3846147,11.641791 C25.386412,7.69272199 22.0737876,4.47761194 18.0007888,4.47761194 L18.001051,4.47791991 Z" id="Shape"></path>
+                  </g>
+                </g>
+              </g>
+            </svg>
+            <span>Actions</span>
+          </div>
+        </md-button>
+      </div>
+
+      <!-- List of tabs -->
+      <div class="list_container" layout="row" layout-align="start center" ng-show="tabAs.checkTabsVisibility()">
+        <div class="img_container"
+          layout="row" layout-align="center center"
+          ng-bind-html="tabAs.openHtml(tabAs.tabsList[tabAs.activeTab].icon)"></div>
+        <md-select class="tabs_list" ng-model="tabAs.activeTab" md-container-class="tabs_list__values">
+          <md-option
+            ng-repeat="tab in tabAs.tabsList"
+            value="{{tab.id}}"
+            ng-show="tab.isVisible"
+            tab-name="tab.name"
+            >
+            <div layout="row" layout-align="start center">
+              <div class="img_container" ng-bind-html="tabAs.openHtml(tab.icon)"></div>
+              <div>{{tab.displayName}}</div>
+            </div>
+          </md-option>
+        </md-select>
+      </div>
+
+      <!-- Show/Hide full size -->
+      <div class="closeMenu" ng-if="tabAs.activeTab !== undefined">
+        <size-menu tables="tabAs.dbuploadlist"
+          show-info="tabAs.showInfo"
+          active-tab="tabAs.tabsList[tabAs.activeTab].name"
+          ng-cloak
+          ></size-menu>
+      </div>
+    </div>
+
+    <!--Tables tab-->
+    <div class="tab-content"
+         tab-name="table"
+         ng-class="{active: tabAs.activeTab == tabAs.tabsList[0].id}"
+         >
+      <div class="data_container" layout="row">
+        <div id="tag_list" class="full_size_hide" layout="column" layout-align="space-between center">
+          <div class="list">
+            <div ng-repeat="(pIndex, value) in tabAs.dbuploadlist track by $index" ng-show="tabAs.checkTagVisibility(value.tables)">
+              <div class="tag" ng-bind="value.tagName" ng-if="value.tagName.toLowerCase() !== 'untagged'"></div>
+              <ul class="nav nav-pills nav-stacked">
+                <li
+                        ng-repeat="list in value.tables"
+                        ng-class="{'active': list.active}"
+                        ng-click="tabAs.changeTable(pIndex, $index)"
+                        ng-if="list.visible"
+                        layout="row"
+                        layout-align="space-between center">
+                  <div>
+                    <div class="input-output-tablename" ng-bind="list.displayname"></div>
+                    <md-tooltip class="menu_tooltip" md-direction="right">{{list.displayname}}</md-tooltip>
+                  </div>
+                  <div class="badger">
+                    {{list.total_count || 0 | number}} rows
+                  </div>
+                  <div class="badger" ng-if="tabAs.loadingTableCounts">
+                    <div class="badger">Loading...</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!--Upload all and download all buttons-->
+          <div layout="row" class="upload-download-buttons">
+
+            <!--Upload all for the users roles allowed to upload-->
+            <md-button class="md-light"
+                       ng-click="tabAs.bulkUpload($event)"
+                       ng-if="main.currentUser.role !== 'Analyst_ReadEdit' &&
+                       main.currentUser.role !== 'Analyst_ReadOnly' &&
+                       main.currentUser.role !== 'Analyst_ReadWrite' &&
+                       main.currentUser.role !== 'Analyst_Execute' &&
+                       main.currentUser.functions.Grid_Upload && work.projectDetails.status === 'active'">
+              <div layout="row" layout-align="space-between center">
+                <div>
+                  <div>upload</div>
+                  <div class="tab-type">{{tabAs.typeTab}}s</div>
+                </div>
+                <img src="./src/images/upload-round-icon.svg" alt="upload all">
+              </div>
+            </md-button>
+
+            <!--Download all for the users roles allowed to download-->
+            <md-button class="md-light"
+                       ng-click="tabAs.bulkDownload($event)"
+                       ng-if="main.currentUser.functions.Grid_Download">
+              <div layout="row" layout-align="space-between center">
+                <div>
+                  <div>download</div>
+                  <div class="tab-type">{{tabAs.typeTab}}s</div>
+                </div>
+                <img src="./src/images/download-round-icon.svg" alt="download all">
+              </div>
+            </md-button>
+          </div>
+
+        </div>
+        <div flex id="table_list">
+          <sidebar id="sidebar1" position="left" is-expanded="false">
+            <div id="tag_list" layout="column" layout-align="space-between center">
+              <div class="list">
+                <div class="header" layout="flex">
+                  <i id="" class="material-icons menu closeMenu" ng-if="isFullSize">menu</i>
+                  <span flex="5"></span>
+                  <p ng-bind="tabAs.typeTab + ' data'"></p>
+                </div>
+                <div ng-repeat="(pIndex, value) in tabAs.dbuploadlist track by $index">
+                  <div class="tag" ng-bind="value.tagName" ng-if="value.tagName.toLowerCase() !== 'untagged'"></div>
+                  <ul class="nav nav-pills nav-stacked">
+                    <li class="closeMenu" ng-repeat="list in value.tables" ng-class="{'active': list.active}" ng-click="tabAs.changeTable(pIndex, $index)" ng-if="list.visible">
+                      <div ng-bind="list.displayname"></div>
+                      <div class="badger pull-right" layout="column">
+                        <div class="badger_number">{{list.total_count || 0 | number}}</div>
+                        <div class="badger_rows">rows</div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </sidebar>
+          <div ng-repeat="value in tabAs.dbuploadlist track by $index">
+            <div class="tab-content" ng-class="{'active': value.active}">
+              <jq-grid-table ng-show="list.active"
+                             class="tab-pane active"
+                             ng-class="{'active': list.active}"
+                             layout="column"
+                             ng-repeat="list in value.tables"
+                             jq-grid-active="list.active"
+                             jq-grid-config="tabAs.generateConfiguration($event, list)"
+                             jq-grid-table-names="list"
+                             jq-error-fn="tabAs.showErrorMsg"
+                             sub-tab-name="tabAs.tabsList[tabAs.activeTab].name"></jq-grid-table>
+            </div>
+          </div>
+          <div ng-show="tabAs.showInfo" class="table_info" layout="column" layout-align="center center">
+            <img src="./src/images/grid-icon.png" width="440"/>
+            <span>Select one of the {{tabAs.typeTab}} Tables on the left to view its data</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Tableau tab-->
+    <div class="tab-content tab-content--tableau"
+         ng-if="tabAs.tabsList[1].isVisible"
+         tab-name="tableau"
+         ng-class="{active: tabAs.activeTab == tabAs.tabsList[1].id}"
+         >
+      <div class="data_container app_container--tabs">
+        <div id="tableauViz">
+          <div class="tableau_header" layout="row" layout-wrap layout-align="center center">
+            <div ng-repeat="table in tabAs.reportArr">
+              <input class="radio_tableau"
+                     type="radio"
+                     id="{{tabAs.typeTab}}_report_{{$index}}"
+                     name="radio{{tabAs.typeTab}}"
+                     data-ng-model="tabAs['current'+tabAs.typeTab]"
+                     data-ng-value="table.id"/>
+              <label for="{{tabAs.typeTab}}_report_{{$index}}" ng-bind="table.label"></label>
+            </div>
+          </div>
+          <div ng-show="tabAs.tabsList[1].isVisible ">
+            <div class="tableauFrame"
+              ng-if="tabAs[tabAs.typeTab + 'VizType'] === tabAs.reportTypes.tableAU"
+              tableau-viz
+              tableau-id="tabAs.pid"
+              tableau-url="tabAs.passActiveReport(tabAs[tabAs.typeTab + 'VizType'])"
+              tableau-type="tabAs.typeTab"></div>
+            <div class="powerbiFrame"
+              ng-if="tabAs[tabAs.typeTab + 'VizType'] === tabAs.reportTypes.powerBI"
+              powerbi-viz="tabAs.passActiveReport(tabAs[tabAs.typeTab + 'VizType'])"
+              table-list="tabAs.uploadedTables"
+              scenario-id="tabAs.pid"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!--Output HTML tab-->
+    <div class="tab-content"
+         ng-if="tabAs.tabsList[2].isVisible"
+         tab-name="html"
+         ng-class="{active: tabAs.activeTab == tabAs.tabsList[2].id}"
+       >
+      <!--Download in PDF menu-->
+      <div class="report_content">
+        <div ng-if="tabAs.outputHtml.startsWith('./scenario/output/html/')"
+             layout="row"
+             layout-align="end center"
+        >
+
+          <md-menu md-offset="0 40">
+            <a id="download-dropdown"
+               layout="row"
+               layout-align="center center"
+               ng-click="$mdOpenMenu($event)"
+            >
+              download pdf
+              <i class="material-icons">expand_more</i>
+            </a>
+
+            <md-menu-content id="download-pdf-menu">
+
+              <!--Default size section-->
+              <section ng-class="{ selected: tabAs.outputPdfDetails.isDefaultSize }">
+                <label class="pdf-size-radio">
+                  <input type="radio" ng-model="tabAs.outputPdfDetails.isDefaultSize" ng-value="true">
+                  default size
+                </label>
+
+                <div class="pdf-default-size" layout="row">
+                  <i class="material-icons">description</i>
+                  <div>
+                    <span>A4 Paper Size</span>
+                    <p>Width 210mm, Height 297mm</p>
+                  </div>
+                </div>
+              </section>
+
+              <!--Custom size section-->
+              <section ng-class="{ selected: !tabAs.outputPdfDetails.isDefaultSize }">
+              <label class="pdf-size-radio">
+                  <input type="radio" ng-model="tabAs.outputPdfDetails.isDefaultSize" ng-value="false">
+                  custom size
+                </label>
+
+                <!--PDF width input-->
+                <div class="pdf-parameter"
+                     layout="row"
+                     layout-align="space-between center"
+                >
+                  <div layout="row" layout-align="center center">
+                    <!--Page width icon-->
+                    <svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="AC-DownloadPDF" transform="translate(-1678.000000, -214.000000)" fill="#6C73B4">
+                          <g id="np_width_633652_6C73B4" transform="translate(1678.000000, 214.000000)">
+                            <path d="M0,20 L20,20 L20,0 L0,0 L0,20 Z M1.875,1.875 L18.125,1.875 L18.125,18.125 L1.875,18.125 L1.875,1.875 Z" id="Shape" fill-rule="nonzero"></path>
+                            <polygon id="Path" points="13.3075 7.9425 14.7411 9.375125 5.2586 9.375125 6.6922 7.9425 5.807425 7.057725 2.865925 10.000225 5.807425 12.942725 6.6922 12.05795 5.2586 10.625325 14.7411 10.625325 13.3075 12.05795 14.192275 12.942725 17.133775 10.000225 14.192275 7.057725"></polygon>
+                          </g>
+                        </g>
+                      </g>
+                    </svg>
+                    <label for="pdf-page-width">Page Width</label>
+                  </div>
+                  <div layout="row" layout-align="center center">
+                    <input id="pdf-page-width"
+                           ng-model="tabAs.outputPdfDetails.width"
+                           type="number"
+                           required
+                           min="1"
+                           max="1000"
+                    />
+                    <span>mm</span>
+                  </div>
+                </div>
+                <p>Min 1mm - Max 1000mm</p>
+
+                <!--PDF height input-->
+                <div class="pdf-parameter"
+                     layout="row"
+                     layout-align="space-between center"
+                >
+                  <div layout="row" layout-align="center center">
+                    <!--Page height icon-->
+                    <svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                      <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="AC-DownloadPDF" transform="translate(-1678.000000, -274.000000)" fill="#6C73B4">
+                          <g id="np_width_633652_6C73B4-Copy" transform="translate(1688.000000, 284.000000) rotate(90.000000) translate(-1688.000000, -284.000000) translate(1678.000000, 274.000000)">
+                            <path d="M0,20 L20,20 L20,0 L0,0 L0,20 Z M1.875,1.875 L18.125,1.875 L18.125,18.125 L1.875,18.125 L1.875,1.875 Z" id="Shape" fill-rule="nonzero"></path>
+                            <polygon id="Path" points="13.3075 7.9425 14.7411 9.375125 5.2586 9.375125 6.6922 7.9425 5.807425 7.057725 2.865925 10.000225 5.807425 12.942725 6.6922 12.05795 5.2586 10.625325 14.7411 10.625325 13.3075 12.05795 14.192275 12.942725 17.133775 10.000225 14.192275 7.057725"></polygon>
+                          </g>
+                        </g>
+                      </g>
+                    </svg>
+                    <label for="pdf-page-height">Page Height</label>
+                  </div>
+                  <div layout="row" layout-align="center center">
+                    <input id="pdf-page-height"
+                           ng-model="tabAs.outputPdfDetails.height"
+                           type="number"
+                           required
+                           min="1"
+                           max="1000"
+                    />
+                    <span>mm</span>
+                  </div>
+                </div>
+                <p>Min 1mm - Max 1000mm</p>
+              </section>
+
+              <!--Download pdf button-->
+              <md-button ng-click="tabAs.getPDF()" class="md-light"
+                         layout="row"
+                         layout-align="center center">
+                download pdf
+                <img src="./src/images/download_icon.svg" alt="download">
+              </md-button>
+            </md-menu-content>
+          </md-menu>
+        </div>
+        <div ng-bind-html-unsafe="html">
+          <object id="html-output" data="{{tabAs.outputHtml}}" width="100%" height="100%"></object>
+        </div>
+      </div>
+    </div>
+
+    <!--BOM tab-->
+    <div class="tab-content"
+         ng-if="tabAs.tabsList[3].isVisible"
+         tab-name="bom"
+         ng-class="{active: tabAs.activeTab == tabAs.tabsList[3].id}"
+       >
+      <div class="data_container app_container--tabs">
+        <div class="tableau_header" layout="row" layout-wrap>
+          <div ng-repeat="bom in tabAs[tabAs.typeTab + 'Bom']">
+            <input class="radio_tableau"
+              type="radio"
+              id="{{tabAs.typeTab}}_bom_{{$index}}"
+              name="bom{{tabAs.typeTab}}"
+              data-ng-model="tabAs[tabAs.typeTab + 'CurrentBom'].table"
+              data-ng-value="bom.table"/>
+            <label for="{{tabAs.typeTab}}_bom_{{$index}}" ng-bind="bom.tabName || 'Bill Of Materials'"></label>
+          </div>
+        </div>
+        <bom-visualization
+          scenario-id="tabAs.pid"
+          tab-table="tabAs[tabAs.typeTab + 'CurrentBom'].table"
+          tab-type="tabAs.typeTab"
+          label-name="tabAs.findLabel(tabAs[tabAs.typeTab + 'Bom'], tabAs[tabAs.typeTab + 'CurrentBom'].table)"
+          bom-settings="tabAs.findBomSettings(tabAs[tabAs.typeTab + 'Bom'], tabAs[tabAs.typeTab + 'CurrentBom'].table)">
+        </bom-visualization>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="action-content">
+  <action-widget
+    actions="tabAs.actions"
+    type="tabAs.typeTab"
+    pid="tabAs.pid"></action-widget>
+</div>

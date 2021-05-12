@@ -1,0 +1,31 @@
+<script>
+    var keycloakConfig = {
+        "url": "/auth",
+        "realm": "enframe",
+        "clientId": "selfserve_frontend",
+        "onLoad": "login-required",
+    }
+
+    var keycloak = new Keycloak(keycloakConfig);
+    keycloak.init({ onLoad: 'login-required', checkLoginIframe: false }).success(function (authenticated) {
+        if (!authenticated) {
+            window.location.reload();
+        }
+        localStorage.setItem('accessToken', keycloak.token);
+        keycloak.loadUserInfo().success(userInfo => {
+            localStorage.setItem('userInfo', JSON.stringify(userInfo));
+            angular.bootstrap(document, ['commonApp']);
+        });
+        setInterval(() => {
+            keycloak.updateToken(70).success((refreshed) => {
+                if (refreshed) {
+                    localStorage.setItem('accessToken', keycloak.token);
+                }
+            }).error(() => {
+                console.log('Failed to refresh token');
+            });
+        }, 60000);
+    }).error(function (err) {
+        console.log('failed to initialize', err);
+    });
+</script>

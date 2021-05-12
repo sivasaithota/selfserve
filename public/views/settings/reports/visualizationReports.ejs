@@ -1,0 +1,64 @@
+<div class="reports_container" ng-controller="TableauReportsCtrl as tableauReportsCtrl">
+
+  <section class="setting_content" flex layout="column">
+    <!--Header-->
+    <md-toolbar>
+      <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+        <div layout="column">
+          <p flex>Visualization</p>
+          <h2 flex class="md-flex">Add a report to the app</h2>
+        </div>
+      </div>
+    </md-toolbar>
+
+    <!--Spinner until tableau reports and settings are fetched-->
+    <div ng-if="!tableauSettingsCtrl.inputTables || !tableauSettingsCtrl.outputTables || !tableauSettingsCtrl.settings" class="md-padding" layout="row"
+         layout-align="center center">
+      <spinner></spinner>
+    </div>
+
+    <!--Tabs-->
+    <md-tabs md-selected="1" md-dynamic-height class="settings-tabs highlighted-wrapper workflows-settings">
+      <md-tab ng-repeat="segmentTab in tableauSettingsCtrl.tabs"  label="{{segmentTab.segment}}">
+        <!--Card content-->
+        <md-content flex>
+          <div class="vizualisation-content" layout="row" layout-align="space-between center">
+            <!--Tableau/PowerBI settings switch-->
+            <md-radio-group layout="row"
+              ng-model="segmentTab[segmentTab.vizType]"
+              ng-change="tableauSettingsCtrl.updateVizType(segmentTab.vizType, segmentTab[segmentTab.vizType])">
+              <md-radio-button value="{{ tableauReportsCtrl.reportTypes['tableau'].value }}" class="md-primary">
+                <img src="./src/images/icons/tableau-settings.svg" height="20" alt="">
+                {{ tableauReportsCtrl.reportTypes['tableau'].label }}
+              </md-radio-button>
+              <md-radio-button value="{{ tableauReportsCtrl.reportTypes['powerbi'].value }}" class="md-primary">
+                <img src="./src/images/icons/powerbi-settings.svg" height="20" alt="">
+                {{ tableauReportsCtrl.reportTypes['powerbi'].label }}
+              </md-radio-button>
+            </md-radio-group>
+
+            <!--Report on/off switch-->
+            <div layout="row" layout-align="start center">
+              <p class="switch-label">Show {{segmentTab.segment}} reports</p>
+              <md-switch ng-model="tableauSettingsCtrl.settings[segmentTab.tabValue]" class="md-primary" aria-label="settings"
+                         ng-change="tableauSettingsCtrl.saveTabVisibility(segmentTab.tabValue,false)">
+              </md-switch>
+            </div>
+          </div>
+
+          <md-content class="md-padding tableau_block"
+            ng-class="{'vizualisation-nonactive': !tableauSettingsCtrl.settings[segmentTab.tabValue]}">
+            <ng-include ng-if="segmentTab[segmentTab.vizType] === tableauReportsCtrl.reportTypes['tableau'].value"
+              src="'settings/reports/tableauReports.ejs'"></ng-include>
+
+            <ng-include ng-if="segmentTab[segmentTab.vizType] === tableauReportsCtrl.reportTypes['powerbi'].value"
+              src="'settings/reports/powerbiReports.ejs'"></ng-include>
+
+          </md-content>
+
+        </md-content>
+      </md-tab>
+    </md-tabs>
+
+  </section>
+</div>

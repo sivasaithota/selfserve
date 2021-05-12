@@ -1,0 +1,285 @@
+<!--List of scenarios on the Home page. Controller controllers/landing/index.js-->
+<div flex layout="column" layout-align="start end" dragula='"scenario-bag"' dragula-model="scenario.projects">
+  <!--Iterating through the list of scenarious-->
+  <div layout="row" layout-align="space-between center" class="scenario"
+    ng-class="{
+      'scenario--padding': !main.currentUser.functions.Sc_Edit,
+      'archived': project.status == 'archived',
+      'processing': project.process
+    }"
+    ng-repeat="project in scenario.projects | filterByTags: scenario.filter : scenario.tags : scenario.activeObj"
+    ng-init="project.edit = false">
+
+    <!--Icon for drag-and-drop-->
+    <div class="move_block"
+         ng-if="main.currentUser.functions.Sc_Edit && !scenario.isFilterOpen && project.status == 'active' && !project.process">
+      <div class="event" layout="row" layout-align="center center">
+        <svg width="6px" height="18px" viewBox="0 0 6 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g id="Home-Page" transform="translate(-379.000000, -752.000000)" class="move-icon">
+              <g id="Group-24" transform="translate(379.000000, 752.000000)">
+                <rect id="Rectangle-2" x="0" y="0" width="2" height="2"></rect>
+                <rect id="Rectangle-2" x="4" y="0" width="2" height="2"></rect>
+                <rect id="Rectangle-2" x="0" y="4" width="2" height="2"></rect>
+                <rect id="Rectangle-2" x="4" y="4" width="2" height="2"></rect>
+                <rect id="Rectangle-2" x="0" y="8" width="2" height="2"></rect>
+                <rect id="Rectangle-2" x="4" y="8" width="2" height="2"></rect>
+                <rect id="Rectangle-2" x="0" y="12" width="2" height="2"></rect>
+                <rect id="Rectangle-2" x="4" y="12" width="2" height="2"></rect>
+                <rect id="Rectangle-2" x="0" y="16" width="2" height="2"></rect>
+                <rect id="Rectangle-2" x="4" y="16" width="2" height="2"></rect>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <div class="handle">:</div>
+    </div>
+
+    <!--Checkbox for selecting for deleting-->
+    <div ng-if="scenario.isFilterOpen && !project.process">
+      <md-checkbox ng-checked="scenario.selectForDeleting(project, scenario.selectedProjects)"
+        ng-click="scenario.toggleForDeleting(project, scenario.selectedProjects)" aria-label="checkbox"></md-checkbox>
+    </div>
+
+    <!--Main content-->
+    <div ng-if="!project.process"
+         flex
+         ng-click="scenario.viewProject(project.id, main.currentUser.functions.Sc_View)"
+         class="scenario_content">
+      <div layout="row" layout-align="start center">
+        <!--Scenario tag-->
+        <div layout="column" layout-align="center center" class="tag">
+          <md-tooltip class="menu_tooltip" md-direction="top">{{project.tag_id | filterTag: scenario.tags}}</md-tooltip>
+          <span ng-bind="project.tag_id | filterTag: scenario.tags | filterTagName"></span>
+        </div>
+
+        <!--Scenario Name-->
+        <div class="scenario_name" ng-bind="project.name"></div>
+
+        <!--Archived on/by info-->
+        <div ng-if="project.status == 'archived'" class="archived_content" layout="row" layout-align="space-between center">
+          <img src="./src/images/icons/archive.svg" width="25px" height="11px" alt="archive">
+          <span class="info--main">Archived on&nbsp</span>
+          <span class="info--extra" ng-bind="project.archived_at | date: 'dd MMMM yyyy'"></span>
+          <span class="info--extra" ng-bind="'&nbsp by ' + project.archived_by"></span>
+        </div>
+
+        <!--Updated on/by info-->
+        <div ng-if="project.status == 'active'" class="update_content" layout="row" layout-align="space-between center">
+          <i class="material-icons md-16 icon">info</i>
+          <span class="info--main">Last Updated&nbsp</span>
+          <span class="info--main info-hide">on&nbsp</span>
+          <span class="info--extra" ng-bind="project.updated_at | date: 'dd MMMM yyyy'"></span>
+          <span class="info--extra info-hide" ng-bind="'&nbsp by&nbsp' + project.updated_by"></span>
+        </div>
+      </div>
+    </div>
+
+    <!--Scenario actions-->
+    <div ng-if="!project.process" layout="row" layout-align="center center">
+      <!-- Lock button -->
+      <div ng-if="main.helpPageDetails.locking==='on' && main.currentUser.functions.Sc_Edit && project.locking && !project.locking.created_by && project.status == 'active'">
+        <md-button class="lock-primary" ng-click="scenario.lockScenario(project.id, project)">
+          <div layout="row" layout-align="space-between center">
+            <span class="title">Lock scenario</span>
+            <svg class="right" width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <g id="Scenario-Management" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="Scenario-Management-1" transform="translate(-1569.000000, -579.000000)">
+                  <g id="Group-Copy" transform="translate(1569.000000, 579.000000)">
+                    <g class="svg-border" id="Group-18-Copy-9">
+                      <circle id="Oval-2" cx="12" cy="12" r="12"></circle>
+                    </g>
+                    <path class="svg-icon" d="M16.0567671,12.7610719 C16.0567671,12.1516961 15.5638045,11.6587334 14.9554572,11.659762 L9.39840229,11.6623375 L9.397372,8.2085793 C9.39582664,7.05730457 10.3601149,6.12756831 11.5232182,6.18413974 C12.6111302,6.23822677 13.4455918,7.17572215 13.4471742,8.26515072 L13.4471742,9.04451776 C13.4471742,9.26188919 13.6254072,9.44012215 13.8427786,9.44012215 L14.2332269,9.44012215 C14.4521544,9.44012215 14.6303742,9.26188919 14.6288313,9.0429749 L14.6288313,8.27803424 C14.627286,6.48396831 13.1587654,4.96999028 11.3650951,5.00045182 C9.62193024,5.03084347 8.21463354,6.45878149 8.21463354,8.20853974 L8.2161789,11.662298 L8.10130989,11.662298 C7.49347692,11.6638433 7,12.1568035 7,12.7646364 L7.00257552,16.6244167 C7.00257552,17.2322496 7.49553815,17.7257265 8.10388541,17.7257265 L14.9583909,17.7216057 C15.5662239,17.7216057 16.0597008,17.228643 16.0597008,16.6202958 L16.0567671,12.7610719 Z" id="Shape" fill-rule="nonzero"></path>
+                  </g>
+                </g>
+              </g>
+            </svg>
+          </div>
+        </md-button>
+      </div>
+
+      <!--Unlock button-->
+      <div ng-if="main.helpPageDetails.locking==='on' && project.locking && project.locking.created_by === main.currentUser.username">
+        <md-button class="md-complimetary lock-btn" ng-click="scenario.unlockScenario(project.id, project)">
+          <div layout="row" layout-align="space-between center">
+            <span>Unlock scenario</span>
+            <img class="right" src="./src/images/icons/unlock-now.svg" width="10" alt="Unlock scenario">
+          </div>
+        </md-button>
+      </div>
+
+      <!--View only label for archived scenario-->
+      <div class="view-lock md-button lock-btn"
+        ng-if="scenario.showView(project) || project.status == 'archived'">
+        <div layout="row" layout-align="space-between center">
+          <span>View only</span>
+          <img src="./src/images/icons/archive.svg" width="25px" height="11px" alt="archive">
+          <svg ng-if="scenario.showView(project)" class="right" width="11px" height="14px" viewBox="0 0 11 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <g id="Scenario-Management" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g id="Scenario-Management-6" transform="translate(-1700.000000, -34.000000)" fill="#FFF" fill-rule="nonzero">
+                <g id="Group-16" transform="translate(1700.000000, 34.000000)">
+                  <path d="M10.6449547,8.34448352 C10.6449547,7.71167016 10.1125551,7.19974742 9.45554004,7.20081555 L3.4539207,7.20349013 L3.45280799,3.61689503 C3.451139,2.42134051 4.49257028,1.45584516 5.74872184,1.51459241 C6.9236669,1.57075971 7.82488536,2.54431261 7.82659437,3.67564228 L7.82659437,8.48498497 C7.82659437,8.71071684 8.01908597,8.89580492 8.25384712,8.89580492 L8.67553134,8.89580492 C8.91197301,8.89580492 9.10445037,8.71071684 9.10278408,8.48338277 L9.10278408,3.68902132 C9.10111509,1.82595285 7.51511287,0.253744904 5.57794892,0.285378041 C3.6953309,0.316938598 2.17545046,1.79979731 2.17545046,3.61685395 L2.17711945,7.20344905 L2.05306092,7.20344905 C1.39660131,7.20505385 0.863646235,7.71697398 0.863646235,8.34818514 L0.866427793,12.3564184 C0.866427793,12.9876296 1.39882744,13.5000864 2.05584247,13.5000864 L9.45870841,13.495807 C10.115168,13.495807 10.6481231,12.9838843 10.6481231,12.3521391 L10.6449547,8.34448352 Z" id="Shape"></path>
+                </g>
+              </g>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <!--Info block for archived scenario-->
+      <div>
+        <i class="material-icons md-28 icon">info</i>
+        <md-tooltip class="scenario_tooltip" md-direction="bottom">
+          <div class="title">Created on</div>
+          <div class="time" ng-bind="project.created_at | date: 'dd MMMM yyyy'"></div>
+          <div class="name" ng-bind="project.created_by"></div>
+          <div class="title" ng-if="project.locking && project.locking.created_by">Locked by</div>
+          <div class="name"
+            ng-if="project.locking && project.locking.created_by" ng-bind="project.locking.created_by"></div>
+        </md-tooltip>
+      </div>
+
+      <!--Delete archived scenario button-->
+      <md-button ng-if="project.status == 'archived'" class="md-fab scenario_btn" ng-click="scenario.openWindow(project, 'isDeleted')">
+        <svg width="24px" height="24px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g id="Home-Page" transform="translate(-1483, -447)">
+              <g id="Group-20" fill="#FFF" transform="translate(1480.000000, 443.000000)">
+                <path class="scenario_btn" d="M14.681319,24.3297419 C14.681319,25.1312727 15.3626381,25.6728468 16.1978032,25.6728468 L21.8021995,25.6728468 C22.6153898,25.6728468 23.3186857,25.1312727 23.3186857,24.3297419 L23.3186857,15.837851 L14.681319,15.837851 L14.681319,24.3297419 Z M24,13.6715529 L21.5384677,13.6715529 L20.8351651,13 L17.2967041,13 L16.4615396,13.6715529 L14,13.6715529 L14,15.1662981 L24,15.1662981 L24,13.6715529 Z" id="Fill-3"></path>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </md-button>
+
+      <!--Actions menu-->
+      <div class="scenario_actions">
+        <md-menu ng-if="project.status == 'active'" md-position-mode="target-right target"
+          ng-if="main.currentUser.functions.Sc_Edit || main.currentUser.functions.Sc_Copy || main.currentUser.functions.Sc_Delete">
+
+          <!--Button to open menu-->
+          <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+            <i class="material-icons menu-icon">more_vert</i>
+          </md-button>
+
+          <!--Menu itself-->
+          <md-menu-content class="scenario_menu" width="3">
+            <!--Menu header-->
+            <md-menu-item layout="row" layout-align="start center">
+              <span class="title">
+                Scenario options
+              </span>
+            </md-menu-item>
+
+            <!--Edit scenario option-->
+            <md-menu-item ng-if="main.currentUser.functions.Sc_Edit &&
+                                 !(project.locking && project.locking.created_by &&
+                                 project.locking.created_by !== main.currentUser.username)">
+              <md-button ng-click="scenario.openWindow(project, 'isEdited')">
+                <div layout="row">
+                  <p flex class="text-uppercase">Edit</p>
+                  <svg width="30px" height="30px" viewBox="0 0 39 39" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <g id="Home-Page" transform="translate(-1368.000000, -442.000000)">
+                        <g id="Group-18" transform="translate(1369.000000, 443.000000)">
+                          <path class="scenario_btn" d="M12,22.0924519 L12,24.4047558 L14.5740025,24.4047558 L21.8841726,17.3306726 L19.3101665,14.900792 L12,22.0924519 Z M23.7992279,15.5082621 C24.066924,15.2535178 24.066924,14.900792 23.7992279,14.6460476 L22.2754213,13.1763629 C22.0077191,12.9412124 21.6164704,12.9412124 21.3693714,13.1763629 L20.2162164,14.2737279 L22.6460729,16.7232025 L23.7992279,15.5082621 Z" id="Fill-3"></path>
+                        </g>
+                      </g>
+                    </g>
+                  </svg>
+                </div>
+              </md-button>
+            </md-menu-item>
+
+            <!--Copy scenario option-->
+            <md-menu-item ng-if="main.currentUser.functions.Sc_Copy">
+              <md-button ng-click="scenario.openWindow(project, 'isCopied')">
+                <div layout="row">
+                  <p flex class="text-uppercase">Duplicate</p>
+                  <svg width="30px" height="30px" viewBox="0 0 39 39" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <g id="Home-Page" transform="translate(-1424.000000, -442.000000)">
+                        <g id="Group-19" transform="translate(1425.000000, 443.000000)">
+                          <path class="scenario_btn" d="M21.8441584,12 L14.2077922,12 C13.4870131,12 13,12.4819512 13,13.2145207 L13,21.9667842 L14.2077922,21.9667842 L14.2077922,13.2145207 L21.8441584,13.2145207 L21.8441584,12 Z M23.6753267,14.4097622 L16.7597413,14.4097622 C16.0389618,14.4097622 15.4155851,15.007383 15.4155851,15.7206732 L15.4155851,24.4922171 C15.4155851,25.2055073 16.0389618,25.8031275 16.7597413,25.8031275 L23.6753267,25.8031275 C24.3961051,25.8031275 25,25.2055073 25,24.4922171 L25,15.7206732 C25,15.007383 24.3961051,14.4097622 23.6753267,14.4097622 Z M23.6753267,24.4922171 L16.7597413,24.4922171 L16.7597413,15.7206732 L23.6753267,15.7206732 L23.6753267,24.4922171 Z" id="Fill-3"></path>
+                        </g>
+                      </g>
+                    </g>
+                  </svg>
+                </div>
+              </md-button>
+            </md-menu-item>
+
+            <!--Archive scenario option-->
+            <md-menu-item ng-if="main.currentUser.functions.Sc_Archive &&
+                                 !(project.locking && project.locking.created_by &&
+                                 project.locking.created_by !== main.currentUser.username)">
+              <md-button ng-click="scenario.openWindow(project, 'isArchived')">
+                <div layout="row" layout-align="center center">
+                  <p flex class="text-uppercase">Archive</p>
+                  <img src="./src/images/icons/archive.svg" width="30px" height="11px" alt="archive">
+                </div>
+              </md-button>
+            </md-menu-item>
+
+            <!--Delete scenario option-->
+            <md-menu-item ng-if="main.currentUser.functions.Sc_Delete &&
+                                 !(project.locking && project.locking.created_by &&
+                                 project.locking.created_by !== main.currentUser.username)">
+              <md-button ng-click="scenario.openWindow(project, 'isDeleted')">
+                <div layout="row">
+                  <p flex class="text-uppercase">Delete</p>
+                  <svg width="30px" height="30px" viewBox="0 0 39 39" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <g id="Home-Page" transform="translate(-1479.000000, -442.000000)">
+                        <g id="Group-20" transform="translate(1480.000000, 443.000000)">
+                          <path class="scenario_btn" d="M14.681319,24.3297419 C14.681319,25.1312727 15.3626381,25.6728468 16.1978032,25.6728468 L21.8021995,25.6728468 C22.6153898,25.6728468 23.3186857,25.1312727 23.3186857,24.3297419 L23.3186857,15.837851 L14.681319,15.837851 L14.681319,24.3297419 Z M24,13.6715529 L21.5384677,13.6715529 L20.8351651,13 L17.2967041,13 L16.4615396,13.6715529 L14,13.6715529 L14,15.1662981 L24,15.1662981 L24,13.6715529 Z" id="Fill-3"></path>
+                        </g>
+                      </g>
+                    </g>
+                  </svg>
+                </div>
+              </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+
+        <!--Popups for each menu option-->
+        <ng-include ng-if="main.currentUser.functions.Sc_Edit && project.isEdited"
+          src="'project/edit_dialog.ejs'"></ng-include>
+        <ng-include ng-if="main.currentUser.functions.Sc_Copy && project.isCopied"
+          src="'project/copy_dialog.ejs'"></ng-include>
+        <confirm-dialog
+                ng-show="main.currentUser.functions.Sc_Archive && project.isArchived"
+                item="project"
+                title="'archive scenario'"
+                message="'Are you sure in archiving this Scenario?'"
+                button="'archive'">
+        </confirm-dialog>
+        <confirm-dialog
+                ng-show="main.currentUser.functions.Sc_Delete && project.isDeleted"
+                item="project"
+                title="'delete scenario'"
+                message="'Are you sure in deleting this Scenario?'"
+                button="'delete'">
+        </confirm-dialog>
+      </div>
+    </div>
+
+    <!--Processing the scenario (copying, deleting, editing, archiving)-->
+    <div ng-if="project.process"
+         class="processing-scenario"
+         layout="row"
+         layout-align="space-between center">
+      <div class="scenario_name">{{project.name}}</div>
+      <div class="text-uppercase" layout="row" layout-align="center center">
+        {{project.process}}
+        <spinner></spinner>
+      </div>
+      <span class="text-uppercase" layout="row" layout-align="center center">
+        <i class="material-icons">warning</i>
+        operation is in progress, please don't refresh the page
+      </span>
+    </div>
+  </div>
+</div>

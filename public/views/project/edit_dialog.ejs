@@ -1,0 +1,47 @@
+<div class="dialog-action action">
+  <form name="editScenario">
+    <div layout="row" layout-align="space-between center">
+      <div ng-init="project.newName = project.name;" flex>
+        <p class="title">Edit Scenario Name</p>
+        <label for="name">Scenario name</label>
+        <md-input-container>
+          <input type="text" name="name" ng-model="project.newName" aria-label="input"
+            ng-pattern="/^[a-zA-Z0-9\ ._-]*$/" ng-maxlength="80"
+            uib-popover-template="'popover_scenario.html'"
+            popover-is-open="editScenario.name.$error.pattern || editScenario.name.$error.maxlength"
+            popover-trigger="none"
+            popover-placement="left"
+            popover-append-to-body="true">
+        </md-input-container>
+        <hr>
+        <label for="tag">Change tag for scenario</label>
+        <md-input-container>
+          <md-select ng-model="project.tag_id">
+            <md-option ng-repeat="tag in scenario.tags" ng-value="tag.id">
+              {{tag.tag_name}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+    </div>
+    <hr>
+    <div layout="row" layout-align="end center">
+      <md-button class="md-transparent" ng-click="scenario.closeWin(project, 'isEdited')" aria-label="Close window">Cancel</md-button>
+      <md-button class="md-white" ng-click="scenario.editProject(project)" aria-label="Edit">Save</md-button>
+    </div>
+  </form>
+</div>
+
+<script type="text/ng-template" id="popover_scenario.html">
+	<div>
+		<b><p>Error in Scenario Name</p></b>
+		<div class="text" ng-if="editScenario.name.$error.pattern" layout="row" layout-align="start start">
+			<i class="material-icons md-16">info</i>
+			{{ scenario.scenarioMessages.scenarioNamePattern }}
+		</div>
+    <div class="text" ng-if="editScenario.name.$error.maxlength" layout="row" layout-align="start start">
+      <i class="material-icons md-16">info</i>
+      {{ scenario.scenarioMessages.scenarioNameLength }}
+    </div>
+	</div>
+</script>

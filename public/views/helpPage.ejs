@@ -1,0 +1,19 @@
+<!-- Load PDF -->
+<object
+  ng-if="pageCtrl.pageUrl.length"
+  ng-attr-data="{{ pageCtrl.pageUrl }}"
+  type="application/pdf"
+  width="100%"
+  height="100%"></object>
+
+<!-- Load URL -->
+<div
+  ng-if="pageCtrl.helpUrl"
+  ng-bind-html-unsafe="html"
+>
+  <object
+    id="html-output"
+    ng-attr-data="{{ pageCtrl.helpUrl }}"
+    width="100%"
+    height="100%"></object>
+</div>

@@ -1,0 +1,706 @@
+.upload_dialog {
+  min-width: 600px;
+  md-toolbar {
+    min-height: 35px;
+    background-color: #FFF;
+    h2 {
+      color: var(--main-color);
+    }
+    .close {
+      color: #D45050;
+      opacity: 1;
+    }
+  }
+  .md-toolbar-tools {
+    padding-left: 10px;
+    padding-right: 10px;
+    max-height: 35px;
+  }
+}
+
+.upload_content {
+  max-height: 300px;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  .upload_container {
+    padding: 10px;
+  }
+  .table_name {
+    font-size: 24px;
+    font-weight: bold;
+  }
+}
+
+.tooltip_creation {
+  background-color: white;
+  border-radius: 4px;
+  position: relative;
+  top: 10px;
+  z-index: 11;
+  padding: 10px;
+  min-width: 350px;
+  max-width: 350px;
+  box-shadow: 1px 4px 7px 0px rgba(0, 0, 0, 0.2);
+  .upload_content {
+    padding: 10px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    max-height: 400px;
+    overflow: auto;
+  }
+}
+
+.report_content {
+  margin-left: 30px;
+  margin-right: 20px;
+  overflow: auto;
+  background-color: #FFF;
+  box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.15);
+  padding: 15px;
+  height: 60em;
+}
+
+.download_report {
+  position: relative;
+  .dropdown-menu {
+    background-color: #ffffff;
+    border: solid 1px rgba(47, 52, 96, 0.05);
+    border-radius: 0;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    >li>a {
+      font-size: 10px;
+      font-weight: bold;
+      color: var(--main-color);
+      text-transform: uppercase;
+      display: flex;
+      padding-left: 10px;
+      padding-right: 10px;
+      &:focus,
+      &:hover {
+        color: #FFF;
+        background-color: var(--main-color);
+      }
+      i {
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+#download-dropdown {
+  position: relative;
+  font-size: 16px;
+  font-weight: 900;
+  color: var(--main-color);
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+// Download PDF menu on the output HTML page
+#download-pdf-menu {
+  section {
+    padding: 10px 10px 0;
+  }
+
+  .selected {
+    background-color: #F2F2F2;
+  }
+
+  .pdf-size-radio {
+    margin-bottom: 7px;
+    text-transform: uppercase;
+
+    input {
+      margin-right: 4px;
+    }
+  }
+
+  .pdf-default-size {
+    margin-left: 15px;
+
+    i {
+      font-size: 34px;
+      color: var(--extra-color);
+    }
+
+    span {
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    p {
+      margin: 3px 0 5px;
+    }
+  }
+
+  .pdf-parameter {
+    margin: 0 0 5px 20px;
+
+    label {
+      margin: 0 20px 0 5px;
+    }
+
+    input {
+      width: 60px;
+      padding: 4px 6px;
+      margin-right: 5px;
+      border-radius: 2px;
+      border: none;
+      box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+      outline: none;
+    }
+  }
+
+  g {
+    fill: var(--extra-color);
+  }
+
+  span {
+    font-size: 12px;
+  }
+
+  p {
+    margin-left: 20px;
+    opacity: 0.5;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  img[alt="page width"] {
+    transform: rotate(90deg);
+  }
+
+  button {
+    margin: 0;
+    padding: 5px;
+    color: #FFF;
+
+    span {
+      font-size: 14px;
+    }
+
+    img {
+      width: 16px;
+      margin: 0 0 4px 8px;
+    }
+  }
+}
+
+.macro_info {
+  min-width: 180px;
+  padding: 10px;
+  background-color: var(--extra-color);
+  box-shadow: 0 8px 10px 0 rgba(0, 0, 0, 0.2);
+  color: #FFF;
+  > div {
+    margin-bottom: 10px;
+  }
+  .md-fab {
+    margin: 0;
+  }
+  .info {
+    opacity: 0.6;
+    font-size: 10px;
+    font-weight: 900;
+    color: #ffffff;
+    text-transform: uppercase;
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+  .info-value {
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .status-row {
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+  }
+  .status {
+    opacity: 0.6;
+    font-size: 10px;
+    font-weight: 900;
+    margin-bottom: 0px;
+  }
+  .status-value {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 0px;
+  }
+  .status-color {
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    margin-right: 4px;
+  }
+  &.success {
+    background-color: #7ed321;
+  }
+  .md-button.md-fab[disabled] img {
+    opacity: 0.5;
+  }
+}
+
+.macro {
+  .status-color {
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    margin-right: 4px;
+  }
+  .status--success {
+    background-color: #7ed321;
+  }
+  .status--error {
+    background-color: #D13A3A;
+  }
+  .status--queued {
+    background-color: #f8e71c;
+  }
+  svg.light-spinner {
+    fill: #FFF;
+    stroke: #FFF;
+  }
+  .md-button.md-fab .spinner {
+    width: 30px;
+    margin-right: 6px;
+  }
+}
+.md-button.md-fab {
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  img {
+    margin-right: 0;
+  }
+}
+
+md-menu-item.macro-menu {
+  height: auto;
+  > * {
+     margin: 0;
+     padding: 0;
+  }
+  .macro {
+    padding: 10px;
+    transition: all 0.3s ease-in;
+    &.active {
+      background-color: var(--extra-color);
+      color: #FFF;
+    }
+    p {
+      margin-bottom: 0;
+    }
+  }
+  .menu_content {
+    margin-top: 10px;
+    height: 0;
+    opacity: 0;
+    &.active {
+      height: auto;
+      opacity: 1;
+    }
+  }
+  .info {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    opacity: 0.6;
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .info-value {
+    margin-bottom: 0px;
+    font-size: 12px;
+    font-weight: 600;
+    // white-space: nowrap;
+  }
+  svg.light-spinner {
+    width: 30px;
+    height: 30px;
+    fill: #FFF;
+    stroke: #FFF;
+  }
+  .md-button.md-fab {
+    margin: 5px;
+    &[disabled] {
+      opacity: 0.5;
+    }
+  }
+}
+
+// Styles for the bulk upload modal window
+#bulk-upload-modal {
+  width: 40%;
+  padding: 1%;
+
+  h2.text-uppercase {
+    margin-bottom: 3%;
+  }
+
+  .folder-upload, .zip-upload {
+    width: 48%;
+    margin-bottom: 3%;
+    padding: 7%;
+    border: 1px dashed var(--main-color);
+    text-align: center;
+    font-weight: 600;
+    color: var(--main-color);
+    cursor: pointer;
+    font-size: 10px;
+    @media (min-width: 1000px) {
+      font-size: 12px;
+    }
+    @media (min-width: 1200px) {
+      font-size: 14px;
+    }
+
+    svg {
+      width: 3em;
+      margin-bottom: 8%;
+
+      path {
+        fill: var(--extra-color);
+      }
+    }
+
+    span {
+      font-size: 0.7em;
+      color: var(--extra-color);
+    }
+  }
+
+  .zip-upload {
+    margin-left: 4%;
+
+    svg {
+      margin-bottom: 6%;
+    }
+  }
+
+  .zip-upload-progress {
+    position: relative;
+    min-height: 62px;
+    padding: 16px;
+    margin-bottom: 3%;
+    background-color: $bg__color--grey;
+
+    svg {
+      width: 32px;
+      height: auto;
+      fill: var(--extra-color);
+    }
+
+    .upload-status {
+      right: 58px;
+    }
+
+    md-progress-circular {
+      right: -18px;
+    }
+  }
+
+  .uploaded-files {
+    margin-bottom: 3%;
+    padding: 5% 4%;
+    overflow: auto;
+    background-color: $bg__color--grey;
+    box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    max-height: 40%;
+    @media (min-width: 1200px) {
+      max-height: 48%;
+    }
+  }
+
+  footer {
+    text-align: right;
+
+    .md-button {
+      padding: 1% 2%;
+      margin: 0;
+      font-size: 16px;
+    }
+  }
+}
+
+.upload-status {
+  position: absolute;
+  right: 44px;
+  font-size: 12px;
+  color: var(--extra-color);
+}
+
+md-progress-circular {
+  position: absolute;
+  right: -24px;
+}
+
+.uploaded-file {
+  position: relative;
+  min-height: 54px;
+  margin-bottom: 10px;
+  padding: 16px;
+  background-color: #FFF;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+
+  &:nth-last-child(1) {
+    margin-bottom: 0;
+  }
+
+  svg {
+    width: 22px;
+    height: 22px;
+    fill: var(--extra-color);
+  }
+}
+
+.uploaded-file-error {
+  min-height: 42px;
+  margin-bottom: 1px;
+  padding: 12px 24px;
+  font-size: 12px;
+
+  img {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.upload-error-count {
+  border-top: solid 2px rgba(0, 0, 0, 0.1);
+  position: relative;
+  padding-top: 8px;
+  margin-top: 30px;
+
+  div {
+    position: absolute;
+    top: -10px;
+    padding: 0 10px;
+    background-color: $bg__color--grey;
+    color: $text__color--danger;
+    font-weight: bold;
+  }
+
+  p {
+    margin: 0;
+    font-size: 12px;
+  }
+}
+
+.upload-error-details {
+  margin-top: 10px;
+
+  &[open] {
+    .upload-error-summary:before {
+      transform: rotate(90deg);
+    }
+  }
+}
+
+.upload-error-summary {
+  position: relative;
+  margin-bottom: 1px;
+  padding: 16px;
+  background-color: white;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  color: $text__color--grey;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  list-style: none;
+
+  &:before {
+    font-family: 'Material Icons', sans-serif;
+    content: "\E313";
+    position: absolute;
+    right: 16px;
+    top: 12px;
+    font-size: 24px;
+  }
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+}
+
+#bulk-download-modal {
+  width: 600px;
+  padding: 0;
+
+  section {
+    padding: 10px;
+  }
+
+  h2 {
+    margin: 0
+  }
+
+  md-divider {
+    margin: 12px -10px;
+  }
+
+  i {
+    color: $text__color-red;
+  }
+
+  p {
+    margin: 0;
+    font-size: 12px;
+    font-weight: bold;
+    color: $text__color-red;
+  }
+  .records-confirm-label {
+    font-size: 18px;
+    line-height: 40px;
+  }
+
+  .records-label {
+    line-height: 40px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .records-number {
+    line-height: 40px;
+    margin-left: 6px;
+    font-size: 16px;
+  }
+
+  .display-name-checkbox {
+    line-height: 40px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 0px;
+    .md-icon {
+      background-color: var(--main-color);
+    }
+  }
+
+  .display-name-info {
+    line-height: 40px;
+    font-size: 14px;
+  }
+
+  footer {
+    padding: 18px;
+    background-color: $bg__color--grey;
+
+    & div>span {
+      font-size: 18px;
+      font-weight: bold;
+      color: var(--main-color);
+    }
+
+    .md-button {
+      padding: 6px 12px;
+      margin: 0;
+      font-size: 16px;
+
+      &.md-transparent {
+        margin-left: 5px;
+        color: $text__color--grey;
+      }
+    }
+
+    svg {
+      width: 38px;
+      height: auto;
+      margin-left: 10px;
+      fill: var(--main-color);
+    }
+  }
+}
+
+// Common styles for the popovers in the bulk upload modal
+.popover[title~="upload"] {
+  max-width: 300px;
+  border-top: solid 3px;
+  background-color: #FFF;
+  color: $text__color--dark;
+  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.15);
+
+  .arrow {
+    display: none;
+  }
+
+  .popover-title {
+    padding: 10px 10px 0;
+    border: none;
+    border-radius: 0;
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 900;
+    background-color: #FFF;
+  }
+
+  .popover-content {
+    padding: 4px 10px 8px;
+  }
+}
+
+// Colors for the success popover in bulk upload modal
+.popover[title="successful upload"] {
+  border-color: $bg__color--greenish;
+
+  .popover-title {
+    color: $bg__color--greenish;
+  }
+}
+
+// Colors for the error popover in bulk upload modal
+.popover[title="error in upload"] {
+  border-color: $text__color-red;
+
+  .popover-title {
+    color: $text__color-red;
+  }
+}
+
+// Single file upload/download modal window
+#single-load-modal {
+  width: 500px;
+  padding: 0;
+
+  header {
+    padding: 10px;
+
+    i {
+      color: $text__color-red;
+      cursor: pointer;
+    }
+  }
+
+  h2 {
+    margin-bottom: 10px;
+  }
+
+  .uploaded-file {
+    box-shadow: none;
+    background-color: $bg__color--grey;
+  }
+
+  .file-download {
+    padding: 14px;
+    background-color: $bg__color--grey;
+
+    span {
+      font-weight: bold;
+      color: var(--main-color);
+    }
+
+    svg {
+      width: 30px;
+      height: auto;
+      margin-left: 10px;
+      fill: var(--main-color);
+    }
+  }
+
+}

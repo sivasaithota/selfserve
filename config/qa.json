@@ -1,0 +1,10 @@
+{
+  "logs": {
+    "level": "debug",
+    "adjustmentFilePath": "/tmp/adjustment.json",
+    "prettyPrint": {
+      "colorize": true,
+      "ignore": "pid,hostname"
+    }
+  }
+}

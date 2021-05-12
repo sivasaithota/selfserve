@@ -1,0 +1,62 @@
+<div layout="column" class="smart_widget">
+  <!-- Top bar -->
+  <div layout="row" class="row_header" layout-align="space-between center">
+    <div flex layout="row" layout-wrap>
+      <div class="header_container" ng-repeat="column in rowViewData['topBarColumns'] | orderBy: 'columnOrder'" layout="column">
+        <h6 class="key_value" ng-bind="column.displayname"></h6>
+        <p class="column_value" ng-bind="column.rowValue"></p>
+      </div>
+    </div>
+    <div layout="row" class="pagination">
+      <div layout="row" layout-align="space-between center" class="pagination--left"
+        ng-click="prevRow()">
+        <img src="./src/images/row_widget/prev-record.svg" alt="">
+        <div class="text">Prev</div>
+      </div>
+      <!-- Load another page -->
+      <input
+        type="text"
+        class="form-control"
+        name="current-page"
+        ng-model="rowInfo.currentPage"
+        ng-keypress="openPage($event, rowInfo.currentPage)">
+      <div>
+        of {{jqGridTableNames.total_count}}
+      </div>
+      <div layout="row" layout-align="space-between center" class="pagination--right"
+        ng-click="nextRow()">
+        <div class="text">Next</div>
+        <img src="./src/images/row_widget/next-record.svg" alt="">
+      </div>
+    </div>
+  </div>
+  <form flex name="rowViewForm" layout="row" class="row_content">
+    <!-- Main panel -->
+    <div flex class="main_panel">
+      <div class="row_content__form" layout="column" ng-repeat="column in rowViewData['middleBarColumns'] | orderBy: 'columnOrder'">
+        <ng-include ng-if="column.editable"
+          src="'jqGridWidget/widget/views/add_edit_form.ejs'"
+          onload="add_edit = rowViewForm;tabType = 'rowVew';model = column;editColumn = gridConfig.getEditColumnUrl;"></ng-include>
+        <h6 ng-if="!column.editable" class="key_value" ng-bind="column.displayname"></h6>
+        <p ng-if="!column.editable" class="column_value" ng-bind-html="column.rowValue | parseUrl"></p>
+      </div>
+    </div>
+    <!-- Right panel -->
+    <div flex="20" class="right_panel">
+      <div class="row_content__form" layout="column" ng-repeat="column in rowViewData['rightBarColumns'] | orderBy: 'columnOrder'">
+        <ng-include src="'jqGridWidget/widget/views/add_edit_form.ejs'"
+          onload="add_edit = rowViewForm;tabType = 'rowVew';model = column;editColumn = gridConfig.getEditColumnUrl;"></ng-include>
+      </div>
+    </div>
+  </form>
+  <!-- Footer -->
+  <div layout="row" layout-align="space-between center" class="row_footer">
+    <span></span>
+    <div layout="row">
+      <md-button class="md-transparent" ng-click="clearForm(rowViewForm, rowViewData)">Reset</md-button>
+      <md-button class="md-light" ng-click="saveRow(rowViewForm, rowViewData)" ng-disabled="rowViewForm.$invalid">
+        Save
+      </md-button>
+    </div>
+  </div>
+</div>

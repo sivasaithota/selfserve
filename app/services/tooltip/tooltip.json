@@ -1,0 +1,69 @@
+{
+  "home": {
+    "home_btn": "Home page",
+    "scenario_settings_btn": "App settings",
+    "user_settings_btn": "User settings",
+    "tableau_settings_btn": "Tableau settings",
+    "slack_settings_btn": "Slack settings",
+    "log_out_btn": "Log out",
+    "add_btn": "Create Scenario",
+    "rename_btn": "Rename Scenario",
+    "copy_btn": "Copy Scenario",
+    "delete_btn": "Delete Scenario",
+    "save_rename": "Save",
+    "cancel_rename": "Cancel",
+    "create_tag": "Organize scenarios using Tags",
+    "add_tableau_btn": "Add links to have custom tableau tabs",
+    "skip_header": "Enable to skip the first row of the file uploaded but the order of columns should match with application data table. Disabling this option will match the column names in file with application data table.",
+    "append_data": "Append uploaded data to the table instead of replacing the data.",
+    "help_page": "Help Page"
+  },
+  "settings": {
+    "user_settings": {
+      "option_button": "User options",
+      "change_access_scenario": "Choose scenario that will be available to the current user",
+      "no_scenario_access": "User doesn't have access to any scenario/table"
+    },
+    "tableau_settings": {
+      "add_btn": "Add links for custom tabs",
+      "edit_btn": "Edit tableau",
+      "delete_btn": "Delete tableau",
+      "trusted": "Enable trusted authentication to automatically login to Tableau to view the report",
+      "extract": "Enable/Disable Tableau Extract for each action below",
+      "extractPowerBI": "Enable/Disable PowerBI Import for each action below",
+      "off_view": "Enable/Disable Tableau in Input/Output tab",
+      "incorrect_user": "Selected user is not found. Please select a user from the drop-down list",
+      "footer": "Show/Hide the Tableau Option Footer",
+      "database_credentials": "Displays the App's database Credentials"
+    },
+    "scenario_settings": {
+      "delete_btn": "Delete script",
+      "optional_actions": "Data refresh creates a button for manual execution of update script. Data validation uses validation script to monitor changes to tables."
+    },
+    "locking": {
+      "lock": "Lock",
+      "unlock": "Unlock",
+      "clear_locks": "Clear locks"
+    },
+    "master": {
+      "master_tables": "Whether to keep master tables up to date to build tableau reports on top of them",
+      "refresh_tables": "Populate the selected scenarios master tables with fresh data",
+      "drop_tables": "Delete all the master tables"
+    }
+  },
+  "scenario": {
+    "open_slack": "Open slack modal window to choose current chat",
+    "input_output": {
+      "table_btn": "View the tables",
+      "report_btn": "View the tableau report",
+      "html_btn": "View the HTML report",
+      "bom_btn": "View the BOM dependency graphs"
+    },
+    "execution": {
+      "start_execute_btn": "Execute the script",
+      "stop_execute_btn": "Stop execution",
+      "add_execute_btn": "Add execution info to the list",
+      "download_execute_btn": "Download execution history"
+    }
+  }
+}

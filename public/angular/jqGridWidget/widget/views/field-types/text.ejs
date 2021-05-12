@@ -1,0 +1,8 @@
+<input
+  type="text"
+  class="form-control"
+  id="{{model.id}}"
+  name="{{model.id}}"
+  ng-model="model.rowValue"
+  ng-pattern="invalidSymbols"
+  ng-blur="selectItem(model.rowValue)">

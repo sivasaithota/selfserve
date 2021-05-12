@@ -1,0 +1,179 @@
+<md-dialog aria-label="App Credentials" class="manage_access" ng-cloak>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <div>
+        <h2>Manage Access</h2>
+        <p>Select the tables or reports that user needs to access.</p>
+      </div>
+      <span flex></span>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <div class="md-dialog-content">
+      <!--User information-->
+      <div class="info-content" layout="row">
+        <div layout="row">
+          <p><b>User Name:&nbsp;</b></p>
+          <p ng-bind="user.username"></p>
+        </div>
+        <div layout="row">
+          <div layout="row">
+            <p><b>User Role:&nbsp;</b></p>
+            <p ng-bind="findRoleName(user.role)"></p>
+          </div>
+        </div>
+      </div>
+      <uib-tabset id="optional_tabs" vertical="true" type="pills" layout="row">
+        <uib-tab active="true">
+          <uib-tab-heading>
+            <span>Scenarios</span>
+          </uib-tab-heading>
+          <md-content ng-if="scenariosList.length">
+            <md-checkbox
+                    ng-if="user.role !== 'BusinessUser'"
+                    ng-checked="checkSelectExisting(scenariosList, scenarioIds)"
+                    ng-click="selectAllScenarios()"
+                    class="md-primary">
+              Select All
+            </md-checkbox>
+            <div flex="60" ng-repeat="scenario in scenariosList" class="access_box" ng-if="user.role !== 'BusinessUser'">
+              <md-checkbox
+                      ng-checked="exists(scenario.id, scenarioIds)"
+                      ng-click="toggleAccess(scenario.id, scenarioIds)" class="md-primary">
+                {{ scenario.name }}
+              </md-checkbox>
+            </div>
+            <md-radio-group flex="60" ng-model="scenarioIds[0]" class="md-primary" ng-if="user.role==='BusinessUser'">
+              <md-radio-button ng-repeat="scenario in scenariosList" class="access_box" ng-value="scenario.id" class="pull-left">
+                {{ scenario.name }}
+              </md-radio-button>
+            </md-radio-group>
+          </md-content>
+          <div class="empty_content" ng-if="!scenariosList.length" layout="row" layout-align="center center">
+            <span>No scenarios found</span>
+          </div>
+        </uib-tab>
+        <uib-tab>
+          <uib-tab-heading>
+            <span>Data Tables</span>
+          </uib-tab-heading>
+          <md-tabs md-dynamic-height class="settings-tabs workflows-settings">
+            <md-tab ng-repeat="opt in tabs | orderBy: 'segment'" class="text-capitalize" label="{{ opt.segment }}">
+              <md-content ng-if="tablesList[opt.segment].length">
+                <md-checkbox
+                        ng-checked="checkSelectExisting(tablesList[opt.segment], tableIds[opt.segment], 'checked')"
+                        ng-click="selectAllTables(opt.segment)"
+                        class="md-primary">
+                  Select All
+                </md-checkbox>
+                <div
+                        class="access_box"
+                        flex="60"
+                        layout="row"
+                        layout-align="space-between center"
+                        ng-repeat="table in tablesList[opt.segment]"
+                        ng-init="table.isEditable = editableModel(table.id, tableIds[opt.segment])"
+                >
+                  <md-checkbox
+                          ng-checked="tableExists(table.id, tableIds[opt.segment])"
+                          ng-click="toggle(table.id, tableIds[opt.segment])"
+                          class="md-primary">
+                    {{ table.displayname }}
+                  </md-checkbox>
+                  <md-switch
+                          ng-show="tableExists(table.id, tableIds[opt.segment])"
+                          ng-model="table.isEditable"
+                          ng-change="setEditable(table.id, table.isEditable, tableIds[opt.segment])"
+                          aria-label="Switch 2"
+                          class="access_checkbox md-primary">
+                    Can edit
+                  </md-switch>
+                </div>
+              </md-content>
+              <div class="empty_content" ng-if="!tablesList[opt.segment].length" layout="row" layout-align="center center">
+                <span>No tables found</span>
+              </div>
+            </md-tab>
+          </md-tabs>
+        </uib-tab>
+        <uib-tab>
+          <uib-tab-heading>
+            <span>Visualization</span>
+          </uib-tab-heading>
+          <md-tabs md-dynamic-height class="settings-tabs workflows-settings">
+            <md-tab ng-repeat="opt in tabs | orderBy: 'segment'" class="text-capitalize" label="{{ opt.segment }}">
+              <div ng-if="appSettings[opt.segment + 'VizType'] === 'tableau'">
+                <md-content ng-if="vizList[opt.segment].length">
+                  <md-checkbox
+                          ng-checked="checkSelectExisting(vizList[opt.segment], tableauIds[opt.segment])"
+                          ng-click="selectAllTableau(opt.segment)"
+                          class="md-primary">
+                    Select All
+                  </md-checkbox>
+                  <div layout="row" ng-repeat="report in vizList[opt.segment]">
+                    <div class="access_box" flex="60">
+                      <md-checkbox
+                              ng-checked="exists(report.id, tableauIds[opt.segment])"
+                              ng-click="toggleAccess(report.id, tableauIds[opt.segment])"
+                              class="md-primary">
+                        {{ report.label }}
+                      </md-checkbox>
+                    </div>
+                  </div>
+                </md-content>
+                <div class="empty_content" ng-if="!vizList[opt.segment].length" layout="row" layout-align="center center">
+                  <span>No reports found</span>
+                </div>
+              </div>
+              <div ng-if="appSettings[opt.segment + 'VizType'] === 'powerbi'">
+                <md-content ng-if="powerBIList[opt.segment].length">
+                  <md-checkbox
+                          ng-checked="checkSelectExisting(powerBIList[opt.segment], powerIds[opt.segment])"
+                          ng-click="selectAllPowerbi(opt.segment)"
+                          class="md-primary">
+                    Select All
+                  </md-checkbox>
+                  <div layout="row" ng-repeat="report in powerBIList[opt.segment]">
+                    <div class="access_box" flex="60">
+                      <md-checkbox
+                              ng-checked="exists(report.id, powerIds[opt.segment])"
+                              ng-click="toggleAccess(report.id, powerIds[opt.segment])"
+                              class="md-primary">
+                        {{ report.label }}
+                      </md-checkbox>
+                    </div>
+                  </div>
+                </md-content>
+                <div class="empty_content" ng-if="!powerBIList[opt.segment].length" layout="row" layout-align="center center">
+                  <span>No reports found</span>
+                </div>
+              </div>
+            </md-tab>
+          </md-tabs>
+        </uib-tab>
+      </uib-tabset>
+
+      <!--Modal footer-->
+      <div class="actions-list" layout="row" layout-align="space-between center">
+        <!--No access error messages-->
+        <div>
+          <p class="no-access-label"
+             ng-if="user.managableScenarioAccess && !scenarioIds.length">
+            At least one scenario must be chosen</p>
+          <p class="no-access-label"
+             ng-if="user.managableTableAccess && !(tableIds.input.length || tableIds.output.length)">
+            At least one table must be chosen</p>
+        </div>
+        <!--Save accesses btn disabled if role has managable accesses and no access error is present-->
+        <div layout="row" layout-align="end center">
+          <md-button
+            ng-disabled="(user.managableScenarioAccess && !scenarioIds.length) ||
+            (user.managableTableAccess && !(tableIds.input.length || tableIds.output.length))"
+            class="md-light" ng-click="saveAccesses(user.id)">save</md-button>
+          <md-button class="md-warn" ng-click="cancel()">cancel</md-button>
+        </div>
+      </div>
+    </div>
+
+  </md-dialog-content>
+</md-dialog>

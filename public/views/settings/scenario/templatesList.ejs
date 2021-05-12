@@ -1,0 +1,8 @@
+<!--Templates selector on the scenario settings page. Styles are in partials/_templates_list.scss-->
+<md-card ng-if="tempListCtrl.templates.length > 1" class="templates_list text-uppercase">
+    <md-select ng-model="tempListCtrl.currentTemplate" md-container-class="templates-select">
+        <md-option class="template_item text-uppercase" ng-repeat="template in tempListCtrl.templates"
+                   ng-value="template" ng-click="tempListCtrl.changeState(template.id)">{{template.name}}
+        </md-option>
+    </md-select>
+</md-card>

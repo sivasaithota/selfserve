@@ -1,0 +1,28 @@
+.project_copy {
+  min-width: 750px;
+  overflow: visible;
+  md-progress-linear .md-bar {
+    background-color: $bg--copy_bar;
+  }
+  .sticky-container {
+    overflow: visible;
+  }
+}
+
+.project_copy__content {
+  overflow: visible;
+  min-height: 120px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.project_copy__header {
+  @include border-radius(3px);
+  background-color: $bg--copy_header;
+  color: $text--copy_header;
+  font-size: 24px;
+  padding: 10px 20px;
+  position: absolute;
+  left: 20px;
+  top: -24px;
+}

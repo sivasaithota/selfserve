@@ -1,0 +1,32 @@
+html,
+body {
+  background-color: #F1F1F1;
+}
+
+.relative {
+  position: relative;
+}
+
+.app_container {
+  margin-right: 50px;
+  margin-left: 50px;
+  position: relative;
+}
+
+.app_container--tabs {
+  top: 30px;
+}
+
+.settings_container {
+  min-height: calc(100% - #{$bar_height_sm});
+  margin: 0 auto;
+  padding-top: 50px;
+  padding-bottom: 90px;
+  max-width: 1200px;
+  position: relative;
+}
+
+.data_container {
+  margin-right: 30px;
+  margin-left: 30px;
+}

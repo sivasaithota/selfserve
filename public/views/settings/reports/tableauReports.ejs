@@ -1,0 +1,87 @@
+<div layout="row" layout-align="start center">
+  <!-- Section to download tableau reports -->
+  <div class="workbook-info" layout="row" layout-align="space-between center" ng-click="tableauReportsCtrl.downloadWorkbook()">
+    <!-- <img src="./src/images/download-round-icon.svg" alt="download workbook"> -->
+    <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+      <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Scenario-Page-Input-data" class="icon-stroke" transform="translate(-337 -924)">
+          <g id="Group-30" transform="translate(330 920)">
+            <g id="np_upload_1859299_FFFFFF" class="icon-fill" transform="rotate(180 11 10.588)" fill-rule="nonzero" stroke-width=".5">
+              <path d="M12.022 8.196a.43.43 0 0 1-.607 0L7.43 4.209v8.401a.428.428 0 1 1-.858 0v-8.4L2.585 8.195a.429.429 0 0 1-.606-.607L6.697 2.87v.001a.43.43 0 0 1 .606 0l4.719 4.719v-.001a.43.43 0 0 1 0 .607h0zm1.84-7.595a.43.43 0 0 0-.428-.43H.566a.429.429 0 0 0 0 .858h12.868a.43.43 0 0 0 .429-.428h0z" id="Shape"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </svg>
+    <p>Get a workbook with pre-embeded database details</p>
+  </div>
+  <!--Database credentials -->
+  <ng-include src="'settings/tableauCredentials.ejs'"></ng-include>
+</div>
+
+<br>
+
+<div layout="row" layout-align="space-between center">
+
+  <!--Container for uploading files-->
+  <div ng-model="tableauReportsCtrl.inputFiles"
+    ngf-select="tableauReportsCtrl.uploadWorkbook($event, $file, segmentTab)"
+    ngf-drop="tableauReportsCtrl.uploadWorkbook($event, $file, segmentTab)"
+    ngf-model-invalid="tableauReportsCtrl.invalidFiles"
+    ng-model-options="tableauReportsCtrl.modelOptions"
+    ngf-pattern="tableauReportsCtrl.patternInput"
+    ngf-accept="tableauReportsCtrl.acceptSelectInput"
+    class="form-group upload_tableau_block redeploy_container"
+    layout="row"
+    layout-align="space-between center"
+  >
+    <div class="icon_container" layout="row"
+    layout="row"
+    layout-align="center center"
+    >
+        <img src="./src/images/upload-icon.svg">
+    </div>
+
+    <div>
+      <h5>Upload Tableau Workbook</h5>
+      <p>This processes automatically publishes and embeds the finished .twbx report</p>
+    </div>
+  </div>
+
+  <!--Add report btn-->
+  <md-button class="md-dark" aria-label="Add new table" ng-click="tableauReportsCtrl.addTableau($event, segmentTab)">
+    <span>Add report</span>
+  </md-button>
+</div>
+
+<!--Cards-->
+<div dragula='"{{segmentTab.tableName}}-bag"' dragula-model="tableauSettingsCtrl[segmentTab.tableName]">
+  <md-toolbar
+    class="setting-item"
+    layout="row"
+    layout-align="start center"
+    ng-repeat="table in tableauSettingsCtrl[segmentTab.tableName]"
+    ng-click="tableauReportsCtrl.editTableau($event, type, table)">
+    <div flex="5" class="cursor-move">
+        <img src="./src/images/drag-icon.svg">
+      <div class="handle">:</div>
+    </div>
+    <div flex="25">
+      <div class="text-uppercase item-label">Tab name</div>
+      <div class="item-value">{{table.label}}</div>
+    </div>
+    <div flex="30">
+      <div class="text-uppercase item-label">Project</div>
+      <div class="item-value">{{table.project}}</div>
+    </div>
+    <div flex="33">
+      <div class="text-uppercase item-label">Workbook</div>
+      <div class="item-value">{{table.workbook}}</div>
+    </div>
+    <div flex="7">
+      <md-button class="md-fab" ng-click="tableauReportsCtrl.deleteTableau(table, $event, segmentTab.tableName)">
+        <i class="material-icons md-20">delete</i>
+      </md-button>
+    </div>
+  </md-toolbar>
+<div>

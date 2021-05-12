@@ -1,0 +1,13 @@
+<md-dialog aria-label="Custom Action" ng-cloak class="upload_dialog">
+  <md-toolbar ng-show="isUploading">
+    <div class="md-toolbar-tools" layout="row" layout-align="space-between center">
+      <h2 ng-bind="modalName"></h2>
+      <i ng-click="cancel()" class="material-icons close">clear</i>
+    </div>
+  </md-toolbar>
+  <md-content class="upload_content">
+    <div class="upload_container" ng-show="isUploading">
+      <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+    </div>
+  </md-content>
+</md-dialog>

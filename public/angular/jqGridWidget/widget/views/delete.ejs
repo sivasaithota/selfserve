@@ -1,0 +1,32 @@
+<div class="widget_container">
+  <h3>Delete row</h3>
+</div>
+<div class="hr"></div>
+<div class="widget_container--side">
+  <div layout="column">
+    <h6>Choose a delete option</h6>
+    <label class="top_label" layout="row">
+      <input type="radio"
+        id="delete_all_false"
+        ng-model="$parent.deleteAll"
+        ng-change="selectItemToDelete($parent.deleteAll)"
+        ng-value="false">
+      <span ng-if="!deletedRows.length">Select a Row to delete</span>
+      <span ng-if="deletedRows.length">
+        Delete {{deletedRows.length}} row<span ng-if="deletedRows.length > 1">s</span>
+      </span>
+    </label>
+    <label class="bottom_label" layout="row">
+      <input type="radio"
+        id="delete_all_true"
+        ng-model="$parent.deleteAll"
+        ng-change="selectItemToDelete($parent.deleteAll)"
+        ng-value="true">
+      <span>Delete all rows</span>
+    </label>
+  </div>
+</div>
+<div layout="row" layout-align="space-around center" class="widget_container">
+  <md-button class="md-white" ng-disabled="!deleteAll && !deletedRows.length" ng-click="deleteRow(deletedRows)">Delete</md-button>
+  <md-button class="md-transparent" ng-click="closeWidget()">Cancel</md-button>
+</div>

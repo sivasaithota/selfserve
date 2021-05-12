@@ -1,0 +1,12 @@
+<input-dropdown
+  input-class-name="form-control"
+  input-placeholder=""
+  input-name="{{model.id}}_filter_{{tabType}}"
+  input-pattern="invalidSymbols"
+  item-selected-method="selectItem(item)"
+  selected-item="model.rowValue"
+  default-dropdown-items="model.custom_result"
+  dropdown-list-url="{{getColumnUrl + parentColumnValue}}"
+  allow-custom-input="model.custom_values"
+  filter-list-method="filterItems(userInput, dropdownItems)"
+></input-dropdown>

@@ -1,0 +1,6 @@
+<input type="number"
+  class="form-control"
+  id="{{model.id}}"
+  ng-model="model.rowValue"
+  ng-blur="selectItem(model.rowValue)"
+  ng-required="tabType === 'filter'">

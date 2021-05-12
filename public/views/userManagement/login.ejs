@@ -1,0 +1,11 @@
+<div class="login_bg">
+	<form name="loginForm">
+		<div class="login_bg__container" layout="column">
+			<!--SSO login btn-->
+			<!-- Error block -->
+			<div layout="row" layout-align="center center" ng-if="login.isLoginError">
+				<div flex class="login_toastr_error" ng-bind="login.loginErrorMsg"></div>
+			</div>
+		</div>
+	</form>
+</div>

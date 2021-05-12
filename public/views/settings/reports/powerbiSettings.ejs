@@ -1,0 +1,153 @@
+<md-content class="md-padding" flex>
+
+  <!--Tableau extract card-->
+  <div layout="row" layout-align="space-between center">
+      <label class="text-uppercase setting-label">Powerbi import</label>
+
+      <!--Info icon with tooltip-->
+      <div>
+          <md-tooltip md-direction="bottom">
+              <span>{{main.settingsTooltips.tableau_settings.extractPowerBI}}</span>
+          </md-tooltip>
+          <i class="material-icons info-icon">info</i>
+      </div>
+  </div>
+
+  <!--Table with tableau extract switches-->
+  <table class="extracts-table">
+      <tr>
+          <th class="baseline-header">data</th>
+          <td layout="row" class="divided-row">
+              <div>
+                  <label>inputs</label>
+
+                  <!--Data inputs switches with success icons-->
+                  <div layout="row"
+                       layout-align="space-between center"
+                       ng-repeat="inputDataExtract in tableauSettingsCtrl.powerbiExtracts.data.input">
+                      <span>{{ inputDataExtract.type_name }}</span>
+
+                      <div layout="row" layout-align="center center">
+                          <md-switch class="md-primary"
+                                     ng-model="inputDataExtract.run_import"
+                                     ng-change="tableauSettingsCtrl.switchPowerbiExtract(inputDataExtract)"
+                                     aria-label="{{ inputDataExtract.type_name }}"></md-switch>
+                          <i class="material-icons saved-icon" ng-show="inputDataExtract.saved">
+                              check_circle
+                          </i>
+                      </div>
+                  </div>
+              </div>
+              <div>
+                  <label>outputs</label>
+
+                  <!--Data outputs switches with success icons-->
+                  <div layout="row"
+                       layout-align="space-between center"
+                       ng-repeat="outputDataExtract in tableauSettingsCtrl.powerbiExtracts.data.output">
+                      <span>{{ outputDataExtract.type_name }}</span>
+
+                      <div layout="row" layout-align="center center">
+                          <md-switch class="md-primary"
+                                     ng-model="outputDataExtract.run_import"
+                                     ng-change="tableauSettingsCtrl.switchPowerbiExtract(outputDataExtract)"
+                                     aria-label="{{ outputDataExtract.type_name }}"></md-switch>
+                          <i class="material-icons saved-icon" ng-show="outputDataExtract.saved">
+                              check_circle
+                          </i>
+                      </div>
+                  </div>
+              </div>
+          </td>
+      </tr>
+
+      <tr>
+          <th>scripts</th>
+          <td>
+              <!--Script switches with success icons-->
+              <div ng-repeat="scriptExtract in tableauSettingsCtrl.powerbiExtracts.script">
+                  <div>{{ scriptExtract.type_name }}</div>
+
+                  <div layout="row" layout-align="start center">
+                      <md-switch class="md-primary"
+                                 ng-model="scriptExtract.run_import"
+                                 ng-change="tableauSettingsCtrl.switchPowerbiExtract(scriptExtract)"
+                                 aria-label="{{ scriptExtract.type_name }}"></md-switch>
+                      <i class="material-icons saved-icon" ng-show="scriptExtract.saved">
+                          check_circle
+                      </i>
+                  </div>
+              </div>
+          </td>
+      </tr>
+
+      <tr>
+          <th>scenarios</th>
+          <td layout="row">
+              <!--Scenario switches witch success icons-->
+              <div ng-repeat="scenarioExtract in tableauSettingsCtrl.powerbiExtracts.scenario">
+                  <div>{{ scenarioExtract.type_name }}</div>
+
+                  <div layout="row" layout-align="start center">
+                      <md-switch class="md-primary"
+                                 ng-model="scenarioExtract.run_import"
+                                 ng-change="tableauSettingsCtrl.switchPowerbiExtract(scenarioExtract)"
+                                 aria-label="{{ scenarioExtract.type_name }}"></md-switch>
+                      <i class="material-icons saved-icon" ng-show="scenarioExtract.saved">
+                          check_circle
+                      </i>
+                  </div>
+              </div>
+          </td>
+      </tr>
+
+      <tr>
+          <th class="baseline-header">actions</th>
+          <td layout="row" class="divided-row">
+              <div>
+                  <label>inputs</label>
+
+                  <!--Input actions switches with success icons-->
+                  <div layout="row"
+                       layout-align="space-between center"
+                       ng-repeat="inputActionExtract in tableauSettingsCtrl.powerbiExtracts.action.input">
+                      <span>{{ inputActionExtract.type_name }}</span>
+
+                      <div layout="row" layout-align="center center">
+                          <md-switch class="md-primary"
+                                     ng-model="inputActionExtract.run_import"
+                                     ng-change="tableauSettingsCtrl.switchPowerbiExtract(inputActionExtract)"
+                                     aria-label="{{ inputActionExtract.type_name }}"></md-switch>
+                          <i class="material-icons saved-icon" ng-show="inputActionExtract.saved">
+                              check_circle
+                          </i>
+                      </div>
+                  </div>
+              </div>
+              <div>
+                  <label>outputs</label>
+
+                  <!--Output actions switches with success icons-->
+                  <div layout="row"
+                       layout-align="space-between center"
+                       ng-repeat="outputActionExtract in tableauSettingsCtrl.powerbiExtracts.action.output">
+                      <span>{{ outputActionExtract.type_name }}</span>
+
+                      <div layout="row" layout-align="center center">
+                          <md-switch class="md-primary"
+                                     ng-model="outputActionExtract.run_import"
+                                     ng-change="tableauSettingsCtrl.switchPowerbiExtract(outputActionExtract)"
+                                     aria-label="{{ outputActionExtract.type_name }}"></md-switch>
+                          <i class="material-icons saved-icon" ng-show="outputActionExtract.saved">
+                              check_circle
+                          </i>
+                      </div>
+                  </div>
+              </div>
+          </td>
+      </tr>
+  </table>
+
+  <md-divider class="divider-bold"></md-divider>
+
+</md-content>

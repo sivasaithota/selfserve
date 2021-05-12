@@ -1,0 +1,24 @@
+<ul class="widget_list widget_list--full"
+  ng-class="{'widget_list--hidden': isFullSize}">
+  <li ng-if="!isFullSize">
+    <a ng-click="showFullSize()" layout="row" layout-align="center center">
+      <md-tooltip md-direction="bottom">Full view</md-tooltip>
+      <svg flex width="20px" height="20px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <g class="item--fill" id="Grid-Full-View-1" transform="translate(-1839.000000, -185.000000)">
+            <g id="Page-1" transform="translate(1839.000000, 185.000000)">
+              <polygon id="Fill-1" fill-opacity="0" points="0 15 15 15 15 0 0 0"></polygon>
+              <path d="M2.03966,9.720671 L0,9.720671 L0,14.9581006 L5.311615,14.9581006 L5.311615,12.73743 L2.03966,12.73743 L2.03966,9.720671 Z M0,5.446927 L2.03966,5.446927 L2.03966,2.22067 L5.311615,2.22067 L5.311615,0 L0,0 L0,5.446927 Z M12.70538,12.73743 L9.645893,12.73743 L9.645893,14.9581006 L14.95751,14.9581006 L14.95751,9.720671 L12.70538,9.720671 L12.70538,12.73743 Z M9.645893,0 L9.645893,2.22067 L12.70538,2.22067 L12.70538,5.446927 L14.95751,5.446927 L14.95751,0 L9.645893,0 Z" id="Fill-3"></path>
+            </g>
+          </g>
+        </g>
+      </svg>
+    </a>
+  </li>
+  <li ng-if="isFullSize" ng-class="{'active': isFullSize}">
+    <a ng-click="hideFullSize()" layout="row" layout-align="center center">
+      <md-tooltip md-direction="bottom">Close full view</md-tooltip>
+      <img flex src="./src/images/close-full-view-icon.svg" height="20" width="20">
+    </a>
+  </li>
+</ul>

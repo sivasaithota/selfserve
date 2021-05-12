@@ -1,0 +1,16 @@
+<div class="widget_container" layout="row" layout-align="space-between center">
+  <h3>Add row</h3>
+  <md-button class="md-transparent md-transparent--sm" ng-click="clearForm(addForm, addModels)">reset</md-button>
+</div>
+<div class="hr"></div>
+<form name="addForm" ng-submit="saveRow(add, 'add', addEditModel)" class="scroll-area margin-none">
+  <div ng-repeat="addmodel in addModels" ng-hide="model.hidden || model.name===''">
+    <ng-include src="'jqGridWidget/widget/views/add_edit_form.ejs'"
+      onload="add_edit = addForm;tabType = 'add';model = addmodel;editColumn = widgetInfo.urls.editColumn;"></ng-include>
+  </div>
+</form>
+<div class="hr"></div>
+<div class="widget_container">
+  <md-button class="md-white" ng-click="saveRow(addForm, 'add', addModels)" ng-disabled="addForm.$invalid">Save</md-button>
+</div>
+<div class="hr"></div>

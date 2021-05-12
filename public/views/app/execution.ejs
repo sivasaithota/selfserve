@@ -1,0 +1,103 @@
+<div ng-show="paramAs.isPopup" aria-label="Execution details" class="table_status execution_status" ng-class="{'execution_status--log': paramAs.showLogs}">
+  <div layout="row" layout-align="start center">
+    <i class="material-icons margin">info</i>
+    <p class="text-uppercase">
+      <strong>Execution details</strong>
+    </p>
+  </div>
+  <div class="float_info" layout="row" layout-align="space-between center">
+    <div>
+      <h5 class="text-uppercase">Status</h5>
+      <div layout="row" layout-align="start center">
+        <div class="status" ng-class="{
+          'status--success': paramAs.runHistory.status.toLowerCase() === paramAs.execStatus.success ||
+                paramAs.runHistory.status.toLowerCase() === paramAs.execStatus.tableauSuccess ||
+                paramAs.runHistory.status.toLowerCase() === paramAs.execStatus.completedSuccess,
+          'status--error': paramAs.runHistory.status.toLowerCase() === paramAs.execStatus.failure ||
+                paramAs.runHistory.status.toLowerCase() === paramAs.execStatus.cancelled ||
+                paramAs.runHistory.status.toLowerCase() === paramAs.execStatus.tableauFailure ||
+                paramAs.runHistory.status.toLowerCase() === paramAs.execStatus.completedFailure,
+          'status--queued': paramAs.runHistory.status.toLowerCase() === paramAs.execStatus.queued ||
+                paramAs.runHistory.status.toLowerCase() === paramAs.execStatus.running ||
+                paramAs.runHistory.status.toLowerCase() === paramAs.execStatus.started ||
+                paramAs.runHistory.status.toLowerCase() === paramAs.execStatus.tableauRunning ||
+                paramAs.runHistory.status.toLowerCase() === paramAs.execStatus.cancelling
+        }"></div>
+        <p ng-bind="paramAs.runHistory.status"></p>
+      </div>
+    </div>
+    <div>
+      <h5 class="text-uppercase">Duration</h5>
+      <p ng-if="paramAs.executionTime" ng-bind="paramAs.executionTime | secondsToDateTime | date: 'HH:mm:ss'"></p>
+      <p ng-if="!paramAs.executionTime">-</p>
+    </div>
+  </div>
+  <div class="last_log" ng-if="!paramAs.showLogs && paramAs.runHistory.logData.length" ng-bind="paramAs.runHistory.logData[paramAs.runHistory.logData.length - 1].log"></div>
+  <div class="float_desc">
+    <h5 class="text-uppercase">Executed by</h5>
+    <p class="name"
+       ng-if="paramAs.runHistory.username"
+       ng-bind="paramAs.convertUsername(paramAs.runHistory.username) || 'Admin'"></p>
+  </div>
+  <div class="log_content" auto-scroll>
+    <div ng-repeat="logData in paramAs.runHistory.logData | orderBy: 'time' track by $index">
+      {{logData.time | date: 'MM/dd/yy HH:mm:ss'}} - "{{logData.log}}"
+    </div>
+  </div>
+  <div class="text-center" layout="row" layout-align="space-between center" ng-if="!paramAs.showLogs">
+    <md-button ng-if="main.currentUser.functions.Exec_Debug"
+      class="md-fab" ui-sref="base.jupyter({ pid: paramAs.pid })"
+      target="_blank"
+    >
+      <md-tooltip class="menu_tooltip" md-direction="left">open Jupyter Notebook</md-tooltip>
+      <div layout="row" layout-align="center center">
+        <img src="./images/icons/debug-icon-actions.svg" width="30" height="30" alt="debug-icon">
+      </div>
+    </md-button>
+
+    <md-button class="md-raised" ng-click="$event.stopPropagation();paramAs.showLogs = true">
+      <div layout="row" layout-align="center center">
+        <i class="material-icons md-20 left">subject</i>
+        <span>Detailed logs</span>
+      </div>
+    </md-button>
+  </div>
+  <div layout="row" layout-align="space-between center" ng-if="paramAs.showLogs">
+    <md-button class="md-light" ng-click="$event.stopPropagation();paramAs.showLogs = false">
+      <div layout="row" layout-align="center center">
+        <i class="material-icons md-20 left">keyboard_arrow_up</i>
+        <span>Hide log</span>
+      </div>
+    </md-button>
+    <md-button class="md-light" ng-click="$event.stopPropagation();paramAs.downloadLog(paramAs.runHistory);">
+      <i class="material-icons md-20">file_download</i>
+    </md-button>
+  </div>
+</div>
+
+<div class="execution_container" layout="row" layout-align="space-between center">
+  <p>Execute</p>
+  <md-button class="md-fab md-primary execution_script" aria-label="Execution"
+    ng-click="paramAs.saveParametersAndExecute(main.currentUser.functions.Exec_Run)"
+    ng-class="{'hide': paramAs.runStatus || paramAs.stopStatus}"
+    ng-if="main.currentUser.functions.Exec_Run"
+    ng-disabled="work.projectDetails.status === 'archived'">
+    <i class="material-icons">play_arrow</i>
+  </md-button>
+  <md-button class="md-fab md-primary execution_script" aria-label="Execution"
+    ng-class="{'hide': !paramAs.runStatus}"
+    ng-if="main.currentUser.functions.Exec_Run">
+    <i class="fa fa-spinner fa-spin"></i>
+  </md-button>
+  <md-button class="md-fab md-primary execution_script stop" aria-label="Execution"
+    ng-click="paramAs.stopExecution($event, main.currentUser.functions.Exec_Stop)"
+    ng-class="{'hide': !paramAs.stopStatus}"
+    ng-if="main.currentUser.functions.Exec_Stop">
+    <i class="material-icons">stop</i>
+  </md-button>
+  <i class="material-icons" ng-class="{
+    'error': paramAs.runHistory.status.toLowerCase() === paramAs.execStatus.completedFailure ||
+      paramAs.runHistory.status.toLowerCase() === paramAs.execStatus.failure
+    }" ng-click="paramAs.isPopup = !paramAs.isPopup;paramAs.showLogs = false;"
+    ng-if="main.currentUser.functions.Exec_View">info</i>
+</div>

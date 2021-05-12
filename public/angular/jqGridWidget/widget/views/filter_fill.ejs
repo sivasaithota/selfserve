@@ -1,0 +1,58 @@
+<form name="fillOption" class="fill_form">
+  <div ng-repeat="filter in filters track by $index" class="position-relative">
+    <div layout="row" layout-align="end center">
+      <md-button class="md-transparent md-transparent--sm delete_btn" ng-click="deleteFilterColumn()"
+                 ng-if="filters.length > 1 && $index != 0">
+        <i class="material-icons md-16">remove_circle</i>
+      </md-button>
+    </div>
+    <div class="widget_container widget_form">
+      <label for="columnName">Column name</label>
+      <select class="form-control column_select" ng-options="column as column.displayname for column in widgetInfo.filterModel | hiddenOpt"
+              ng-model="filters[$index]" required></select>
+    </div>
+    <div class="widget_container widget_form">
+      <label for="values">Value</label>
+      <div layout="row">
+        <div flex ng-if="filters[$index] && (
+          filters[$index].columnType == 'integer' ||
+          filters[$index].columnType == 'double precision' ||
+          filters[$index].columnType == 'bigint' ||
+          filters[$index].columnType == 'numeric'
+        )">
+          <select class="form-control"
+            ng-options="operation as operation.label for operation in fillOperations"
+            ng-change="updateOperation(newOperations[$index], filters[$index])"
+            ng-init="updateOperation(newOperations[$index], filters[$index])"
+            ng-model="newOperations[$index]" required></select>
+        </div>
+        <div flex="5" ng-if="filters[$index] && (
+          filters[$index].columnType == 'integer' ||
+          filters[$index].columnType == 'double precision' ||
+          filters[$index].columnType == 'bigint' ||
+          filters[$index].columnType == 'numeric'
+        )"></div>
+        <div flex>
+          <field-form class="filter_container" model="filter" tab-type="filter" column-url="{{widgetInfo.urls.editColumn}}"></field-form>
+          <div ng-if="fillOption.$error.itemSelectedValid && fillOption[filters[$index].name].$viewValue"
+               class="invalid-value">Select value from drop down only</div>
+        </div>
+      </div>
+    </div>
+    <div class="hr"></div>
+  </div>
+  <md-button class="md-transparent md-transparent--sm" ng-click="addFilterColumn()">
+    <div layout="row" layout-align="space-between center">
+      <i class="material-icons add_icon">add</i>
+      <span>Add column</span>
+    </div>
+  </md-button>
+  <div class="hr"></div>
+  <div class="widget_container" layout="row" layout-align="end center">
+    <md-button class="md-white" ng-click="updateRows(fillOption, filters)"
+               ng-disabled="fillOption.$error.itemSelectedValid || !widgetInfo.filteredIds.length">
+      Apply to {{widgetInfo.filteredIds.length}} rows
+    </md-button>
+  </div>
+  <div class="hr"></div>
+</form>

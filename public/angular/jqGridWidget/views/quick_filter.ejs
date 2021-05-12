@@ -1,0 +1,65 @@
+<form class="filter_widget" layout="row" ng-submit="$event.preventDefault()">
+  <div layout="row" layout-align="start center">
+    <img src="./src/images/filter_icon.svg" alt="filter">
+    <h5 class="title">Quick filter</h5>
+  </div>
+  <span class="line-separator"></span>
+  <!-- Container for the each filter column -->
+  <div flex layout="row" class="dropdown-container" layout-wrap style="overflow: auto;">
+    <div layout="row"
+         ng-repeat="(filterIndex, filter) in filteringColumns"
+         ng-init="
+          filter.searchCount = 0;
+          filter.selectCount = 0;
+         "
+    >
+      <div style="margin-top: 7px;margin-bottom: 10px;">
+        <label for="new_item" ng-bind="jqGridTableNames.displaylist[filter.id]"></label>
+        <!-- Dropdown for getting the list of column unique values.
+        By scrolling the Dropdown new values are loaded. -->
+        <md-autocomplete class="new_item"
+                         md-no-cache="false"
+                         md-selected-item="filter.selectedItem"
+                         md-search-text-change="searchTextChange(filter)"
+                         md-search-text="filter.searchText"
+                         md-selected-item-change="selectedItemChange(filter)"
+                         md-items="item in filter.dataArray = querySearch(filter)"
+                         md-item-text="item[filter.id]"
+                         md-min-length="0"
+                         placeholder="Search and Enter Value"
+                         whenscrollends="loadMore(filter)"
+                         md-hide-autocomplete-on-enter
+                         autocomplete-blur
+        >
+          <md-item-template>
+            <span md-highlight-text="filter.searchText" md-highlight-flags="^i">{{item[filter.id]}}</span>
+          </md-item-template>
+          <md-not-found>
+            No matching values "{{filter.searchText}}" were found.
+          </md-not-found>
+        </md-autocomplete>
+      </div>
+      <span class="line-separator"></span>
+    </div>
+  </div>
+
+  <!-- Actions for the form -->
+  <div layout="row" layout-align="start center">
+    <md-button class="md-light" ng-click="quickFilter(filteringColumns)" ng-disabled="rowViewForm.$invalid">
+      Filter
+    </md-button>
+    <md-button class="md-transparent" ng-click="resetFilter()">Reset</md-button>
+  </div>
+  <span class="line-separator"></span>
+
+  <!-- Button to open Advanced filter -->
+  <div layout="row" layout-align="start center">
+    <a class="advanced-link" ng-click="openWidget('filter')" layout="row" layout-align="center center">
+      <md-tooltip md-direction="bottom">Set table filters to view data</md-tooltip>
+      Advanced filter
+      <i class="material-icons">
+        keyboard_arrow_right
+      </i>
+    </a>
+</div>
+</form>

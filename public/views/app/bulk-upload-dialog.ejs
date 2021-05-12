@@ -1,0 +1,202 @@
+<!--Input/output files bulk upload modal dialog template
+    Controller angular/controllers/project/bulk.upload.ctrl.js
+    Called from the controllers/project/table.js-->
+
+<md-dialog id="bulk-upload-modal" class="dialog-window">
+  <!--Headers-->
+  <label class="text-uppercase">{{ type }} data</label>
+  <h2 class="text-uppercase">upload data</h2>
+
+  <div layout="row">
+    <!--Upload folder area-->
+    <div class="folder-upload"
+         msl-folder-input="inputsFolderUploaded">
+
+      <!--Folder icon-->
+      <svg width="41px" height="36px" viewBox="0 0 41 36">
+        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <g id="Scenario-Page-Upload-Input-Data" transform="translate(-845.000000, -486.000000)" fill="#6C73B4" fill-rule="nonzero">
+            <g id="np_folder_1594033_FBAA29" transform="translate(845.000000, 486.000000)">
+              <path d="M4,-3.12053823e-15 L16.7873736,2.66453526e-15 C18.0488193,2.43281145e-15 19.2363544,0.595042111 19.9914885,1.6054963 L21.0085115,2.96638741 C21.7636456,3.9768416 22.9511807,4.57188371 24.2126264,4.57188371 L37,4.57188371 C39.209139,4.57188371 41,6.36274471 41,8.57188371 L41,31.4320988 C41,33.6412378 39.209139,35.4320988 37,35.4320988 L4,35.4320988 C1.790861,35.4320988 2.23265109e-15,33.6412378 0,31.4320988 L-8.8817842e-16,4 C-1.15871992e-15,1.790861 1.790861,-1.37054459e-15 4,-1.77635684e-15 Z" id="Shape"></path>
+            </g>
+          </g>
+        </g>
+      </svg>
+
+      <div>
+        Select folder to upload
+      </div>
+      <span>
+        (only .csv files are allowed)
+      </span>
+    </div>
+
+    <!--Upload zip area-->
+    <div class="zip-upload"
+         ngf-select="uploadZip($event, $file)"
+         ngf-drop="uploadZip($event, $file)"
+         ngf-pattern="'.zip'"
+         ngf-accept="'.zip'">
+
+      <!--Zip file icon-->
+      <svg width="41px" height="41px" viewBox="0 0 41 41">
+        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+          <g id="Scenario-Page-Upload-Input-Data" transform="translate(-1135.000000, -486.000000)" fill="#6C73B4" fill-rule="nonzero">
+            <g id="np_zip-folder_62923_FBAA29" transform="translate(1135.000000, 486.000000)">
+              <path d="M23.0516322,33.3018239 C23.0516322,34.714778 21.9127445,35.8536692 20.499795,35.8536692 C19.0868455,35.8536692 17.9479578,34.714778 17.9479578,33.3018239 C17.9479578,31.8888699 19.0868455,30.7499786 20.499795,30.7499786 C21.9127445,30.7499786 23.0516322,31.8888699 23.0516322,33.3018239 Z M12.8016436,35.8981316 L12.8016436,39.7240773 C12.8016436,40.4074121 13.3942296,41 14.0775621,41 L26.8795701,41 C27.5629027,41 28.1554887,40.4074121 28.1554887,39.7240773 L28.1554887,35.8981316 L25.6036516,35.8981316 L25.6036516,37.1740542 C25.6036516,37.857389 25.0110655,38.4499769 24.327733,38.4499769 L16.6739526,38.4481975 C15.99062,38.4481975 15.398034,37.8556096 15.398034,37.1722748 L15.398034,35.8963522 L12.8016436,35.8981316 Z M40.99959,6.42408111 L40.99959,32.072368 C40.99959,32.7557028 40.407004,33.3482907 39.7236714,33.3482907 L25.6479315,33.3465113 L25.6479315,26.9240756 C25.6479315,26.1944563 25.0553455,25.648153 24.3720129,25.648153 L16.6740437,25.648153 C15.9444267,25.648153 15.3981251,26.2407409 15.3981251,26.9240756 L15.3981251,33.3483335 L1.27591858,33.3465541 C0.592586008,33.3465541 0,32.7539662 0,32.0706314 L0,1.27592267 C0,0.592587905 0.592586008,0 1.27591858,0 L14.0779266,0 C14.7612592,0 15.7631158,0.409290188 16.2649553,0.911113014 L19.5908716,4.23703996 C20.092711,4.73888101 21.0945677,5.14815298 21.7779002,5.14815298 L39.7258581,5.14815298 C40.407414,5.14815298 41,5.69445634 41,6.42407564 L40.99959,6.42408111 Z M15.3978518,10.2500269 L19.2237853,10.2500269 C19.9534023,10.2500269 20.4997039,9.65743897 20.4997039,8.97410421 C20.4997039,8.29076945 19.9071179,7.69818155 19.2237853,7.69818155 L15.3978518,7.69818155 L15.3978518,10.2500269 Z M15.3978518,15.398271 L19.2237853,15.398271 C19.9534023,15.398271 20.4997039,14.8056831 20.4997039,14.1223483 C20.4997039,13.4390135 19.9071179,12.8464256 19.2237853,12.8464256 L15.3978518,12.8464256 L15.3978518,15.398271 Z M19.2237853,20.5000483 C19.9534023,20.5000483 20.4997039,19.9074604 20.4997039,19.2241256 C20.4997039,18.5407909 19.9071179,17.948203 19.2237853,17.948203 L15.3978518,17.948203 L15.3978518,20.5000483 L19.2237853,20.5000483 Z M25.6480226,20.5000483 L21.8220891,20.5000483 C21.0924721,20.5000483 20.5461705,21.0926362 20.5461705,21.775971 C20.5461705,22.4593057 21.1387565,23.0518936 21.8220891,23.0518936 L25.6480226,23.0518936 L25.6480226,20.5000483 Z M25.6480226,15.398271 L21.8220891,15.398271 C21.0924721,15.398271 20.5461705,15.9908589 20.5461705,16.6741936 C20.5461705,17.3575284 21.1387565,17.9501163 21.8220891,17.9501163 L25.6480226,17.9501163 L25.6480226,15.398271 Z M25.6480226,10.2500269 L21.8220891,10.2500269 C21.0924721,10.2500269 20.5461705,10.8426148 20.5461705,11.5259495 C20.5461705,12.2092843 21.1387565,12.8018722 21.8220891,12.8018722 L25.6480226,12.8018722 L25.6480226,10.2500269 Z" id="Shape"></path>
+            </g>
+          </g>
+        </g>
+      </svg>
+
+      <div>
+        Select .zip file to upload
+      </div>
+      <span>
+        (only .csv files are allowed)
+      </span>
+    </div>
+  </div>
+
+  <!--Zip upload progress area-->
+  <div ng-if="zipFileDetails.loading || zipFileDetails.error"
+       class="zip-upload-progress"
+       layout="row"
+       layout-align="space-between center">
+    <!--Zip file name-->
+    <span>{{ zipFileDetails.fileName }}</span>
+
+    <div ng-if="zipFileDetails.loading"
+         layout="row"
+         layout-align="center center">
+      <!--Upload status-->
+      <span class="upload-status">
+        {{ zipFileDetails.uploadProgress === 100 ? 'processing' : 'uploading' }}
+      </span>
+
+      <!--Circular progressbar of upload progress-->
+      <md-progress-circular ng-if="zipFileDetails.uploadProgress < 100"
+                            md-mode="determinate"
+                            md-diameter="32"
+                            value="{{zipFileDetails.uploadProgress}}">
+      </md-progress-circular>
+
+      <!--Spinner while processing the uploaded file-->
+      <spinner ng-if="zipFileDetails.uploadProgress === 100"></spinner>
+    </div>
+
+    <img ng-if="zipFileDetails.error"
+         src="./src/images/error-round-icon.svg"
+         alt="{{ zipFileDetails.error }}"
+         uib-popover="{{ zipFileDetails.error }}"
+         popover-title="error in upload"
+         popover-trigger="mouseenter"
+         popover-placement="right"
+         popover-append-to-body="true">
+  </div>
+
+  <!--List of uploaded files-->
+  <div class="uploaded-files"
+       ng-if="files.success.length || files.error.length || files.unsupported.length">
+
+    <!--Being uploaded or successfully uploaded files-->
+    <div class="uploaded-file"
+         ng-repeat="file in files.success"
+         layout="row"
+         layout-align="space-between center">
+      <span>{{ file.name }}</span>
+
+      <div ng-if="file.isLoading"
+           layout="row"
+           layout-align="center center">
+
+        <!--Upload status-->
+        <span class="upload-status">
+          {{ file.uploadProgress === 100 ? 'processing' : 'uploading' }}
+        </span>
+
+        <!--Circular progressbar of upload progress-->
+        <md-progress-circular ng-if="file.uploadProgress < 100"
+                              md-mode="determinate"
+                              md-diameter="22"
+                              value="{{file.uploadProgress}}">
+        </md-progress-circular>
+
+        <!--Spinner while processing the uploaded file-->
+        <spinner ng-if="file.uploadProgress === 100"></spinner>
+      </div>
+
+      <!--Success icon with popover-->
+      <img ng-if="!file.isLoading"
+           src="./src/images/success-tick.svg"
+           alt="success"
+           uib-popover="{{ file.displayName }} table is uploaded successfully"
+           popover-title="successful upload"
+           popover-trigger="mouseenter"
+           popover-placement="right"
+           popover-append-to-body="true">
+    </div>
+
+    <!--Info about the number of uploaded files with errors-->
+    <div ng-if="files.error.length || files.unsupported.length"
+         layout="column"
+         layout-align="center center"
+         class="upload-error-count">
+      <div>{{ files.error.length + files.unsupported.length }} file(s)</div>
+      <p>discarded as irrelevant to the application</p>
+    </div>
+
+    <!--csv files with errors-->
+    <details ng-if="files.error.length" class="upload-error-details">
+      <summary class="upload-error-summary">
+        tables failed to upload
+      </summary>
+
+      <div class="uploaded-file uploaded-file-error"
+           ng-repeat="file in files.error"
+           layout="row"
+           layout-align="space-between center">
+        <span>{{ file.name }}</span>
+
+        <!--Error icon with popover-->
+        <img src="./src/images/error-round-icon.svg"
+             alt="{{ file.error }}"
+             uib-popover="{{ file.error }}"
+             popover-title="error in upload"
+             popover-trigger="mouseenter"
+             popover-placement="right"
+             popover-append-to-body="true">
+      </div>
+    </details>
+
+    <!--Files with invalid extension-->
+    <details ng-if="files.unsupported.length" class="upload-error-details">
+      <summary class="upload-error-summary">
+        unsupported files
+      </summary>
+
+      <div class="uploaded-file uploaded-file-error"
+           ng-repeat="file in files.unsupported"
+           layout="row"
+           layout-align="space-between center">
+        <span>{{ file.name }}</span>
+
+        <!--Error icon with popover-->
+        <img src="./src/images/error-round-icon.svg"
+             alt="{{ file.error }}"
+             uib-popover="{{ file.error }}"
+             popover-title="error in upload"
+             popover-trigger="mouseenter"
+             popover-placement="right"
+             popover-append-to-body="true">
+      </div>
+    </details>
+  </div>
+
+  <!--Close button-->
+  <footer>
+    <md-button class="md-dark text-uppercase" ng-click="closeModal()">
+      close
+    </md-button>
+  </footer>
+</md-dialog>

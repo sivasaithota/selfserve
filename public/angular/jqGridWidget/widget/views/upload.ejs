@@ -1,0 +1,112 @@
+<!--Upload data as CSV/XLS/XLSX feature-->
+<div class="widget_container">
+  <h3>Upload Data</h3>
+</div>
+<div class="hr"></div>
+
+<div class="widget_container widget-upload">
+
+  <!--Skip Header checkbox-->
+  <div layout="row" layout-align="start center">
+    <md-checkbox
+            md-no-ink
+            aria-label="Skip Header"
+            ng-model="checkbox.skipHeader"
+            class="md-primary"
+    >
+      Skip Header
+    </md-checkbox>
+
+    <!--Info icon with tooltip-->
+    <div>
+      <md-tooltip md-direction="top">
+        <span>{{widgetInfo.homeTooltips.skip_header}}</span>
+      </md-tooltip>
+      <i class="material-icons">info</i>
+    </div>
+  </div>
+
+  <!--Append data checkbox-->
+  <div layout="row" layout-align="start center">
+    <md-checkbox
+            md-no-ink
+            aria-label="Append Data"
+            ng-model="checkbox.appendData"
+            class="md-primary"
+    >
+      Append Data
+    </md-checkbox>
+
+    <!--Info icon with tooltip-->
+    <div>
+      <md-tooltip md-direction="top">
+        <span>{{widgetInfo.homeTooltips.append_data}}</span>
+      </md-tooltip>
+      <i class="material-icons">info</i>
+    </div>
+  </div>
+
+  <!--Container for uploading files-->
+  <div ng-model="inputFiles"
+    ngf-select="uploadFile($event, $file)"
+    ngf-drop="uploadFile($event, $file)"
+    ngf-model-invalid="invalidInputFiles"
+    ng-model-options="modelOptionsInput"
+    ngf-multiple="multipleInput"
+    ngf-pattern="patternInput"
+    ngf-accept="patternInput"
+    class="upload-area">
+    <div ng-if="!uploadedFile" layout="row" layout-align="center center">
+      <img src="./src/images/upload_icon.svg">
+      <div>
+        Click to Upload files
+        <p>.csv, .xls, .xslx are allowed</p>
+      </div>
+    </div>
+
+    <!--Uploaded file name-->
+    <div id="uploaded-file" ng-if="uploadedFile">
+      <p class="text-uppercase">Uploaded file</p>
+      <span>{{uploadedFile.name}}</span>
+    </div>
+  </div>
+
+  <div class="upload-warning" layout="column" layout-align="center center">
+    <i class="material-icons">warning</i>
+    <div>
+      If the file size exceeds 100 Mb, try
+      <span>.zip</span> upload in <span>'Upload Inputs'</span>.
+      This option is found in bottom left of the page.
+    </div>
+  </div>
+
+  <!--Radio buttons for selecting the xls/xlsx sheet to upload-->
+  <div ng-if="sheets.length" id="sheet-selector">
+    <p class="text-uppercase">
+      Choose a sheet to load data
+    </p>
+
+    <div ng-repeat="sheet in sheets">
+      <label>
+        <input type="radio" ng-model="uploadedFile.sheet" ng-value="$index">
+        {{sheet}}
+      </label>
+    </div>
+  </div>
+</div>
+
+<!--Upload btn to upload the selected sheet-->
+<div ng-if="sheets.length" class="hr"></div>
+<div ng-if="sheets.length" class="widget_container" layout="row" layout-align="end">
+  <md-button class="md-white" ng-click="uploadFile($event, $file)">Load data</md-button>
+</div>
+
+<!--Last edited and updated on Info-->
+<div class="hr"></div>
+<div class="widget_container">
+  <p>Last edited by</p>
+  <h4 ng-bind="widgetInfo.table.updatedBy"></h4>
+  <p>Updated on</p>
+  <h4 ng-bind="widgetInfo.table.updatedAt | date: 'h:mm dd MMMM yyyy'"></h4>
+</div>
+<div class="hr"></div>

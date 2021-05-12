@@ -1,0 +1,17 @@
+<div id="tabs">
+  <md-tabs md-dynamic-height class="md-default-theme full_size_hide" md-selected="work.selectedIndex">
+    <md-tab label="{{work.inputs.value}}"
+      ng-if="work.showInputTab && main.currentUser.functions.Sc_View && work.inputs.visible && main.currentUser.role !== 'BusinessUser'"
+      ui-sref=".inputs({tab: 'table'})"
+      md-active-nc="work.state.current.name === 'base.project.inputs'"></md-tab>
+    <md-tab label="{{work.parameters.value}}"
+      ng-if="main.currentUser.functions.Sc_View && work.parameters.visible && main.currentUser.functions.Param_View"
+      ui-sref=".parameters({tab: 'none'})"
+      md-active-nc="work.state.current.name === 'base.project.parameters'"></md-tab>
+    <md-tab label="{{work.outputs.value}}"
+      ng-if="work.showOutputTab && work.outputs.visible"
+      ui-sref=".outputs({tab: 'tableau'})"
+      md-active-nc="work.state.current.name === 'base.project.outputs'"></md-tab>
+  </md-tabs>
+  <div ui-view></div>
+</div>

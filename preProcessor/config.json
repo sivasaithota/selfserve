@@ -1,0 +1,337 @@
+{
+  "bundler": {
+    "acFilePath": "../sqlScripts/bundle.sql",
+    "scriptGeneratedPath": "../sqlScripts/master/script_generated.sql"
+  },
+  "acSQLFiles": [{
+      "file": "../sqlScripts/user/create_eds_user_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/user/grant_schema_access.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/master/lkp_data_upload_tables.sql",
+      "deploy": true,
+      "redeploy": false
+    },
+    {
+      "file": "../sqlScripts/master/lkp_parameters_table.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/master/lkp_views_tables.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/master/lkp_scenario_templates.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/master/lkp_dependency_list.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/master/lkp_pages.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/master/lkp_tab_view.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/master/restore_app_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/master/lkp_row_view_table.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/master/projects_table.sql",
+      "deploy": true,
+      "redeploy": false
+    },
+    {
+      "file": "../sqlScripts/user/user_roles_table.sql",
+      "deploy": true,
+      "redeploy": false
+    },
+    {
+      "file": "../sqlScripts/user/users_table.sql",
+      "deploy": true,
+      "redeploy": false
+    },
+    {
+      "file": "../sqlScripts/user/users_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/user/users_scenario_access.sql",
+      "deploy": true,
+      "redeploy": false
+    },
+    {
+      "file": "../sqlScripts/user/users_table_access.sql",
+      "deploy": true,
+      "redeploy": false
+    },
+    {
+      "file": "../sqlScripts/master/lkp_edit_grid.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/user/update_scenario_access_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/user/update_table_access_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/master/run_histories_table.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/scenario/save_parameters_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/scenario/create_scenario_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/scenario/copy_scenario_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/scenario/delete_scenario_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/scenario/update_scenario_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/scenario/upload_grid_data_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/scenario/update_execution_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/scenario/add_grid_data_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/scenario/edit_grid_data_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/scenario/delete_grid_data_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/setting/setting_table.sql",
+      "deploy": true,
+      "redeploy": false
+    },
+    {
+      "file": "../sqlScripts/powerbi/lkp_powerbi_report.sql",
+      "deploy": true,
+      "redeploy": false
+    },
+    {
+      "file": "../sqlScripts/powerbi/powerbi_import_settings.sql",
+      "deploy": true,
+      "redeploy": false
+    },
+    {
+      "file": "../sqlScripts/tableau/lkp_tableau_report.sql",
+      "deploy": true,
+      "redeploy": false
+    },
+    {
+      "file": "../sqlScripts/tableau/tableau_extract_table.sql",
+      "deploy": true,
+      "redeploy": false
+    },
+    {
+      "file": "../sqlScripts/tableau/tableau_extract.sql",
+      "deploy": true,
+      "redeploy": false
+    },
+    {
+      "file": "../sqlScripts/locking/locking_table.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/scenario/copy_tables_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/master/lkp_commands_to_execute.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/locking/check_lock_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/user/add_user_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/scenario/get_col_range_for_table_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/scenario/multi_edit_grid_data_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/scenario/get_updated_inputs_parameters_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/master/template_cleanup_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/tableau/create_ro_user_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/tableau/grant_ro_user_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/archiving/archive_scenario_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/master/script_generated.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/scenario/table_rows_count.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/master/tags.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/locking/lock_scenario_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/locking/remove_scenario_lock_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/scenario/save_parameter_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/user/remove_users_with_access.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/setting/script_instance.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/scenario/table_metainfo_check.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/user/delete_user_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/user/update_user_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/user/users_visualization_access.sql",
+      "deploy": true,
+      "redeploy": false
+    },
+    {
+      "file": "../sqlScripts/user/update_visualization_accesses_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/scenario/analyze_scenario_by_id.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/user/users_powerbi_access.sql",
+      "deploy": true,
+      "redeploy": false
+    },
+    {
+      "file": "../sqlScripts/user/update_powerbi_access_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    },
+    {
+      "file": "../sqlScripts/scenario/get_resource_count_fn.sql",
+      "deploy": true,
+      "redeploy": true
+    }
+  ]
+}

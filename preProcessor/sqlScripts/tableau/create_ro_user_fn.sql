@@ -1,0 +1,21 @@
+DROP FUNCTION IF EXISTS public.create_ro_user(TEXT, TEXT);
+
+CREATE OR REPLACE FUNCTION public.create_ro_user(uname TEXT, pword TEXT) 
+	returns BOOLEAN AS 
+$BODY$ 
+DECLARE 
+	_query TEXT;
+BEGIN
+	/* USER CREATION */
+	BEGIN
+		SELECT 'CREATE USER ' || uname || ' LOGIN PASSWORD ''' || pword ||'''' INTO _query; 
+		EXECUTE _query;
+		RAISE INFO '% - USER CREATED SUCCESSFULLY', uname;
+		RETURN TRUE;
+	EXCEPTION WHEN OTHERS THEN
+		RAISE INFO '% - USER ALREADY EXISTS', uname;
+		RETURN FALSE;
+	END;
+END;
+$BODY$
+LANGUAGE plpgsql;

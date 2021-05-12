@@ -1,0 +1,232 @@
+<md-content class="md-padding" flex>
+  <!--Spinner until tableau users are fetched-->
+  <div ng-if="!tableauSettingsCtrl.users" layout="row" layout-align="start center">
+    <spinner></spinner>
+  </div>
+
+  <!--Trusted Authentication card-->
+  <div ng-if="tableauSettingsCtrl.users">
+    <div layout="row" layout-align="space-between center">
+
+      <!--Switch-->
+      <div layout="row" layout-align="start center">
+        <label class="text-uppercase setting-label">Trusted Authentication</label>
+        <md-switch ng-model="tableauSettingsCtrl.settings.tableauTrusted"
+                   class="md-primary"
+                   aria-label="tableau trusted authentication"
+                   ng-change="tableauSettingsCtrl.switchAuthenticationOff()"></md-switch>
+        <i class="material-icons saved-icon"
+           ng-show="tableauSettingsCtrl.isSaved.tableauUsername && !tableauSettingsCtrl.settings.tableauTrusted">
+          check_circle</i>
+      </div>
+
+      <!--Info icon with tooltip-->
+      <div>
+        <md-tooltip md-direction="bottom">{{main.settingsTooltips.tableau_settings.trusted}}</md-tooltip>
+        <i class="material-icons info-icon">info</i>
+      </div>
+    </div>
+
+    <!--Tableau user drop-down-->
+    <div class="tableau-user" ng-if="tableauSettingsCtrl.settings.tableauTrusted">
+      <label class="text-uppercase select">Select user*</label>
+      <md-input-container md-no-float class="input_container">
+        <input-dropdown
+                class="form_control form_control--dark"
+                input-placeholder=""
+                input-name="trusted_user"
+                input-required="false"
+                selected-item="tableauSettingsCtrl.settings.tableauUsername"
+                default-dropdown-items="tableauSettingsCtrl.users"
+                filter-list-method="tableauSettingsCtrl.filterItems(userInput)"
+                allow-custom-input="true"
+                item-selected-method="tableauSettingsCtrl.selectUser(item)"
+                input-class-name="md-input">
+        </input-dropdown>
+        <i class="material-icons saved-icon"
+           ng-show="tableauSettingsCtrl.isSaved.tableauUsername && tableauSettingsCtrl.settings.tableauTrusted">
+          check_circle</i>
+        <span>
+          <i class="material-icons error-icon" ng-show="tableauSettingsCtrl.incorrectUser">info</i>
+          <md-tooltip md-direction="bottom">{{main.settingsTooltips.tableau_settings.incorrect_user}}
+          </md-tooltip>
+        </span>
+      </md-input-container>
+    </div>
+  </div>
+
+  <md-divider class="divider-bold"></md-divider>
+
+  <!--Tableau footer card-->
+  <div layout="row" layout-align="space-between center">
+
+      <!--Switch-->
+      <div layout="row" layout-align="center center">
+          <label class="text-uppercase setting-label">Tableau footer</label>
+          <md-switch ng-model="tableauSettingsCtrl.settings.tableauFooter"
+                     class="md-primary"
+                     aria-label="tableau footer"
+                     ng-change="tableauSettingsCtrl.switchFooter()"></md-switch>
+          <i class="material-icons saved-icon" ng-show="tableauSettingsCtrl.isSaved.tableauFooter">check_circle</i>
+      </div>
+
+      <!--Info icon with tooltip-->
+      <div>
+          <md-tooltip md-direction="bottom">{{main.settingsTooltips.tableau_settings.footer}}</md-tooltip>
+          <i class="material-icons info-icon">info</i>
+      </div>
+  </div>
+
+  <md-divider class="divider-bold"></md-divider>
+
+  <!--Tableau extract card-->
+  <div layout="row" layout-align="space-between center">
+      <label class="text-uppercase setting-label">Tableau extract</label>
+
+      <!--Info icon with tooltip-->
+      <div>
+          <md-tooltip md-direction="bottom">
+              <span>{{main.settingsTooltips.tableau_settings.extract}}</span>
+          </md-tooltip>
+          <i class="material-icons info-icon">info</i>
+      </div>
+  </div>
+
+  <!--Table with tableau extract switches-->
+  <table class="extracts-table">
+      <tr>
+          <th class="baseline-header">data</th>
+          <td layout="row" class="divided-row">
+              <div>
+                  <label>inputs</label>
+
+                  <!--Data inputs switches with success icons-->
+                  <div layout="row"
+                       layout-align="space-between center"
+                       ng-repeat="inputDataExtract in tableauSettingsCtrl.tableauExtracts.data.input">
+                      <span>{{ inputDataExtract.typeName }}</span>
+
+                      <div layout="row" layout-align="center center">
+                          <md-switch class="md-primary"
+                                     ng-model="inputDataExtract.runExtract"
+                                     ng-change="tableauSettingsCtrl.switchTableauExtract(inputDataExtract)"
+                                     aria-label="{{ inputDataExtract.typeName }}"></md-switch>
+                          <i class="material-icons saved-icon" ng-show="inputDataExtract.saved">
+                              check_circle
+                          </i>
+                      </div>
+                  </div>
+              </div>
+              <div>
+                  <label>outputs</label>
+
+                  <!--Data outputs switches with success icons-->
+                  <div layout="row"
+                       layout-align="space-between center"
+                       ng-repeat="outputDataExtract in tableauSettingsCtrl.tableauExtracts.data.output">
+                      <span>{{ outputDataExtract.typeName }}</span>
+
+                      <div layout="row" layout-align="center center">
+                          <md-switch class="md-primary"
+                                     ng-model="outputDataExtract.runExtract"
+                                     ng-change="tableauSettingsCtrl.switchTableauExtract(outputDataExtract)"
+                                     aria-label="{{ outputDataExtract.typeName }}"></md-switch>
+                          <i class="material-icons saved-icon" ng-show="outputDataExtract.saved">
+                              check_circle
+                          </i>
+                      </div>
+                  </div>
+              </div>
+          </td>
+      </tr>
+
+      <tr>
+          <th>scripts</th>
+          <td>
+              <!--Script switches with success icons-->
+              <div ng-repeat="scriptExtract in tableauSettingsCtrl.tableauExtracts.script">
+                  <div>{{ scriptExtract.typeName }}</div>
+
+                  <div layout="row" layout-align="start center">
+                      <md-switch class="md-primary"
+                                 ng-model="scriptExtract.runExtract"
+                                 ng-change="tableauSettingsCtrl.switchTableauExtract(scriptExtract)"
+                                 aria-label="{{ scriptExtract.typeName }}"></md-switch>
+                      <i class="material-icons saved-icon" ng-show="scriptExtract.saved">
+                          check_circle
+                      </i>
+                  </div>
+              </div>
+          </td>
+      </tr>
+
+      <tr>
+          <th>scenarios</th>
+          <td layout="row">
+              <!--Scenario switches witch success icons-->
+              <div ng-repeat="scenarioExtract in tableauSettingsCtrl.tableauExtracts.scenario">
+                  <div>{{ scenarioExtract.typeName }}</div>
+
+                  <div layout="row" layout-align="start center">
+                      <md-switch class="md-primary"
+                                 ng-model="scenarioExtract.runExtract"
+                                 ng-change="tableauSettingsCtrl.switchTableauExtract(scenarioExtract)"
+                                 aria-label="{{ scenarioExtract.typeName }}"></md-switch>
+                      <i class="material-icons saved-icon" ng-show="scenarioExtract.saved">
+                          check_circle
+                      </i>
+                  </div>
+              </div>
+          </td>
+      </tr>
+
+      <tr>
+          <th class="baseline-header">actions</th>
+          <td layout="row" class="divided-row">
+              <div>
+                  <label>inputs</label>
+
+                  <!--Input actions switches with success icons-->
+                  <div layout="row"
+                       layout-align="space-between center"
+                       ng-repeat="inputActionExtract in tableauSettingsCtrl.tableauExtracts.action.input">
+                      <span>{{ inputActionExtract.typeName }}</span>
+
+                      <div layout="row" layout-align="center center">
+                          <md-switch class="md-primary"
+                                     ng-model="inputActionExtract.runExtract"
+                                     ng-change="tableauSettingsCtrl.switchTableauExtract(inputActionExtract)"
+                                     aria-label="{{ inputActionExtract.typeName }}"></md-switch>
+                          <i class="material-icons saved-icon" ng-show="inputActionExtract.saved">
+                              check_circle
+                          </i>
+                      </div>
+                  </div>
+              </div>
+              <div>
+                  <label>outputs</label>
+
+                  <!--Output actions switches with success icons-->
+                  <div layout="row"
+                       layout-align="space-between center"
+                       ng-repeat="outputActionExtract in tableauSettingsCtrl.tableauExtracts.action.output">
+                      <span>{{ outputActionExtract.typeName }}</span>
+
+                      <div layout="row" layout-align="center center">
+                          <md-switch class="md-primary"
+                                     ng-model="outputActionExtract.runExtract"
+                                     ng-change="tableauSettingsCtrl.switchTableauExtract(outputActionExtract)"
+                                     aria-label="{{ outputActionExtract.typeName }}"></md-switch>
+                          <i class="material-icons saved-icon" ng-show="outputActionExtract.saved">
+                              check_circle
+                          </i>
+                      </div>
+                  </div>
+              </div>
+          </td>
+      </tr>
+  </table>
+
+  <md-divider class="divider-bold"></md-divider>
+
+</md-content>

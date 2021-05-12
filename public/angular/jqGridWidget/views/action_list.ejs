@@ -1,0 +1,86 @@
+<md-menu ng-if="!isOpenedWidget" md-position-mode="target-right target">
+  <md-button aria-label="Open widget interactions menu" class="md-icon-button" ng-click="openWidgetMenu($mdOpenMenu, $event)">
+    <i class="material-icons" md-menu-origin >more_vert</i>
+  </md-button>
+  <md-menu-content
+    width="4"
+    class="widget_list widget_list--table"
+    ng-class="{'widget_list--hidden': isFullSize}">
+    <!-- Uploading new data from file -->
+    <md-menu-item
+      ng-if="jqGridTableNames.type.indexOf('view') < 0 && currentUser.functions.Grid_Upload && isScenarioActive && jqGridTableNames.editable">
+      <md-button ng-click="openWidget('upload')">
+        <img src="./src/images/upload_icon.svg" alt="upload">
+        <span layout="column">
+          <span class="button-name text-uppercase">Upload table</span>
+          <span class="button-description">Upload table in .csv format</span>
+        </span>
+      </md-button>
+    </md-menu-item>
+    <!-- Filtering rows -->
+    <md-menu-item ng-if="!filteringColumns.length">
+      <md-button ng-click="openWidget('filter')">
+        <img src="./src/images/filter_icon.svg" alt="filter">
+        <span layout="column">
+          <span class="button-name text-uppercase">Advanced filter</span>
+          <span class="button-description">Advanced filter options for the table</span>
+        </span>
+      </md-button>
+    </md-menu-item>
+    <!-- Adding new row -->
+    <md-menu-item ng-if="tabFunctions.add && isScenarioActive && jqGridTableNames.editable"
+      ng-class="{
+      'disabled': tableTabs['activeTab' + jqGridTableNames.displayname] === tableTabs['tabs' + jqGridTableNames.displayname].row
+      }">
+      <md-button ng-click="openWidget('add')">
+        <img src="./src/images/add_icon.svg" alt="add">
+        <span layout="column">
+          <span class="button-name text-uppercase">Add new row</span>
+          <span class="button-description">A new rows can be added to the table</span>
+        </span>
+      </md-button>
+    </md-menu-item>
+    <!-- Editing a row -->
+    <md-menu-item ng-if="tabFunctions.edit && editFunctions.isEdited && isScenarioActive && jqGridTableNames.editable"
+        ng-class="{
+        'disabled': tableTabs['activeTab' + jqGridTableNames.displayname] === tableTabs['tabs' + jqGridTableNames.displayname].row
+        }">
+      <md-button ng-click="openWidget('edit')">
+        <img src="./src/images/edit_icon.svg" alt="edit">
+        <span layout="column">
+          <span class="button-name text-uppercase">Edit selected rows</span>
+          <span class="button-description">Selected rows can be edited</span>
+        </span>
+      </md-button>
+    </md-menu-item>
+    <!-- Deleting a row -->
+    <md-menu-item ng-if="tabFunctions.delete && isScenarioActive && jqGridTableNames.editable">
+      <md-button ng-click="openWidget('delete')">
+        <img src="./src/images/delete_icon.svg" alt="delete">
+        <span layout="column">
+          <span class="button-name text-uppercase">Delete rows</span>
+          <span class="button-description">Rows can be deleted from the table</span>
+        </span>
+      </md-button>
+    </md-menu-item>
+    <!-- Download table -->
+    <md-menu-item>
+      <md-button ng-click="openWidget('download')">
+        <img src="./src/images/download_icon.svg" alt="download">
+        <span layout="column">
+          <span class="button-name text-uppercase">Download table</span>
+          <span class="button-description">Download table in .csv format</span>
+        </span>
+      </md-button>
+    </md-menu-item>
+    <!-- Download table -->
+    <md-menu-item>
+      <md-button ng-click="hideMetainfoColumn()">
+        <img src="./src/images/info-icon.svg" alt="metainfo">
+        <span layout="column">
+          <span class="button-name text-uppercase"> {{metainfoColumnHidden ? 'Show' : 'Hide' }}  metainfo column</span>
+          <span class="button-description">Column is present at the end of the table</span>
+        </span>
+      </md-button>
+    </md-menu-item>
+</md-menu>

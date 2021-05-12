@@ -1,0 +1,38 @@
+<div class="dialog-action action">
+  <form name="copyScenario" ng-submit="checked = true; scenario.copyProject(project)">
+    <div layout="row" layout-align="space-between center">
+      <div ng-init="project.newName = project.name;" flex>
+        <p class="title">Duplicate Scenario Name</p>
+        <label for="name">New scenario name</label>
+        <md-input-container>
+          <input type="text" name="name" ng-model="project.newName" aria-label="input"
+            ng-pattern="/^[a-zA-Z0-9\ ._-]*$/" ng-maxlength="80"
+            uib-popover-template="'popover_scenario.html'"
+            popover-is-open="copyScenario.name.$error.pattern || copyScenario.name.$error.maxlength"
+            popover-trigger="none"
+            popover-placement="left"
+            popover-append-to-body="true">
+        </md-input-container>
+      </div>
+    </div>
+    <hr>
+    <div layout="row" layout-align="end center">
+      <md-button type="button" class="md-transparent" ng-click="scenario.closeWin(project, 'isCopied')" aria-label="Close window">Cancel</md-button>
+      <md-button type="button" class="md-white" ng-click="nonchecked = true;scenario.copyProject(project)" aria-label="Copy">Copy</md-button>
+    </div>
+  </form>
+</div>
+
+<script type="text/ng-template" id="popover_scenario.html">
+	<div>
+		<b><p>Error in Scenario Name</p></b>
+		<div class="text" ng-if="copyScenario.name.$error.pattern" layout="row" layout-align="start start">
+			<i class="material-icons md-16">info</i>
+            {{ scenario.scenarioMessages.scenarioNamePattern }}
+		</div>
+    <div class="text" ng-if="copyScenario.name.$error.maxlength" layout="row" layout-align="start start">
+      <i class="material-icons md-16">info</i>
+        {{ scenario.scenarioMessages.scenarioNameLength }}
+    </div>
+	</div>
+</script>

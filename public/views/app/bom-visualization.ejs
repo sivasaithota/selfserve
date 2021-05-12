@@ -1,0 +1,53 @@
+<div class="bom_container">
+  <div class="bom_container--scroll" layout="column">
+    <!-- header container -->
+    <div class="bom_header_container" layout="row">
+      <div class="dropdown-container" layout="row" layout-align="start center">
+        <form ng-submit="$event.preventDefault()" ng-repeat="( filterIndex, filter ) in bomSettings.filters" ng-if="nodes.length">
+          <label for="new_item" ng-bind="filter.label"></label>
+          <div layout="row">
+            <md-autocomplete class="new_item"
+                             ng-disabled="isDisabled"
+                             md-no-cache="noCache"
+                             md-selected-item="selectedItems[filterIndex]"
+                             md-search-text-change="searchTextChange(searchText, filter.column)"
+                             md-search-text="searchText"
+                             md-selected-item-change="selectedItemChange(item)"
+                             md-items="item in logEventFilter = (querySearch(searchText, filterIndex) | limitTo:numberToDisplay)"
+                             md-item-text="item"
+                             md-min-length="0"
+                             placeholder="Select (or) Enter a {{filter.label}}">
+              <md-item-template>
+                <span md-highlight-text="searchText" md-highlight-flags="^i">{{item}}</span>
+              </md-item-template>
+              <md-not-found>
+                No matching values "{{searchText}}" were found.
+              </md-not-found>
+            </md-autocomplete>
+            <div class="form-next" ng-if="(bomSettings.filters.length - 1) !== filterIndex">
+              <i class="material-icons">
+                keyboard_arrow_right
+              </i>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div id="colors_examples"></div>
+    </div>
+    <!--  Container for the dropdown-->
+
+    <div class="zoom" layout="row">
+      <div id="zoomOut" class="zoom_content">
+        <i class="material-icons md-28">remove</i>
+      </div>
+      <div class="zoom_diviber"></div>
+      <div id="zoomIn" class="zoom_content">
+        <i class="material-icons md-28">add</i>
+      </div>
+    </div>
+    <!--  Container for the graph-->
+    <div class="graph-container" layout="row" layout-align="center center">
+      <div class="graph_content" draggable></div>
+    </div>
+  </div>
+</div>

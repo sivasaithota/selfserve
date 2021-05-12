@@ -1,0 +1,16 @@
+DROP TABLE IF EXISTS "run_histories";
+
+CREATE TABLE IF NOT EXISTS "run_histories" (
+	"id" SERIAL,
+	"scenario_id" INTEGER,
+	"status" VARCHAR(20),
+	"username" VARCHAR(255),
+	"start_time" TIMESTAMP WITH TIME ZONE NOT NULL,
+	"end_time" TIMESTAMP WITH TIME ZONE NOT NULL,
+	"run_time" INTEGER,
+	"logs" TEXT,
+	"created_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	"updated_at" TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	"created_by" VARCHAR(255),
+	"updated_by" VARCHAR(255)
+);

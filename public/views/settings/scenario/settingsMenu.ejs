@@ -1,0 +1,26 @@
+<!--Left menu on the Scenario settings page. Styles are in _settings_menu.scss-->
+<perfect-scrollbar
+        class="menu_scroller settings_menu"
+        wheel-propagation="true"
+        wheel-speed="10"
+        min-scrollbar-length="20"
+>
+    <md-card>
+        <md-list>
+        <!--Iterating over the menu sections-->
+            <div ng-repeat="section in setMenuCtrl.menu" ng-if="section.show">
+                <md-subheader>{{section.name}}</md-subheader>
+                <md-divider></md-divider>
+                <!--Iterating over the options in each section-->
+                <a ng-repeat="option in section.options" ng-if="option.show" ui-sref="{{option.ref}}"
+                    ng-click="setMenuCtrl.activeOption = option.ref">
+                    <md-list-item ng-class="{active_option: option.ref === setMenuCtrl.activeOption}">
+                        {{option.name}}
+                    </md-list-item>
+                    <md-divider></md-divider>
+                </a>
+            </div>
+        </md-list>
+    </md-card>
+</perfect-scrollbar>
+

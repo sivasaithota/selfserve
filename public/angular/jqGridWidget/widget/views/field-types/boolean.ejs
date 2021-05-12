@@ -1,0 +1,18 @@
+<div layout="row">
+  <label flex="30" layout="row">
+    <input type="radio"
+      id="{{model.id}}_{{tabType}}_true"
+      ng-model="$parent.model.rowValue"
+      ng-value="true"
+      ng-change="selectItem($parent.model.rowValue)">
+    <span>True</span>
+  </label>
+  <label flex="30" layout="row">
+    <input type="radio"
+      id="{{model.id}}_{{tabType}}_false"
+      ng-model="$parent.model.rowValue"
+      ng-value="false"
+      ng-change="selectItem($parent.model.rowValue)">
+    <span>False</span>
+  </label>
+</div>

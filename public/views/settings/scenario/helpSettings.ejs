@@ -1,0 +1,111 @@
+<section class="setting_content" flex layout="column">
+
+    <!--Card header-->
+    <md-toolbar class="highlighted">
+        <div class="md-toolbar-tools">
+            <div layout="column">
+                <p flex>general settings</p>
+                <h2 flex class="md-flex">help content</h2>
+            </div>
+        </div>
+    </md-toolbar>
+
+    <!--Card content-->
+    <md-content class="md-padding" flex>
+
+        <!--Help page switch-->
+        <div class="form-group select-wrapper">
+          <label class="text-uppercase">Set up help content*</label>
+          <select ng-model="helpCtrl.type" class="form_control"
+                  ng-options="content.value as content.label for content in helpCtrl.helpContent">
+            <option value="" disabled selected hidden>Select Help Content</option>
+          </select>
+        </div>
+
+        <!--Container for uploading files-->
+        <div ng-if="helpCtrl.type === helpCtrl.contentType.pdf" class="form-group">
+          <label class="text-uppercase">Upload help document</label>
+          <div class="upload_container_block">
+            <!-- Icon for successfully uploaded file -->
+            <i class="material-icons"
+              ng-if="helpCtrl.isUploadSuccess()"
+              >check_circle</i>
+            <img ng-if="helpCtrl.helpFile && helpCtrl.isErrorUploaded && !helpCtrl.isUploading" src="./src/images/error-icon.svg" alt="">
+
+            <!-- File name -->
+            <h4 ng-if="helpCtrl.helpFile" class="text-center">'{{helpCtrl.helpFile}}'</h4>
+
+            <!-- Status of upload -->
+            <p class="success"
+              ng-if="helpCtrl.isUploadSuccess()"
+              >Successfully Uploaded</p>
+            <p class="error" ng-if="helpCtrl.helpFile && helpCtrl.isErrorUploaded && !helpCtrl.isUploading">Error in Upload</p>
+
+            <!-- Action block -->
+            <div layout="row" layout-align="space-around center">
+              <h6 class="delete"
+                  ng-if="helpCtrl.helpFile && (helpCtrl.isSuccessUploaded || !helpCtrl.isErrorUploaded)"
+                  ng-click="helpCtrl.hideHelpPage()">
+                    Remove file
+              </h6>
+              <div ng-model="helpCtrl.inputFiles"
+                ngf-select="helpCtrl.uploadFile($event, $file)"
+                ngf-drop="helpCtrl.uploadFile($event, $file)"
+                ngf-model-invalid="helpCtrl.invalidInputFiles"
+                ng-model-options="helpCtrl.modelOptionsInput"
+                ngf-multiple="helpCtrl.multipleInput"
+                ngf-pattern="helpCtrl.patternInput"
+                ngf-accept="helpCtrl.acceptSelectInput"
+                class="redeploy_container"
+              >
+                <div ng-if="!helpCtrl.helpFile">
+                  <h5>Click to Upload a New Document</h5>
+                  <p>Only PDF Documents can be uploaded</p>
+                </div>
+                <div ng-if="helpCtrl.helpFile">
+                  <h6 ng-if="helpCtrl.isErrorUploaded">Re-Upload</h6>
+                  <h6 ng-if="helpCtrl.isSuccessUploaded || !helpCtrl.isErrorUploaded">Upload file</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--Container to specify URL-->
+        <div ng-if="helpCtrl.type === helpCtrl.contentType.url">
+          <form name="helpUrlForm" class="form-group group_control">
+            <label class="text-uppercase" for="pageUrl">Enter URL*</label>
+            <input
+              class="form_control form_control--dark"
+              name="pageUrl"
+              ng-model="helpCtrl.helpUrl"
+              ng-pattern="helpCtrl.urlPattern"
+              placeholder="Example : http://www.document-url.com/help-content-0001"
+              required>
+            <i class="material-icons saved" ng-show="helpCtrl.isUrlSaved">check_circle</i>
+
+            <div class="input-error-messages" ng-messages="helpUrlForm.pageUrl.$error">
+              <div ng-message="pattern"
+                   ng-show="helpUrlForm.pageUrl.$touched && helpUrlForm.pageUrl.$error.pattern"
+              >
+                Please enter a valid URL
+              </div>
+              <div ng-message="required"
+                   ng-show="helpUrlForm.pageUrl.$touched && helpUrlForm.pageUrl.$error.required"
+              >
+                Mandatory field
+              </div>
+            </div>
+          </form>
+
+          <!-- Action block -->
+           <div layout="row" layout-align="space-between center">
+             <md-button class="md-transparent" ng-click="helpCtrl.hideHelpPage()">Remove URL</md-button>
+             <md-button class="md-dark" ng-disabled="!helpCtrl.helpUrl" ng-click="helpCtrl.saveHelpUrl()">Save</md-button>
+           </div>
+        </div>
+
+        <md-divider></md-divider>
+
+    </md-content>
+</section>

@@ -1,0 +1,39 @@
+<div class="banner" layout="row" layout-align="center center"></div>
+<div id="scenarios" class="app_container">
+  <div layout="row">
+    <div flex>
+      <!-- Application Details -->
+      <div layout="column" layout-align="center center">
+        <div class="logo"></div>
+        <h1 ng-bind="main.appDetails.displayName"></h1>
+        <h2 ng-bind="main.appDetails.description" ng-if="main.appDetails.description"></h2>
+      </div>
+
+      <div layout="row" layout-align="end center" id="create_content">
+        <div flex class="scenarios_title"></div>
+        <md-button class="md-light" aria-label="Create scenario" ng-click="scenario.createScenario($event)"
+                   ng-if="main.currentUser.functions.Sc_Create">
+          <div layout="row" layout-align="space-between center">
+            <md-tooltip md-direction="right">{{main.homeTooltips.add_btn}}</md-tooltip>
+            <i class="material-icons md-24 left">add</i>
+            <span>Create Scenario</span>
+          </div>
+        </md-button>
+      </div>
+    </div>
+    <span ng-class="{
+      'flex-10': !scenario.isFilterOpen,
+      'flex-20': scenario.isFilterOpen
+    }"></span>
+  </div>
+
+  <div layout="row">
+    <!-- Scenario content -->
+    <ng-include flex src="'includes/list.ejs'"></ng-include>
+    <!-- Filter block -->
+    <ng-include src="'project/scenario_filter.ejs'" ng-class="{
+    'flex-10': !scenario.isFilterOpen,
+    'flex-20': scenario.isFilterOpen
+  }" layout="column" ng-if="scenario.projects.length"></ng-include>
+  </div>
+</div>

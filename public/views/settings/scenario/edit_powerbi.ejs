@@ -1,0 +1,32 @@
+<md-dialog aria-label="App Credentials" class="dialog-window" ng-cloak>
+  <md-dialog-content>
+    <!--Headers-->
+    <p class="type-header">{{type.segment}}</p>
+    <h2 class="text-uppercase">{{report.id ? 'Edit' : 'Create'}} PowerBI report</h2>
+
+    <form name="tableForm">
+      <div class="form-group">
+        <label for="label_{{type}}" class="text-uppercase">tab name*</label>
+        <input class="form_control form_control--dark" name="label_{{type}}" placeholder="Enter the name"
+          ng-model="report.label" value="report.label" aria-label="input" required md-no-asterisk>
+      </div>
+
+      <div class="form-group">
+        <label for="url_{{type}}" class="text-uppercase">tab url*</label>
+        <textarea class="form_control form_control--dark"
+          type="text" name="url_{{type}}" ng-model="report.url"
+          columns="1" rows="4" required md-no-asterisk placeholder="Enter the URL"></textarea>
+      </div>
+
+      <!--Footer-->
+      <div layout="row" layout-align="space-between center">
+        <p class="info">*Mandatory fields</p>
+        <div>
+          <md-button class="md-transparent" ng-click="cancel()">Cancel</md-button>
+          <md-button class="md-dark" ng-click="editReport(tableForm, report)">Save</md-button>
+        </div>
+      </div>
+
+    </form>
+  </md-dialog-content>
+</md-dialog>

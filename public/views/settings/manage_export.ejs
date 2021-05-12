@@ -1,0 +1,24 @@
+<md-dialog id="manage_import_export" class="dialog-window manage_import_export">
+    <section>
+        <!--Headers-->
+        <label class="text-uppercase">Users list</label>
+        <h2 class="text-uppercase">Export users</h2>
+        <md-divider></md-divider>
+
+        <!--Body-->
+        <div layout="column" class="dialog-window-body">
+            <h2 class="dialog-window-body-question">Are you sure to Export?</h2>
+
+            <md-checkbox ng-model="exportAccess" class="md-primary">
+                Export Users with Access Details
+            </md-checkbox>
+
+        </div>
+    </section>
+
+    <!--Footer with buttons-->
+    <footer layout="row" layout-align="end center">
+        <md-button class="md-light" ng-click="exportUsersList()">export</md-button>
+        <md-button class="md-transparent" ng-click="cancel()">cancel</md-button>
+    </footer>
+</md-dialog>
